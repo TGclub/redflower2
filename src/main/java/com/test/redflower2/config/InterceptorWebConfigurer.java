@@ -29,8 +29,8 @@ public class InterceptorWebConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> excludePaths = new ArrayList<>();
-//        excludePaths.add("/user/login");
-       excludePaths.add("/error");
+        excludePaths.add("/user/login");
+        excludePaths.add("/error");
         registry.addInterceptor(authenticationInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePaths);
