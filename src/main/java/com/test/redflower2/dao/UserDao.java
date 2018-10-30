@@ -16,4 +16,7 @@ public interface UserDao extends JpaRepository<User, Integer> {
      * @return
      */
     User getUserById(Integer id);
+
+
+    User findUserByOpenid(String openid);
 }

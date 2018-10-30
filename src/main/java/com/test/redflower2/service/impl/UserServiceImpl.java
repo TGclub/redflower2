@@ -22,9 +22,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login1(String openId) {
         User user = userDao.getUserByOpenid(openId);
+//        User user = userDao.findUserByOpenid(openId);
         if (user == null) {
             user = new User();
-            user.setOpenid(openId);
+//            user.setOpenid(openId);
             user.setState(UserInfoStateEnum.INCOMPLETED.getValue());
             user= userDao.save(user);
         }

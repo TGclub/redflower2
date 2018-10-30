@@ -1,7 +1,6 @@
 package com.test.redflower2.web.controller;
 
 import com.test.redflower2.enums.UserInfoStateEnum;
-import com.test.redflower2.exception.NotLoginException;
 import com.test.redflower2.exception.UserInfoException;
 import com.test.redflower2.pojo.dto.ProfileDto;
 import com.test.redflower2.pojo.dto.ResponseDto;
@@ -39,11 +38,11 @@ public class UserController {
                              HttpSession session) throws Exception {
         String openid = wechatUtil.getOpenId(code);
 //        String openid = "2";
-        if (openid == null) {
+        if (code == null) {
             return ResponseDto.failed("log in failed, code is wrong");
         }
 
-        User user = userService.login1(openid);
+        User user = userService.login1(code);
 
         session.setAttribute("userId", user.getId());
 
@@ -102,7 +101,9 @@ public class UserController {
                               HttpSession session){
 
         Integer userId = (Integer) session.getAttribute("userId");
-        if(userId == null){return ResponseDto.failed("no login");}
+        if(userId == null){
+            return ResponseDto.failed("no login");
+        }
 
         User user = userService.getUserById(userId);
         user.setName(name);
@@ -116,6 +117,34 @@ public class UserController {
         userService.update(user);
         return ResponseDto.succeed("modify successfully");
 
+    }
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/updateUserInfo",method = RequestMethod.PUT)
+    public ResponseDto updateUserInfo(@RequestBody User user,HttpSession session){
+        Integer uid = (Integer) session.getAttribute("userId");
+        if (uid==null)
+            return ResponseDto.failed("no uid");
+
+        User suser=userService.getUserById(uid);
+        user.setOpenid(suser.getOpenid());
+        user.setId(suser.getId());
+        user.setState(UserInfoStateEnum.COMPLETED.getValue());
+        userService.update(user);
+
+        return ResponseDto.succeed();
+
+    }
+
+
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    public ResponseDto test(){
+            return ResponseDto.succeed("测试成功");
     }
 
 }
