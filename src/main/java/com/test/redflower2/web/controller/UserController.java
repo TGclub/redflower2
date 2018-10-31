@@ -36,11 +36,16 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseDto login1(@RequestParam(name = "code", defaultValue = "") String code,
                              HttpSession session) throws Exception {
-        String openid = wechatUtil.getOpenId(code);
-//        String openid = "2";
-        if (code == null) {
+        
+        if (code.equals("")) {
             return ResponseDto.failed("log in failed, code is wrong");
         }
+        String openid = wechatUtil.getOpenId(code);
+        if (openid == null) {
+            return ResponseDto.failed("log in failed, openid is wrong");
+        }
+//        String openid = "2";
+        
 
         User user = userService.login1(code);
 

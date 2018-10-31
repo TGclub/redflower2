@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             user = new User();
 //            user.setOpenid(openId);
+            user.setOpenid(openId);
             user.setState(UserInfoStateEnum.INCOMPLETED.getValue());
             user= userDao.save(user);
         }
