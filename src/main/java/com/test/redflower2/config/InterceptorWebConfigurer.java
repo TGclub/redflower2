@@ -32,7 +32,8 @@ public class InterceptorWebConfigurer implements WebMvcConfigurer {
         //添加不过滤的路径
         excludePaths.add("/user/login");
 //        excludePaths.add("/error");
-        excludePaths.add("/user/test");//test通过
+        excludePaths.add("/user/test");//userController test通过
+        excludePaths.add("/network/test");//networkController test 通过
         excludePaths.add("/swagger-ui.html");
         registry.addInterceptor(authenticationInterceptor)
                 .addPathPatterns("/**")

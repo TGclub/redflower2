@@ -1,6 +1,7 @@
 package com.test.redflower2.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.enums.InfoStatusEnum;
 import com.test.redflower2.pojo.dto.*;
@@ -244,5 +245,16 @@ public class NetworkController {
 
         NetWorkDto netWorkDto = new NetWorkDto(mainUser, maxUser, minUser);
         return ResponseDto.succeed("succeed", netWorkDto);
+    }
+
+
+    /**
+     * 测试
+     * @return
+     */
+    @Authorization
+    @GetMapping("/test")
+    public Result<Object> test(){
+        return ResultBuilder.success();
     }
 }
