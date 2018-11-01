@@ -1,30 +1,30 @@
 package com.test.redflower2.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.enums.InfoStatusEnum;
-import com.test.redflower2.pojo.dto.InfoDto;
-import com.test.redflower2.pojo.dto.NetWorkDto;
-import com.test.redflower2.pojo.dto.ResponseDto;
+import com.test.redflower2.pojo.dto.*;
 import com.test.redflower2.pojo.entity.Intimacy;
-import com.test.redflower2.pojo.entity.Network;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.pojo.entity.UserNetwork;
 import com.test.redflower2.service.IntimacyService;
 import com.test.redflower2.service.NetworkService;
 import com.test.redflower2.service.UserNetworkService;
 import com.test.redflower2.service.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
-
+/**
+ * 人脉网
+ */
 @RestController
 @RequestMapping(value = "/network")
 public class NetworkController {
+
     private NetworkService networkService;
 
     private UserNetworkService userNetworkService;
@@ -33,7 +33,7 @@ public class NetworkController {
 
     private IntimacyService intimacyService;
 
-
+    @Autowired
     public NetworkController(NetworkService networkService, UserNetworkService userNetworkService, UserService userService, IntimacyService intimacyService) {
         this.networkService = networkService;
         this.userNetworkService = userNetworkService;
@@ -46,31 +46,26 @@ public class NetworkController {
      *
      * @Param name
      */
-    @RequestMapping(value = "/addNetwork", method = RequestMethod.POST)
-    public ResponseDto AddNetwork(@RequestParam("name") String name, HttpSession httpSession) {
-
-        Integer userId = (Integer) httpSession.getAttribute("userId");
-        if (userId == null) {
-            return ResponseDto.failed("no login");
-        }
-
-        Network network = new Network();
-        network.setName(name);
-
-        if (network.getName() == null) {
-            return ResponseDto.failed("failed");
-        }
-
-        networkService.insert(network);
-        return ResponseDto.failed("succeed");
+    @ApiOperation(value = NetworkConstant.NEW_NETWORK,httpMethod = "POST")
+    @PostMapping(value = "/createNetwork")
+    public Result<Object> addNetWork(@RequestParam("networkName")String networkName,
+                                     HttpSession session){
+        Map<String,Integer> datas=networkService.createNetwork(networkName,session);
+        return ResultBuilder.success(datas);
     }
 
     /**
-     * 邀请更多人加入人脉网
-     *
-     * @param nid
-     * @param uid
+     * 邀请更多人加入人脉网 一个人脉圈对应多个用户
+     * @param user 被邀请user
+     * @param session
+     * @return
      */
+    @PostMapping("/inviteUser")
+    public Result<Object> inviteMoreUsers(@RequestBody User user,HttpSession session){
+        Map<String,Integer> datas = userNetworkService.inviteMoreUser(user,session);
+        return ResultBuilder.success(datas);
+    }
+    //v1.0版，废弃
     @RequestMapping(value = "/invitation", method = RequestMethod.POST)
     public ResponseDto Invite(@RequestParam("nid") Integer nid,
                               @RequestParam("uid") Integer uid, HttpSession httpSession) {

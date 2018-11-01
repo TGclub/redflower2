@@ -14,4 +14,6 @@ public interface UserNetworkDao extends JpaRepository<UserNetwork,Integer> {
     List<UserNetwork> getUserNetworksByUid(Integer uid);
 
     List<UserNetwork> getUserNetworksByNid(Integer nid);
+
+
 }

@@ -2,6 +2,9 @@ package com.test.redflower2.pojo.entity;
 
 import javax.persistence.*;
 
+/**
+ * 亲密度
+ */
 @Entity
 @Table(name = "intimacy")
 public class Intimacy {
