@@ -1,5 +1,7 @@
 package com.test.redflower2.pojo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.test.redflower2.enums.UserInfoStateEnum;
 
 import javax.persistence.*;
@@ -9,41 +11,49 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Integer id;
 
     /**
      * 用户姓名
      */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String name;
 
     /**
      * 用户性别
      */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private int gender;
 
     /**
      * 用户个性签名
      */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String definition;
 
     /**
      * 用户微信id
      */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String wxid;
 
     /**
      * openid
      */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String openid;
 
     /**
      * 头像
      */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String avatarUrl;
 
     /**
      * 记录用户状态信息
      */
+    @JsonIgnore
     private Integer state = UserInfoStateEnum.INCOMPLETED.getValue();
 
 

@@ -2,6 +2,10 @@ package com.test.redflower2.service;
 
 
 import com.test.redflower2.pojo.entity.User;
+import io.swagger.models.auth.In;
+
+import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 public interface UserService {
     /**
@@ -15,10 +19,7 @@ public interface UserService {
      * @param openid 前台给的code
      * @return User Entity
      */
-    User login(String openid, String encryptedData, String sessionKey, String iv);
 
-
-    User login1(String openId);
 
     /**
      * 对用户信息进行更新
@@ -38,5 +39,12 @@ public interface UserService {
      */
     User getUserById(Integer id);
 
+    /**
+     * 用户登录
+     * @param openId
+     * @param session
+     * @return
+     */
+    Map<String, Integer> isLoginSuccess(String openId, HttpSession session);
 
 }

@@ -94,13 +94,12 @@
             <version>1.2.6.RELEASE</version>
         </dependency>
 
-        <!--接口文档生成框架-->
+        <!--swaagger接口文档生成框架依赖2个-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.6.1</version>
         </dependency>
-
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
