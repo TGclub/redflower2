@@ -49,4 +49,14 @@ public class Intimacy {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Intimacy{" +
+                "id=" + id +
+                ", uid1=" + uid1 +
+                ", uid2=" + uid2 +
+                ", value=" + value +
+                '}';
+    }
 }

@@ -26,4 +26,12 @@ public class Network {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Network{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

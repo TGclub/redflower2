@@ -1,32 +1,55 @@
 package com.test.redflower2.pojo.dto;
 
-public class ProfileDto {
+/**
+ * 返回给前端的信息
+ */
+public class  ProfileDto {
 
+
+    /**
+     * 用户id
+     */
+    private Integer uid ;
+
+    /**
+     *
+     * 用户名称
+     */
     private String name;
 
+    /**
+     * 用户个性签名
+     */
     private String definition;
 
+    /**
+     * 微信号
+     */
     private String wx;
 
-    private String avatarUrl;
+    /**
+     * 用户性别
+     */
+    private Integer gender;
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
 
     public ProfileDto(){}
 
-    public ProfileDto(String name, String definition, String wx, String avatarUrl){
+    public ProfileDto(String name, String definition, String wx){
         this.name = name;
         this.definition = definition;
         this.wx = wx;
-        this.avatarUrl = avatarUrl;
     }
 
+
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
     public String getDefinition() {
         return definition;
     }
@@ -49,5 +72,24 @@ public class ProfileDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "ProfileDto{" +
+                "uid=" + uid +
+                ", name='" + name + '\'' +
+                ", definition='" + definition + '\'' +
+                ", wx='" + wx + '\'' +
+                ", gender=" + gender +
+                '}';
     }
 }

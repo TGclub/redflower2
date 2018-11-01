@@ -4,6 +4,8 @@ import com.test.redflower2.enums.UserInfoStateEnum;
 import com.test.redflower2.exception.UserInfoException;
 import com.test.redflower2.pojo.dto.ProfileDto;
 import com.test.redflower2.pojo.dto.ResponseDto;
+import com.test.redflower2.pojo.dto.Result;
+import com.test.redflower2.pojo.dto.ResultBuilder;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.WechatUtil;
@@ -33,33 +35,28 @@ public class UserController {
      * 用户微信认证登录
      * @param code 前端给的code
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping("/login")
     public ResponseDto login1(@RequestParam(name = "code", defaultValue = "") String code,
                              HttpSession session) throws Exception {
         
-        if (code.equals("")) {
+        if (code.equals("")||code==null) {
             return ResponseDto.failed("log in failed, code is wrong");
         }
         String openid = wechatUtil.getOpenId(code);
         if (openid == null) {
             return ResponseDto.failed("log in failed, openid is wrong");
         }
-//        String openid = "2";
-        
-
         User user = userService.login1(code);
-
         session.setAttribute("userId", user.getId());
-
-        Map<String, Object> resData = new HashMap<>();
-        resData.put("sessionId", session.getId());
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("sessionId", session.getId());
 
         if (user.getState().equals(UserInfoStateEnum.INCOMPLETED.getValue())) {
-            resData.put("completed", 1);
-            return ResponseDto.succeed("not complete user info.", resData);
+            resultMap.put("incompleted", 0);
+            return ResponseDto.succeed("not complete user info.", resultMap);
         } else {
-            resData.put("completed", 0);
-            return ResponseDto.succeed("log in successfully.", resData);
+            resultMap.put("completed", 0);
+            return ResponseDto.succeed("log in successfully.", resultMap);
         }
     }
 
@@ -70,12 +67,12 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "/userInfo",method = RequestMethod.GET)
-    public ResponseDto getUserInfo(HttpSession session) throws UserInfoException {
+
+    @GetMapping("/userInfo")
+    public Result<User> getUserInfo(HttpSession session) throws UserInfoException {
         Integer userId =  (Integer) session.getAttribute("userId");
         User user = userService.getUserById(userId);
-        ProfileDto userInfo =  new ProfileDto(user.getName(),user.getDefinition(),user.getWxid(),user.getAvatarUrl());
-        return ResponseDto.succeed("userInfo",userInfo);
+        return ResultBuilder.success(user);
     }
 
     /**
@@ -91,61 +88,26 @@ public class UserController {
 
 
     /**
-     * 修改个人信息
-     * @param name
-     * @param definition
-     * @param wxid
-     * @param session
-     * @return
-     */
-
-    @RequestMapping(value = "/update",method = RequestMethod.PUT)
-    public ResponseDto update(@RequestParam("name")String name,
-                              @RequestParam("definition")String definition,
-                              @RequestParam("wxid")String wxid,
-                              HttpSession session){
-
-        Integer userId = (Integer) session.getAttribute("userId");
-        if(userId == null){
-            return ResponseDto.failed("no login");
-        }
-
-        User user = userService.getUserById(userId);
-        user.setName(name);
-        user.setWxid(wxid);
-
-        if (user.getDefinition().length()>10){
-            return ResponseDto.failed("自定义信息长度不多于10个字符！");
-        }
-        user.setWxid(wxid);
-
-        userService.update(user);
-        return ResponseDto.succeed("modify successfully");
-
-    }
-
-    /**
-     * 更新用户信息
-     * @param user
+     * 修改或完善个人信息
+     * @param userParam 表单自动生成的user
      * @param session
      * @return
      */
     @RequestMapping(value = "/updateUserInfo",method = RequestMethod.PUT)
-    public ResponseDto updateUserInfo(@RequestBody User user,HttpSession session){
-        Integer uid = (Integer) session.getAttribute("userId");
-        if (uid==null)
-            return ResponseDto.failed("no uid");
+    public ResponseDto update(@RequestBody User userParam, HttpSession session){
 
-        User suser=userService.getUserById(uid);
-        user.setOpenid(suser.getOpenid());
-        user.setId(suser.getId());
-        user.setState(UserInfoStateEnum.COMPLETED.getValue());
-        userService.update(user);
+        Integer userId = (Integer) session.getAttribute("userId");
 
+        User sUser = userService.getUserById(userId);
+        userParam.setId(sUser.getId());
+        userParam.setOpenid(sUser.getOpenid());
+        userParam.setState(UserInfoStateEnum.COMPLETED.getValue());
+        if (userParam.getDefinition().length()>10){
+            return ResponseDto.failed("自定义信息长度不多于10个字符！");
+        }
+        userService.update(userParam);
         return ResponseDto.succeed();
-
     }
-
 
     @RequestMapping(value = "/test",method = RequestMethod.GET)
     public ResponseDto test(){

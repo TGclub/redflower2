@@ -36,4 +36,14 @@ public class UserNetwork {
     public void setNid(Integer nid) {
         this.nid = nid;
     }
+
+    @Override
+    public String
+    toString() {
+        return "UserNetwork{" +
+                "id=" + id +
+                ", uid=" + uid +
+                ", nid=" + nid +
+                '}';
+    }
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Component
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao;
+    private  UserDao userDao;
 
     @Autowired
     public UserServiceImpl(UserDao userDao){this.userDao = userDao;}
@@ -22,10 +22,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login1(String openId) {
         User user = userDao.getUserByOpenid(openId);
-//        User user = userDao.findUserByOpenid(openId);
         if (user == null) {
             user = new User();
-//            user.setOpenid(openId);
             user.setOpenid(openId);
             user.setState(UserInfoStateEnum.INCOMPLETED.getValue());
             user= userDao.save(user);
@@ -47,13 +45,11 @@ public class UserServiceImpl implements UserService {
                     user = new User();
                     user.setGender(Integer.parseInt(userInfoJSON.getString("gender")));
                     user.setOpenid(openid);
-                    user.setSessionKey(sessionkey);
                     user.setAvatarUrl(userInfoJSON.getString("avatarUrl"));
                     user = userDao.save(user);
                     return user;
                 }
 
-                user.setSessionKey(sessionkey);
                 user.setAvatarUrl(userInfoJSON.getString("avatarUrl"));
                 user = userDao.save(user);
                 return user;
@@ -72,9 +68,6 @@ public class UserServiceImpl implements UserService {
     public void update(User user) {
         userDao.save(user);
     }
-
-
-
 
     @Override
     public User getUserById(Integer id) {

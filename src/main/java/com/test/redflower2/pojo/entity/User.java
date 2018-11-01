@@ -11,19 +11,40 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * 用户姓名
+     */
     private String name;
 
+    /**
+     * 用户性别
+     */
     private int gender;
 
+    /**
+     * 用户个性签名
+     */
     private String definition;
 
+    /**
+     * 用户微信id
+     */
     private String wxid;
 
+    /**
+     * openid
+     */
     private String openid;
 
-    private String sessionKey;
-
+    /**
+     * 头像
+     */
     private String avatarUrl;
+
+    /**
+     * 记录用户状态信息
+     */
+    private Integer state = UserInfoStateEnum.INCOMPLETED.getValue();
 
 
     public Integer getState() {
@@ -32,16 +53,6 @@ public class User {
 
     public void setState(Integer state) {
         this.state = state;
-    }
-
-    private Integer state = UserInfoStateEnum.INCOMPLETED.getValue();
-
-    public String getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
     }
 
     public String getAvatarUrl() {
@@ -99,6 +110,20 @@ public class User {
 
     public void setOpenid(String openid) {
         this.openid = openid;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", definition='" + definition + '\'' +
+                ", wxid='" + wxid + '\'' +
+                ", openid='" + openid + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", state=" + state +
+                '}';
     }
 }
 
