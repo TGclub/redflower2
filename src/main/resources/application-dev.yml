@@ -1,0 +1,33 @@
+# 开发环境配置
+# http服务端口
+server:
+    port: 8091
+# DATASOURCE
+spring:
+  profiles: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://193.112.69.104:3306/redflower2?useUnicode=true&amp;characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: whalexhh
+# jpa配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  devtools:
+    restart:
+      # 热部署生效
+      enabled: true
+
+# 日志配置
+logging:
+  level:
+    org.springframework.web: warn
+    com.weizhi.redflower2: warn
+  ## 以文件格式输出
+  pattern:
+    console: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
+  file: redflower2.dev.log

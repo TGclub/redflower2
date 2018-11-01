@@ -1,46 +1,10 @@
-# 通用配置
-server:
-  port: 8091
+# 通用配置，动态指定默认为开发dev环境
 spring:
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://193.112.69.104:3306/redflower2?useUnicode=true&amp;characterEncoding=UTF-8&useSSL=false
-#    url: jdbc:mysql://127.0.0.1:3306/redflower2?useUnicode=true&amp;characterEncoding=UTF-8&useSSL=false
-    username: root
-    password: whalexhh
-#    password: xiaohu2815
-
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-  devtools:
-    restart:
-      enabled: true
-
+  profiles:
+    active: dev
+## 微信配置
 wx:
   appid: wx67618f9dbb31145d
   secret: cc95806e95b3973dfb04eaf229d84d43
   url: https://api.weixin.qq.com/sns/jscode2session?appid=${wx.appid}&secret=${wx.secret}&grant_type=authorization_code&js_code=
-#https://api.weixin.qq.com/sns/jscode2session?appid=wx67618f9dbb31145d&secret=590424b0f1edfe7244d38421fec3b72b&grant_type=authorization_code&js_code=1
-
-
-logging:
-  level:
-    org.springframework.web: warn
-    com.weizhi: warn
-
-
-  pattern:
-      console: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-      file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
-
-  file: redflower2.log
-#  pattern:
-#    # 格式化
-#    console: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-#    # 日志文件名
-#    file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
-    # 会在当前路径保存
 

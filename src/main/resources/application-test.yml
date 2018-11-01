@@ -1,0 +1,31 @@
+# 本地测试环境
+# http服务端口
+server:
+  port: 8080
+spring:
+  profiles: test
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/redflower2?useUnicode=true&amp;characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: xiaohu2815
+
+  # jpa配置
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  devtools:
+    restart:
+      enabled: true
+
+# 日志配置
+logging:
+  level:
+    org.springframework.web: warn
+    com.weizhi.redflower2: warn
+  pattern:
+    console: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} [%thread] %logger{36} - %msg%n"
+  file: redflower2.test.log
