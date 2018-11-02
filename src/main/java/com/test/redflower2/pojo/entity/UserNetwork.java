@@ -7,10 +7,17 @@ import javax.persistence.*;
 public class UserNetwork {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
+    /**
+     * 人脉圈里的各个用户id
+     */
     private Integer uid;
 
+    /**
+     * 用户所属于的人脉圈id
+     */
     private Integer nid;
 
     public Integer getId() {

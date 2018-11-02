@@ -14,7 +14,6 @@ import com.test.redflower2.utils.ObjectUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -23,7 +22,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping(value = "/network")
-public class NetworkController {
+public class NetworkController extends BaseController{
 
     private NetworkService networkService;
 
@@ -41,6 +40,7 @@ public class NetworkController {
         this.intimacyService = intimacyService;
     }
 
+
     /**
      * 创建新的人脉圈
      *
@@ -53,6 +53,7 @@ public class NetworkController {
         Map<String,Integer> datas=networkService.createNetwork(networkName,session);
         return ResultBuilder.success(datas);
     }
+
 
     /**
      * 拓展我的人脉圈
@@ -83,7 +84,6 @@ public class NetworkController {
             return ResultBuilder.success(networkList);
         }
     }
-
 
 
     /**
@@ -202,6 +202,7 @@ public class NetworkController {
 //        return ResponseDto.succeed("succeed", netWorkDto);
 //    }
 //
+
 
     /**
      * 测试

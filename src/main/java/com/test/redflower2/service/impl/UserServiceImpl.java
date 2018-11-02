@@ -2,14 +2,12 @@ package com.test.redflower2.service.impl;
 
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.dao.UserDao;
-import com.test.redflower2.pojo.dto.ResultBuilder;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,14 +26,6 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-    /**
-     * 更新用户
-     * @param user 修改后的user
-     */
-    @Override
-    public void update(User user) {
-        userDao.save(user);
-    }
 
     /**
      * 通过id查询user
@@ -46,6 +36,7 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Integer id) {
         return userDao.getUserById(id);
     }
+
 
     /**
      * 用户登录
@@ -76,6 +67,7 @@ public class UserServiceImpl implements UserService {
         return datas;
     }
 
+
     /**
      * 显示人脉网界面随机某一个用户的信息，并且显示与主用户的亲密度
      *
@@ -93,6 +85,7 @@ public class UserServiceImpl implements UserService {
         datas.put(UserConstant.USER_LIST, userList);
         return datas;
     }
+
 
     /**
      * 更新用户个性签名
@@ -112,6 +105,7 @@ public class UserServiceImpl implements UserService {
             return UserConstant.SUCCESS_MSG;
         }
     }
+
 
     /**
      * 更新用户名称

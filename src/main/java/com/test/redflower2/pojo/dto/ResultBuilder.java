@@ -19,6 +19,7 @@ public class ResultBuilder {
         return result;
     }
 
+
     /**
      * 成功请求的结果封装
      * @param <T>
@@ -27,6 +28,7 @@ public class ResultBuilder {
     public static <T> Result<T> success(){
         return success(null);
     }
+
 
     /**
      * 失败请求的结果封装
@@ -40,6 +42,7 @@ public class ResultBuilder {
         result.setMessage("fail");
         return result;
     }
+
 
     /**
      * 失败请求结果封装

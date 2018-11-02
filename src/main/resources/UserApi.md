@@ -106,3 +106,25 @@ return:
 "message":"success"
 
 ```
+### 测试接口
+```text
+url: /user/updateUsername
+method: GET
+param:无
+example: url/user/test
+return:
+```
+> 成功
+
+```json
+"code":0,
+"data":null
+"message":"success"
+```
+> 失败
+
+```json
+"code": 1,
+"data":null,
+"message":"fail"
+```
