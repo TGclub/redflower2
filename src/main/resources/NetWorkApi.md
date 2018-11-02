@@ -1,122 +1,105 @@
+## 人脉网界面api
+url:
+>http://193.112.69.104:8091
+
 ### 创建新的人脉圈
 ```text
-url: /network/addNetwork
+url: /network/createNetwork
 method: POST
-param:name
-example: 
+param:networkName
+example: url/network/createNetwork
 return:
 ```
 > 成功
 ```json
 "code": 0,
-"data":{
-},
-"msg":"successed"
+"data":null,
+"message":"success"
 ```
 > 失败
 ```json
 "code": 1,
-"data":{
-},
-"msg":"failed"/"no login"
+"data":null
+"meaasge":"fail"
 ```
 
-####  邀请更多人加入人脉网
+###  拓展我的人脉圈
 ```text
-url: /network/invitation
+url: /network/inviteUser
 method: POST
-param:nid(networkId),uid(userId)
-example: 
+param:user
+example: url/network/inviteUser
 return:
 ```
 > 成功
 ```json
 "code": 0,
-"data":{
-},
-"msg":"invite successfully"
+"data":null,
+"message":"success"
 ```
 > 失败
 ```json
 "code": 1,
-"data":{
-},
-"msg":"no login"/"already join"/"failed"
+"data":null,
+"message":"fail"
 ```
 
-#### 查看我的人脉圈
+### 查看我的人脉圈
 ```text
-url: /network/myNetworks
+url: /network/getMyNetworks
 method: GET
-param:nid(networkId),uid(userId)
-example: 
+param:无
+example: url/network/getMyNetworks
 return:
 ``` 
 > 成功
 ```json
 "code": 0,
-"data":{
-},
-"msg":"query successfully"
+"data":一个map,
+"message":"success"
 ```
 > 失败
 ```json
 "code": 1,
-"data":{
-},
-"msg":"no login"/"my networks are null"
+"data":List{},
+"message":"fail"
 ```
 
-#### 人脉网界面个人信息
+### 人脉网界面个人信息
 ```text
-url: /network/info
+url: /network/getUserInfo
 method: POST
-param:uid1(userId1),uid2(userId2)
-example: 
+param:user
+example: url/network/getUserInfo
 return:
 ```
 > 成功
 ```json
 "code": 0,
-"data":{
-  "id":
-  "name":
-  "gender":
-  "definition":
-  "relation":
-  "wxid":
-},
-"msg":"succeed"
+"data":一个map包含list,
+"meaasge":"success"
 ```
 > 失败
 ```json
 "code": 1,
-"data":{
-},
-"msg":"no login"/"uid1 is not exist"/"no connection"
+"data":null,
+"msg":"fail message"
 ```
 
-#### 人脉网界面
+### 测试
 ```text
-url: /network/image
-method: POST
-param:userId
-example: 
+url: /network/test
+method: GET
+param:user
+example: url/network/test
 return:
 ```
+
 > 成功
+
 ```json
 "code": 0,
-"data":{
-  //返回用户信息
-},
-"msg":"succeed"
+"data":null,
+"meaasge":"success"
 ```
-> 失败
-```json
-"code": 1,
-"data":{
-  //返回用户信息
-},
-"msg":"no login"/"no userId"/"you do not have network"
-```
+

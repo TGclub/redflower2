@@ -51,7 +51,7 @@ public class NetworkController extends BaseController {
         if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
             return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
         }
-        return ResultBuilder.success(datas);
+        return ResultBuilder.success();
     }
 
 
@@ -70,7 +70,7 @@ public class NetworkController extends BaseController {
         if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
             return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
         }
-        return ResultBuilder.success(datas);
+        return ResultBuilder.success();
     }
 
 
