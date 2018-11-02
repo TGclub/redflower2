@@ -43,7 +43,7 @@ public interface UserService {
      * @param session
      * @return
      */
-    Map<String, Integer> isLoginSuccess(String openId, HttpSession session);
+    Map<Integer, String> isLoginSuccess(String openId, HttpSession session);
 
     /**
      * 显示人脉网随机某一个用户的个人信息，并且显示与主用户之间的亲密度
@@ -52,4 +52,19 @@ public interface UserService {
      * @return
      */
     Map<String, List<User>> getNetworkUserInfo(User user, HttpSession session);
+
+    /**
+     * 更新用户名称
+     * @param uid
+     * @return
+     */
+    String updateName(Integer uid, String username);
+
+    /**
+     * 更新用户个性签名
+     * @param definition
+     * @param session
+     * @return
+     */
+    String updateDefinition(String definition, HttpSession session);
 }

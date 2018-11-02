@@ -1,15 +1,11 @@
 package com.test.redflower2.web.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
-import com.test.redflower2.enums.InfoStatusEnum;
 import com.test.redflower2.pojo.dto.*;
-import com.test.redflower2.pojo.entity.Intimacy;
 import com.test.redflower2.pojo.entity.Network;
 import com.test.redflower2.pojo.entity.User;
-import com.test.redflower2.pojo.entity.UserNetwork;
 import com.test.redflower2.service.IntimacyService;
 import com.test.redflower2.service.NetworkService;
 import com.test.redflower2.service.UserNetworkService;

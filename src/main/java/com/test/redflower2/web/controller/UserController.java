@@ -39,10 +39,10 @@ public class UserController extends BaseController{
     public Result<Object> login(@RequestParam(name = "code") String code,
                                 HttpSession session)throws Exception{
         String openId = wechatUtil.getOpenId(code);
-        Map<String,Integer> datas = userService.isLoginSuccess(openId,session);
+        Map<Integer,String> datas = userService.isLoginSuccess(openId,session);
         //如果登录失败
-        if (!ObjectUtil.isEmpty(datas.get(UserConstant.FAIL_MSG))){
-            Integer status = datas.get(UserConstant.FAIL_MSG);
+        if (!ObjectUtil.isEmpty(datas.get(UserConstant.FAILED_CODE))){
+            String status = datas.get(UserConstant.FAILED_CODE);
             return ResultBuilder.fail(status+"");
         }
         //登录成功
@@ -59,11 +59,14 @@ public class UserController extends BaseController{
     @PutMapping("/updateUsername")
     public Result<ObjectUtil> updateUsername(@RequestParam("username") String username,
                                              HttpSession session){
-        Integer uid = (Integer) session.getAttribute("userId");
-        User user = userService.getUserById(uid);
-        user.setName(username);
-        userService.update(user);
-        return ResultBuilder.success();
+        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
+        String result= userService.updateName(uid,username);
+        //修改成功
+        if (result.equals(UserConstant.SUCCESS_MSG)){
+            return ResultBuilder.success();
+        }else {
+            return ResultBuilder.fail();
+        }
     }
 
     /**
@@ -77,14 +80,12 @@ public class UserController extends BaseController{
     @PutMapping("/updateDefinition")
     public Result<Object> updateDefinition(@RequestParam("definition") String definition,
                                            HttpSession session){
-        if (definition.length()>10){
-            return ResultBuilder.fail(UserConstant.USER_DEFINITION_LENGTH);
-        }
-        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
-        User user = userService.getUserById(uid);
-        user.setDefinition(definition);
-        userService.update(user);
-        return ResultBuilder.success();
+        String result = userService.updateDefinition(definition,session);
+       if (result.equals(UserConstant.SUCCESS_MSG)){
+           return ResultBuilder.success();
+       }else {
+           return ResultBuilder.fail(result);
+       }
     }
 
 
