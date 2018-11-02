@@ -33,4 +33,6 @@ public class UserConstant {
 
     public static final int USER_INFO_COMPLETED=1;//用户信息完善
 
+    public static final String USER_LIST="用户列表";
+
 }

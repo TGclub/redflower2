@@ -39,6 +39,7 @@ public class UserController extends BaseController{
     public Result<Object> login(@RequestParam(name = "code") String code,
                                 HttpSession session)throws Exception{
         String openId = wechatUtil.getOpenId(code);
+        System.out.println("openId="+openId);
         Map<String,Integer> datas = userService.isLoginSuccess(openId,session);
         //如果登录失败
         if (!ObjectUtil.isEmpty(datas.get(UserConstant.FAIL_MSG))){

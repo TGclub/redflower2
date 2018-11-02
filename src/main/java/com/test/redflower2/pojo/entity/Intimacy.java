@@ -3,7 +3,7 @@ package com.test.redflower2.pojo.entity;
 import javax.persistence.*;
 
 /**
- * 亲密度
+ * 亲密度:分两种，亲密和不亲密，现在默认都是不亲密，以用户为中心，周围都是小头像
  */
 @Entity
 @Table(name = "intimacy")
