@@ -4,6 +4,7 @@ import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.pojo.dto.Result;
 import com.test.redflower2.pojo.dto.ResultBuilder;
+import com.test.redflower2.pojo.dto.WxInfo;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.ObjectUtil;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
@@ -35,14 +37,14 @@ public class UserController extends BaseController{
 
     /**
      * 用户微信认证登录
-     * @param code 前端给的code
+     * @param wxInfo  前端给的code
      */
     @ApiOperation(value = UserConstant.USER_LOGIN_DESC,httpMethod = "POST")
     @PostMapping("/login")
-    public Result<Object> login(@RequestParam(name = "code") String code,
+    public Result<Object> login(@NotNull @RequestBody WxInfo wxInfo,
                                 HttpSession session)throws Exception{
-        logger.info(code+" time "+System.currentTimeMillis());
-        String openId = wechatUtil.getOpenId(code);
+        logger.info(wxInfo.getCode()+" time "+System.currentTimeMillis());
+        String openId = wechatUtil.getOpenId(wxInfo.getCode());
         Map<Integer,String> datas = userService.isLoginSuccess(openId,session);
         //如果登录失败
         if (!ObjectUtil.isStringEmpty(datas.get(UserConstant.FAILED_CODE))){
