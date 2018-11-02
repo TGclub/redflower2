@@ -36,15 +36,15 @@ public class NetworkServiceImpl implements NetworkService {
      * @return
      */
     @Override
-    public Map<String, Integer> createNetwork(String networkName, HttpSession session) {
-        Map<String,Integer> datas = new HashMap<>();
+    public Map<Integer, String> createNetwork(String networkName, HttpSession session) {
+        Map<Integer,String> datas = new HashMap<>();
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         Network network = new Network();
         //若人脉圈名称为空，则创建失败
         if (ObjectUtil.isEmpty(networkName)){
             int status ;
             status = NetworkConstant.FAIL_CODE;
-            datas.put(NetworkConstant.FAIL,status);
+            datas.put(status,NetworkConstant.FAIL);
             return datas;
         }else {//否则创建成功
             int status;
@@ -52,7 +52,7 @@ public class NetworkServiceImpl implements NetworkService {
             network.setNetworkName(networkName);
             networkDao.save(network);
             status=NetworkConstant.SUCCESS_CODE;
-            datas.put(NetworkConstant.SUCCESS,status);
+            datas.put(status,NetworkConstant.SUCCESS);
             return datas;
         }
     }

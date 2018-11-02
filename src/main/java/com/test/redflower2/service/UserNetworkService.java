@@ -25,7 +25,7 @@ public interface UserNetworkService {
      * @param session
      * @return
      */
-    Map<String, Integer> inviteMoreUser(User user, HttpSession session);
+    Map<Integer, String> inviteMoreUser(User user, HttpSession session);
 
     /**
      * 查看我的人脉圈
@@ -33,5 +33,13 @@ public interface UserNetworkService {
      * @return
      */
     Map<String, List<Network>> getNetworksByUid(Integer uid);
+
+    /**
+     * 查看人脉网用户信息
+     * @param userForm
+     * @param session
+     * @return
+     */
+    Map<Integer, Object> getNetworkUserInfo(User userForm, HttpSession session);
 
 }

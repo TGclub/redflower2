@@ -16,5 +16,5 @@ public interface NetworkService {
      * @param session
      * @return
      */
-    Map<String, Integer> createNetwork(String networkName, HttpSession session);
+    Map<Integer, String> createNetwork(String networkName, HttpSession session);
 }

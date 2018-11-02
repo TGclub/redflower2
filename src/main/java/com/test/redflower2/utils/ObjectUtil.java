@@ -23,4 +23,13 @@ public class ObjectUtil {
             return false;
         }
     }
+
+    /**
+     * 求一个数的绝对值
+     * @param num
+     * @return
+     */
+    public static Integer abs(Integer num){
+        return num>0?num:-num;
+    }
 }

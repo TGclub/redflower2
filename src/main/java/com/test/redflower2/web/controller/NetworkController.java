@@ -22,22 +22,18 @@ import java.util.*;
  */
 @RestController
 @RequestMapping(value = "/network")
-public class NetworkController extends BaseController{
+public class NetworkController extends BaseController {
 
     private NetworkService networkService;
 
     private UserNetworkService userNetworkService;
 
-    private UserService userService;
 
-    private IntimacyService intimacyService;
 
     @Autowired
     public NetworkController(NetworkService networkService, UserNetworkService userNetworkService, UserService userService, IntimacyService intimacyService) {
         this.networkService = networkService;
         this.userNetworkService = userNetworkService;
-        this.userService = userService;
-        this.intimacyService = intimacyService;
     }
 
 
@@ -46,11 +42,15 @@ public class NetworkController extends BaseController{
      *
      * @Param name
      */
-    @ApiOperation(value = NetworkConstant.NEW_NETWORK,httpMethod = "POST")
+    @ApiOperation(value = NetworkConstant.NEW_NETWORK, httpMethod = "POST")
     @PostMapping(value = "/createNetwork")
-    public Result<Object> addNetWork(@RequestParam("networkName")String networkName,
-                                     HttpSession session){
-        Map<String,Integer> datas=networkService.createNetwork(networkName,session);
+    public Result<Object> addNetWork(@RequestParam("networkName") String networkName,
+                                     HttpSession session) {
+        Map<Integer, String> datas = networkService.createNetwork(networkName, session);
+        //创建失败，返回失败信息
+        if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
+            return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
+        }
         return ResultBuilder.success(datas);
     }
 
@@ -58,29 +58,35 @@ public class NetworkController extends BaseController{
     /**
      * 拓展我的人脉圈
      * 邀请更多人加入人脉网 一个人脉圈对应多个用户
-     * @param user 被邀请user
+     *
+     * @param user    被邀请user
      * @param session
      * @return
      */
     @PostMapping("/inviteUser")
-    public Result<Object> inviteMoreUsers(@RequestBody User user,HttpSession session){
-        Map<String,Integer> datas = userNetworkService.inviteMoreUser(user,session);
+    public Result<Object> inviteMoreUsers(@RequestBody User user, HttpSession session) {
+        Map<Integer, String> datas = userNetworkService.inviteMoreUser(user, session);
+        //添加失败
+        if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
+            return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
+        }
         return ResultBuilder.success(datas);
     }
 
 
     /**
      * 查看我的人脉圈
+     *
      * @param session
      * @return
      */
     @GetMapping("/getMyNetworks")
-    public Result<Object> getMyNetwork(HttpSession session){
+    public Result<Object> getMyNetwork(HttpSession session) {
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
-        if (ObjectUtil.isEmpty(uid)){
+        if (ObjectUtil.isEmpty(uid)) {
             return ResultBuilder.fail(NetworkConstant.NOT_LOGIN);
-        }else {
-            Map<String, List<Network>> networkList  = userNetworkService.getNetworksByUid(uid);
+        } else {
+            Map<String, List<Network>> networkList = userNetworkService.getNetworksByUid(uid);
             return ResultBuilder.success(networkList);
         }
     }
@@ -88,14 +94,33 @@ public class NetworkController extends BaseController{
 
     /**
      * 人脉网界面随机点击用户的个人信息显示,要显示与主用户之间的亲密度：默认不亲密
+     *
      * @param user
      * @return
      */
     @PostMapping("/getUserInfo")
-    public Result<Object> getUserInfo(@RequestBody User user,HttpSession session){
-        Map<String,List<User>> datas = userService.getNetworkUserInfo(user,session);
+    public Result<Object> getUserInfo(@RequestBody User user, HttpSession session) {
+        Map<Integer, Object> datas = userNetworkService.getNetworkUserInfo(user, session);
+        //失败
+        if (!ObjectUtil.isEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
+            return ResultBuilder.fail(NetworkConstant.NOT_EXIST);
+        }
+        //成功，返回数据
         return ResultBuilder.success(datas);
     }
+
+
+    /**
+     * 人脉网界面
+     * @param user
+     * @param session
+     * @return
+     */
+    @PostMapping("/userNetworkImage")
+    public Result<Object> userNetWorkImage(@RequestBody User user,HttpSession session){
+        return null;
+    }
+
 
 
 //    /**

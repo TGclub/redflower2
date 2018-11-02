@@ -1,7 +1,10 @@
 package com.test.redflower2.service.impl;
 
+import com.test.redflower2.constant.IntimacyConstant;
+import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.dao.UserDao;
+import com.test.redflower2.pojo.entity.Intimacy;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.ObjectUtil;
@@ -58,31 +61,12 @@ public class UserServiceImpl implements UserService {
             int status;
             User user1 = new User();
             user1.setOpenid(openId);
-            user1.setState(UserConstant.USER_INFO_INCOMPLETED);
+            user1.setValue(UserConstant.USER_INFO_INCOMPLETED);
             userDao.save(user1);
             status = UserConstant.SUCCESS_CODE;
             session.setAttribute(UserConstant.USER_ID, user1.getId());
             datas.put(status, UserConstant.SUCCESS_MSG);
         }
-        return datas;
-    }
-
-
-    /**
-     * 显示人脉网界面随机某一个用户的信息，并且显示与主用户的亲密度
-     *
-     * @param user
-     * @param session
-     * @return
-     */
-    @Override
-    public Map<String, List<User>> getNetworkUserInfo(User user, HttpSession session) {
-        Map<String, List<User>> datas = new HashMap<>();
-        List<User> userList = new ArrayList<>();
-        Integer uid = user.getId();
-        User sUser = userDao.getUserById(uid);
-        userList.add(sUser);
-        datas.put(UserConstant.USER_LIST, userList);
         return datas;
     }
 

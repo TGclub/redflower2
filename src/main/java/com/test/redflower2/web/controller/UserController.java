@@ -70,7 +70,7 @@ public class UserController extends BaseController{
         if (result.equals(UserConstant.SUCCESS_MSG)){
             return ResultBuilder.success();
         }else {
-            return ResultBuilder.fail();
+            return ResultBuilder.fail(result);
         }
     }
 

@@ -26,15 +26,6 @@ public interface UserService {
 
 
     /**
-     * 显示人脉网随机某一个用户的个人信息，并且显示与主用户之间的亲密度
-     * @param user
-     * @param session
-     * @return
-     */
-    Map<String, List<User>> getNetworkUserInfo(User user, HttpSession session);
-
-
-    /**
      * 更新用户名称
      * @param uid
      * @return

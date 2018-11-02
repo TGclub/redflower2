@@ -43,7 +43,7 @@ return:
                   ", wxid='" + wxid + '\'' +
                   ", openid='" + openid + '\'' +
                   ", avatarUrl='" + avatarUrl + '\'' +
-                  ", state=" + state +
+                  ", value=" + value +
                   '}'
 },
 "message":success

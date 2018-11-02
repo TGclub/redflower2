@@ -2,7 +2,7 @@ package com.test.redflower2.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.test.redflower2.enums.UserInfoStateEnum;
+import com.test.redflower2.constant.IntimacyConstant;
 
 import javax.persistence.*;
 
@@ -51,18 +51,18 @@ public class User {
     private String avatarUrl;
 
     /**
-     * 记录用户状态信息
+     * 用户和用户之间亲密度阈值
      */
     @JsonIgnore
-    private Integer state = UserInfoStateEnum.INCOMPLETED.getValue();
+    private Integer value = IntimacyConstant.BOUNDARY;
 
 
-    public Integer getState() {
-        return state;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setValue(Integer value) {
+        this.value = value;
     }
 
     public String getAvatarUrl() {
@@ -132,7 +132,7 @@ public class User {
                 ", wxid='" + wxid + '\'' +
                 ", openid='" + openid + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
-                ", state=" + state +
+                ", value=" + value +
                 '}';
     }
 }
