@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, Integer> isLoginSuccess(String openId, HttpSession session) {
         Map<String,Integer> datas = new HashMap<>();
-        if (openId.equals("")||openId==null){
+        if (ObjectUtil.isEmpty(openId)){
             int status;
             status=UserConstant.FAILED_CODE;
             datas.put(UserConstant.FAIL_MSG,status);
