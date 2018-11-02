@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IntimacyDao extends JpaRepository<Intimacy,Integer> {
-    Intimacy getIntimacyByUid1AndUid2(Integer uid1, Integer uid2);
+    Intimacy getIntimacyByUserValueAndFormValue(Integer userValue, Integer formValue);
 }

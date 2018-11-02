@@ -3,6 +3,7 @@ package com.test.redflower2.service.impl;
 import com.test.redflower2.dao.IntimacyDao;
 import com.test.redflower2.pojo.entity.Intimacy;
 import com.test.redflower2.service.IntimacyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +13,13 @@ public class IntimacyServiceImpl implements IntimacyService {
 
     private IntimacyDao intimacyDao;
 
+    @Autowired
     public IntimacyServiceImpl(IntimacyDao intimacyDao) {
         this.intimacyDao = intimacyDao;
     }
 
     @Override
-    public Intimacy getIntimacyByUid1AndUid2(Integer uid1, Integer uid2) {
-        return intimacyDao.getIntimacyByUid1AndUid2(uid1, uid2);
+    public Intimacy getIntimacyByUserValueAndFormValue(Integer uid1, Integer uid2) {
+        return intimacyDao.getIntimacyByUserValueAndFormValue(uid1, uid2);
     }
 }

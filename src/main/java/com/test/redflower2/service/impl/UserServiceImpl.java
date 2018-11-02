@@ -1,10 +1,7 @@
 package com.test.redflower2.service.impl;
 
-import com.test.redflower2.constant.IntimacyConstant;
-import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.dao.UserDao;
-import com.test.redflower2.pojo.entity.Intimacy;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.ObjectUtil;
@@ -12,16 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
 @Component
 @Service
 public class UserServiceImpl implements UserService {
-
     private UserDao userDao;
 
     @Autowired
