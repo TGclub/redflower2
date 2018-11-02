@@ -1,10 +1,8 @@
 package com.test.redflower2.service;
 
-
 import com.test.redflower2.pojo.entity.User;
-import io.swagger.models.auth.In;
-
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -47,4 +45,11 @@ public interface UserService {
      */
     Map<String, Integer> isLoginSuccess(String openId, HttpSession session);
 
+    /**
+     * 显示人脉网随机某一个用户的个人信息，并且显示与主用户之间的亲密度
+     * @param user
+     * @param session
+     * @return
+     */
+    Map<String, List<User>> getNetworkUserInfo(User user, HttpSession session);
 }

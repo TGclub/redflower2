@@ -6,9 +6,6 @@ import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.dao.NetworkDao;
 import com.test.redflower2.dao.UserNetworkDao;
-import com.test.redflower2.pojo.dto.ResponseDto;
-import com.test.redflower2.pojo.dto.ResultBuilder;
-import com.test.redflower2.pojo.entity.Intimacy;
 import com.test.redflower2.pojo.entity.Network;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.pojo.entity.UserNetwork;
@@ -19,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,10 +44,7 @@ public class UserNetworkServiceImpl implements UserNetworkService {
         return userNetworkDao.getUserNetworkByUidAndNid(uid, nid);
     }
 
-    @Override
-    public List<UserNetwork> getUserNetworksByUid(Integer uid) {
-        return userNetworkDao.getUserNetworksByUid(uid);
-    }
+
 
     @Override
     public List<UserNetwork> getUserNetworksByNid(Integer nid) {
@@ -77,6 +72,33 @@ public class UserNetworkServiceImpl implements UserNetworkService {
         }
 
         return response;
+    }
+
+    /**
+     * 查看我的人脉圈
+     * @param uid
+     * @return
+     */
+    @Override
+    public Map<String, List<Network>> getNetworksByUid(Integer uid) {
+        Map<String,List<Network>> datas = new HashMap<>();
+        List<Network> networkList = new ArrayList<>();
+        List<UserNetwork> userNetworkList = userNetworkDao.getUserNetworksByUid(uid);
+        if (userNetworkList.size()==0){
+            //此处该返回什么,可能有问题
+            datas.put(NetworkConstant.NOT_HAVE_NETWORK,networkList);
+            return datas;
+        }else {
+            //有
+            for (int i = 0; i <userNetworkList.size() ; ++i) {
+                //获取nid
+                Integer nid = userNetworkList.get(i).getNid();
+                Network network = networkDao.getNetworkById(nid);
+                networkList.add(network);
+            }
+            datas.put(NetworkConstant.SUCCESS,networkList);
+            return datas;
+        }
     }
 
     /**
