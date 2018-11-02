@@ -28,11 +28,20 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
+    /**
+     * 更新用户
+     * @param user 修改后的user
+     */
     @Override
     public void update(User user) {
         userDao.save(user);
     }
 
+    /**
+     * 通过id查询user
+     * @param id
+     * @return
+     */
     @Override
     public User getUserById(Integer id) {
         return userDao.getUserById(id);
@@ -47,7 +56,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<Integer, String> isLoginSuccess(String openId, HttpSession session) {
         Map<Integer, String> datas = new HashMap<>();
-        if (ObjectUtil.isEmpty(openId)) {
+        if (ObjectUtil.isStringEmpty(openId)) {
             int status;
             status = UserConstant.FAILED_CODE;
             datas.put(status, UserConstant.OPENID_NULL);
