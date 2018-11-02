@@ -20,5 +20,9 @@ public class NetworkConstant {
 
     public static final String ALREADY_EXIST="该用户已经加入！";
 
+    public static final String NOT_LOGIN="您还没有登录！";
+
+    public static final String NOT_HAVE_NETWORK="您还没有创建属于你的人脉圈！";
+
 
 }

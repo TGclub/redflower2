@@ -3,15 +3,18 @@ package com.test.redflower2.web.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.NetworkConstant;
+import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.enums.InfoStatusEnum;
 import com.test.redflower2.pojo.dto.*;
 import com.test.redflower2.pojo.entity.Intimacy;
+import com.test.redflower2.pojo.entity.Network;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.pojo.entity.UserNetwork;
 import com.test.redflower2.service.IntimacyService;
 import com.test.redflower2.service.NetworkService;
 import com.test.redflower2.service.UserNetworkService;
 import com.test.redflower2.service.UserService;
+import com.test.redflower2.utils.ObjectUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -92,9 +95,20 @@ public class NetworkController {
 
     /**
      * 查看我的人脉圈
-     *
-     * @param httpSession
+     * @param session
+     * @return
      */
+    @GetMapping("/getMyNetworks")
+    public Result<Object> getMyNetwork(HttpSession session){
+        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
+        if (ObjectUtil.isEmpty(uid)){
+            return ResultBuilder.fail(NetworkConstant.NOT_LOGIN);
+        }else {
+            Map<String, List<Network>> networkList  = userNetworkService.getNetworksByUid(uid);
+            return ResultBuilder.success(networkList);
+        }
+    }
+    //v1.0版，因重构废弃
     @RequestMapping(value = "/myNetworks")
     public ResponseDto myNetworks(HttpSession httpSession) {
         Integer userId = (Integer) httpSession.getAttribute("userId");
@@ -160,7 +174,7 @@ public class NetworkController {
             return ResponseDto.failed("no userId");
         }
 
-        List<UserNetwork> userNetworkList = userNetworkService.getUserNetworksByUid(userId);
+        List<UserNetwork> userNetworkList = userNetworkService.getUserNetworksByNid(userId);
         if (userNetworkList.isEmpty()) {
             return ResponseDto.failed("you do not have network");
         }
@@ -173,7 +187,7 @@ public class NetworkController {
         //uids为userId所在所有人脉圈中所有人的id
         Set<Integer> uids = new HashSet<>();
         for (int i = 0; i < nids.size(); i++) {
-            List<UserNetwork> userNetworkListBynidsI = userNetworkService.getUserNetworksByUid(nids.get(i));
+            List<UserNetwork> userNetworkListBynidsI = userNetworkService.getUserNetworksByNid(nids.get(i));
             for (int j = 0; j < userNetworkListBynidsI.size(); j++) {
                 uids.add(userNetworkListBynidsI.get(j).getUid());
             }
