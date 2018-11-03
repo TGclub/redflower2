@@ -40,4 +40,13 @@ public interface UserService {
      * @return
      */
     String updateDefinition(String definition, HttpSession session);
+
+
+    /**
+     * 更新用户信息
+     * @param sUser
+     * @param user
+     * @return
+     */
+    String updateUser(User sUser, HttpSession session);
 }

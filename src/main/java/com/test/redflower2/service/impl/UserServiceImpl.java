@@ -36,6 +36,29 @@ public class UserServiceImpl implements UserService {
 
 
     /**
+     * 更新用户信息
+     * @param user  表单用户
+     * @param session
+     * @return
+     */
+    @Override
+    public String updateUser(User user, HttpSession session) {
+        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
+        User sUser = userDao.getUserById(uid);
+        if (ObjectUtil.isEmpty(sUser)){
+            return UserConstant.FAIL_MSG;
+        }else {
+            sUser.setGender(user.getGender());
+            sUser.setAvatarUrl(user.getAvatarUrl());
+            sUser.setDefinition(user.getDefinition());
+            sUser.setName(user.getName());
+            sUser.setWxid(user.getWxid());
+            userDao.save(sUser);
+            return UserConstant.SUCCESS_MSG;
+        }
+    }
+
+    /**
      * 用户登录
      *
      * @param openId

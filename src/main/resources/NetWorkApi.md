@@ -55,7 +55,20 @@ return:
 > 成功
 ```json
 "code": 0,
-"data":一个map,
+"data":{
+success{
+  NetWork{
+      id=,
+      uid=,
+      networkName=""
+    },
+  NetWork{
+      id=,
+      uid=,
+      networkName=""
+    }
+  }
+},
 "message":"success"
 ```
 > 失败

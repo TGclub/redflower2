@@ -1,10 +1,11 @@
 package com.test.redflower2.web.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.pojo.dto.Result;
 import com.test.redflower2.pojo.dto.ResultBuilder;
-import com.test.redflower2.pojo.dto.WxInfo;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.ObjectUtil;
@@ -15,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 
@@ -37,17 +37,26 @@ public class UserController extends BaseController{
 
     /**
      * 用户微信认证登录
-//     * @param wxInfo  前端给的code
-     * @param code  前端给的code
+     * @param json
+     * @param session
+     * @return
+     * @throws Exception
      */
     @ApiOperation(value = UserConstant.USER_LOGIN_DESC,httpMethod = "POST")
     @PostMapping("/login")
-//    public Result<Object> login(@NotNull @RequestBody WxInfo wxInfo,
-    public Result<Object> login(@RequestParam("code") String code ,
+    public Result<Object> login(@RequestBody String json,
                                 HttpSession session)throws Exception{
-//        logger.info(wxInfo.getCode()+" time "+System.currentTimeMillis());
-        logger.info(code+" time "+System.currentTimeMillis());
-//        String openId = wechatUtil.getOpenId(wxInfo.getCode());
+        String code;
+        try {
+            JSONObject jsonObject = JSON.parseObject(json);
+            code = jsonObject.getString("code");
+        } catch (Exception e) {
+            return ResultBuilder.fail("code is wrong");
+        }
+        if (code == null) {
+            return ResultBuilder.fail("code is wrong");
+        }
+
         String openId = wechatUtil.getOpenId(code);
         Map<Integer,String> datas = userService.isLoginSuccess(openId,session);
         //如果登录失败
@@ -56,7 +65,7 @@ public class UserController extends BaseController{
             return ResultBuilder.fail(status+"");
         }
         //登录成功
-        return ResultBuilder.success();
+        return ResultBuilder.success(session.getId());
     }
 
     /**
@@ -140,5 +149,22 @@ public class UserController extends BaseController{
     public Result<Object> test(){
         logger.info("test :"+System.currentTimeMillis());
         return ResultBuilder.success();
+    }
+
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @param session
+     * @return
+     */
+    @PostMapping("/updateUserInfo")
+    public Result<Object> updateUserInfo(@RequestBody User user, HttpSession session){
+        String result = userService.updateUser(user,session);
+        if (result.equals(UserConstant.SUCCESS_MSG)){
+            return ResultBuilder.success();
+        }else {
+            return ResultBuilder.fail(result);
+        }
     }
 }
