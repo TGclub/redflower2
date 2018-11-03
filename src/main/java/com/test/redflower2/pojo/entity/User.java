@@ -18,25 +18,25 @@ public class User {
      * 用户姓名
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String name;
+    private String name;////微信可得到
 
     /**
      * 用户性别
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private int gender;
+    private int gender;  //微信可得到
 
     /**
      * 用户个性签名
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String definition;
-
-    /**
-     * 用户微信id
-     */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String wxid;
+    private String definition;  // v2.0默认为“”
+//
+//    /**
+//     * 用户微信id
+//     */
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    private String wxid;  //拿不到
 
     /**
      * openid
@@ -48,7 +48,7 @@ public class User {
      * 头像
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String avatarUrl;
+    private String avatarUrl;  //微信可得到
 
     /**
      * 用户和用户之间亲密度阈值
@@ -106,13 +106,6 @@ public class User {
         this.definition = definition;
     }
 
-    public String getWxid() {
-        return wxid;
-    }
-
-    public void setWxid(String wxid) {
-        this.wxid = wxid;
-    }
 
     public String getOpenid() {
         return openid;
@@ -129,10 +122,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", gender=" + gender +
                 ", definition='" + definition + '\'' +
-                ", wxid='" + wxid + '\'' +
-                ", openid='" + openid + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
-                ", value=" + value +
                 '}';
     }
 }

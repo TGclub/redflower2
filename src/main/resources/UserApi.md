@@ -128,3 +128,25 @@ return:
 "data":null,
 "message":"fail"
 ```
+
+### 更新用户信息
+```text
+url: /user/updateUserInfo
+method: POST
+param:user
+example: url/user/updateUserInfo
+return:
+```
+> 成功
+```json
+"code":0,
+"data":null
+"message":"success"
+```
+> 失败
+
+```json
+"code": 1,
+"data":null,
+"message":"失败！"
+```

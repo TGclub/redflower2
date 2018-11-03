@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService {
             sUser.setAvatarUrl(user.getAvatarUrl());
             sUser.setDefinition(user.getDefinition());
             sUser.setName(user.getName());
-            sUser.setWxid(user.getWxid());
             userDao.save(sUser);
             return UserConstant.SUCCESS_MSG;
         }
