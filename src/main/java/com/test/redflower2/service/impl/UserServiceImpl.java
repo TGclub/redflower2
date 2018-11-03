@@ -60,6 +60,8 @@ public class UserServiceImpl implements UserService {
             status = UserConstant.SUCCESS_CODE;
             session.setAttribute(UserConstant.USER_ID, user1.getId());
             datas.put(status, UserConstant.SUCCESS_MSG);
+        }else {
+            session.setAttribute(UserConstant.USER_ID,user.getId());
         }
         return datas;
     }

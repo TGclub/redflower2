@@ -37,14 +37,18 @@ public class UserController extends BaseController{
 
     /**
      * 用户微信认证登录
-     * @param wxInfo  前端给的code
+//     * @param wxInfo  前端给的code
+     * @param code  前端给的code
      */
     @ApiOperation(value = UserConstant.USER_LOGIN_DESC,httpMethod = "POST")
     @PostMapping("/login")
-    public Result<Object> login(@NotNull @RequestBody WxInfo wxInfo,
+//    public Result<Object> login(@NotNull @RequestBody WxInfo wxInfo,
+    public Result<Object> login(@RequestParam("code") String code ,
                                 HttpSession session)throws Exception{
-        logger.info(wxInfo.getCode()+" time "+System.currentTimeMillis());
-        String openId = wechatUtil.getOpenId(wxInfo.getCode());
+//        logger.info(wxInfo.getCode()+" time "+System.currentTimeMillis());
+        logger.info(code+" time "+System.currentTimeMillis());
+//        String openId = wechatUtil.getOpenId(wxInfo.getCode());
+        String openId = wechatUtil.getOpenId(code);
         Map<Integer,String> datas = userService.isLoginSuccess(openId,session);
         //如果登录失败
         if (!ObjectUtil.isStringEmpty(datas.get(UserConstant.FAILED_CODE))){
@@ -106,6 +110,7 @@ public class UserController extends BaseController{
     @ApiOperation(value =UserConstant.GET_USER_INFO,httpMethod = "GET")
     @GetMapping("/userInfo")
     public Result<User> getUserInfo(HttpSession session)  {
+        System.out.println(session.getSessionContext());
         logger.info("返回登录后用户的信息 :"+System.currentTimeMillis());
         Integer userId =  (Integer) session.getAttribute(UserConstant.USER_ID);
         User user = userService.getUserById(userId);
