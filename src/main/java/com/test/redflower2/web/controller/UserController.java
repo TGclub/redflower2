@@ -1,5 +1,7 @@
 package com.test.redflower2.web.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.pojo.dto.Result;
@@ -37,14 +39,24 @@ public class UserController extends BaseController{
 
     /**
      * 用户微信认证登录
-     * @param wxInfo  前端给的code
+     * @param json 前端给的code
      */
     @ApiOperation(value = UserConstant.USER_LOGIN_DESC,httpMethod = "POST")
     @PostMapping("/login")
-    public Result<Object> login(@NotNull @RequestBody WxInfo wxInfo,
+    public Result<Object> login(@RequestBody String json,
                                 HttpSession session)throws Exception{
-        logger.info(wxInfo.getCode()+" time "+System.currentTimeMillis());
-        String openId = wechatUtil.getOpenId(wxInfo.getCode());
+        String code;
+        try {
+            JSONObject jsonObject = JSON.parseObject(json);
+            code = jsonObject.getString("code");
+        } catch (Exception e) {
+            return ResultBuilder.fail("code is wrong");
+        }
+        if (code == null) {
+            return ResultBuilder.fail("code is wrong");
+        }
+
+        String openId = wechatUtil.getOpenId(code);
         Map<Integer,String> datas = userService.isLoginSuccess(openId,session);
         //如果登录失败
         if (!ObjectUtil.isStringEmpty(datas.get(UserConstant.FAILED_CODE))){
@@ -52,7 +64,7 @@ public class UserController extends BaseController{
             return ResultBuilder.fail(status+"");
         }
         //登录成功
-        return ResultBuilder.success();
+        return ResultBuilder.success(session.getId());
     }
 
     /**
