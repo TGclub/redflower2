@@ -1,13 +1,12 @@
 package com.test.redflower2.web.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.pojo.dto.Result;
 import com.test.redflower2.pojo.dto.ResultBuilder;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.service.UserService;
+import com.test.redflower2.utils.JsonUtil;
 import com.test.redflower2.utils.ObjectUtil;
 import com.test.redflower2.utils.WechatUtil;
 import io.swagger.annotations.ApiOperation;
@@ -37,26 +36,17 @@ public class UserController extends BaseController{
 
     /**
      * 用户微信认证登录
-     * @param json
+     * @param jsonCode
      * @param session
      * @return
      * @throws Exception
      */
     @ApiOperation(value = UserConstant.USER_LOGIN_DESC,httpMethod = "POST")
     @PostMapping("/login")
-    public Result<Object> login(@RequestBody String json,
+    public Result<Object> login(@RequestBody String jsonCode,
                                 HttpSession session)throws Exception{
-        String code;
-        try {
-            JSONObject jsonObject = JSON.parseObject(json);
-            code = jsonObject.getString("code");
-        } catch (Exception e) {
-            return ResultBuilder.fail("code is wrong");
-        }
-        if (code == null) {
-            return ResultBuilder.fail("code is wrong");
-        }
-
+        //获取code
+        String code = JsonUtil.JsonCode(jsonCode);
         String openId = wechatUtil.getOpenId(code);
         Map<Integer,String> datas = userService.isLoginSuccess(openId,session);
         //如果登录失败
@@ -165,6 +155,27 @@ public class UserController extends BaseController{
             return ResultBuilder.success();
         }else {
             return ResultBuilder.fail(result);
+        }
+    }
+
+
+    /**
+     * 获取微信用户id
+     * @param encryptedData
+     * @param session_key
+     * @param iv
+     * @return
+     */
+    @PostMapping("/getUserWxId")
+    public Result<Object> getUserWxId(@RequestParam("openId") String openId,
+                                      @RequestParam("encryptedData") String encryptedData,
+                                      @RequestParam("session_key")String session_key,
+                                      @RequestParam("iv")String iv){
+        String wxid = userService.getWxid(openId,encryptedData,session_key,iv);
+        if (wxid.equals(UserConstant.FAIL_MSG)){
+            return ResultBuilder.fail(UserConstant.FAIL_MSG);
+        }else {
+            return ResultBuilder.success(wxid);
         }
     }
 }

@@ -31,12 +31,13 @@ public class User {
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String definition;  // v2.0默认为“”
-//
-//    /**
-//     * 用户微信id
-//     */
-//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-//    private String wxid;  //拿不到
+
+
+    /**
+     * 用户微信id
+     */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String wxid;  //拿不到
 
     /**
      * openid
@@ -115,6 +116,14 @@ public class User {
         this.openid = openid;
     }
 
+    public String getWxid() {
+        return wxid;
+    }
+
+    public void setWxid(String wxid) {
+        this.wxid = wxid;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -122,6 +131,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", gender=" + gender +
                 ", definition='" + definition + '\'' +
+                ", wxid='" + wxid + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
                 '}';
     }

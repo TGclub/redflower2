@@ -45,8 +45,16 @@ public interface UserService {
     /**
      * 更新用户信息
      * @param sUser
-     * @param user
+     * @param　session
      * @return
      */
     String updateUser(User sUser, HttpSession session);
+
+    /**
+     * 获取用户id
+     * @param encryptedData
+     * @param iv
+     * @return
+     */
+    String getWxid(String openId,String encryptedData,String session_key,String iv);
 }

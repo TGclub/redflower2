@@ -1899,3 +1899,95 @@ org.springframework.web.HttpRequestMethodNotSupportedException: Request method '
 [INFO ] 2018-11-03 16:01:08 [Thread-21] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
 [INFO ] 2018-11-03 16:01:08 [Thread-21] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 [INFO ] 2018-11-03 16:01:08 [Thread-21] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+[INFO ] 2018-11-03 23:42:10 [restartedMain] c.t.redflower2.RedflowerApplication - Starting RedflowerApplication on stormwangxhu with PID 14746 (/home/stormwangxhu/IdeaProjects/redflower2/target/classes started by stormwangxhu in /home/stormwangxhu/IdeaProjects/redflower2)
+[INFO ] 2018-11-03 23:42:10 [restartedMain] c.t.redflower2.RedflowerApplication - The following profiles are active: dev
+[INFO ] 2018-11-03 23:42:10 [restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d41bffd: startup date [Sat Nov 03 23:42:10 CST 2018]; root of context hierarchy
+[INFO ] 2018-11-03 23:42:12 [restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$d065c2d3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] 2018-11-03 23:42:12 [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8091 (http)
+[INFO ] 2018-11-03 23:42:12 [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 2018-11-03 23:42:12 [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.34
+[INFO ] 2018-11-03 23:42:12 [localhost-startStop-1] o.a.c.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+[INFO ] 2018-11-03 23:42:12 [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 2018-11-03 23:42:12 [localhost-startStop-1] o.s.b.w.s.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+[INFO ] 2018-11-03 23:42:12 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] 2018-11-03 23:42:12 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] 2018-11-03 23:42:12 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] 2018-11-03 23:42:12 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] 2018-11-03 23:42:13 [restartedMain] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+[INFO ] 2018-11-03 23:42:13 [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-03 23:42:13 [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] 2018-11-03 23:42:13 [restartedMain] org.hibernate.Version - HHH000412: Hibernate Core {5.2.17.Final}
+[INFO ] 2018-11-03 23:42:13 [restartedMain] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+[INFO ] 2018-11-03 23:42:13 [restartedMain] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] 2018-11-03 23:42:14 [restartedMain] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2018-11-03 23:42:14 [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 2018-11-03 23:42:15 [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 2018-11-03 23:42:16 [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 2018-11-03 23:42:16 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+[INFO ] 2018-11-03 23:42:16 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] 2018-11-03 23:42:16 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] 2018-11-03 23:42:16 [restartedMain] o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+[INFO ] 2018-11-03 23:42:16 [restartedMain] s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+[INFO ] 2018-11-03 23:42:16 [restartedMain] s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+[INFO ] 2018-11-03 23:42:16 [restartedMain] s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+[INFO ] 2018-11-03 23:42:16 [restartedMain] s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: testUsingGET_1
+[INFO ] 2018-11-03 23:42:16 [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8091 (http) with context path ''
+[INFO ] 2018-11-03 23:42:16 [restartedMain] c.t.redflower2.RedflowerApplication - Started RedflowerApplication in 6.895 seconds (JVM running for 8.038)
+[INFO ] 2018-11-03 23:43:14 [http-nio-8091-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+[INFO ] 2018-11-03 23:43:14 [http-nio-8091-exec-1] c.t.r.w.i.AuthenticationInterceptor - org.apache.catalina.connector.RequestFacade@727d7425 time 1541259794148
+[ERROR] 2018-11-03 23:43:14 [http-nio-8091-exec-1] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is com.test.redflower2.exception.NotLoginException: 用户没有登录,请先登录！] with root cause
+com.test.redflower2.exception.NotLoginException: 用户没有登录,请先登录！
+	at com.test.redflower2.web.interceptor.AuthenticationInterceptor.preHandle(AuthenticationInterceptor.java:52)
+	at org.springframework.web.servlet.HandlerExecutionChain.applyPreHandle(HandlerExecutionChain.java:136)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:986)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:877)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:800)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:806)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+[INFO ] 2018-11-03 23:43:51 [Thread-21] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6d41bffd: startup date [Sat Nov 03 23:42:10 CST 2018]; root of context hierarchy
+[INFO ] 2018-11-03 23:43:51 [Thread-21] o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+[INFO ] 2018-11-03 23:43:51 [Thread-21] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+[INFO ] 2018-11-03 23:43:51 [Thread-21] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+[INFO ] 2018-11-03 23:43:51 [Thread-21] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-03 23:43:51 [Thread-21] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
