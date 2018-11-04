@@ -86,8 +86,8 @@ public class NetworkController extends BaseController {
         if (ObjectUtil.isEmpty(uid)) {
             return ResultBuilder.fail(NetworkConstant.NOT_LOGIN);
         } else {
-            Map<String, List<Network>> networkList = userNetworkService.getNetworksByUid(uid);
-            return ResultBuilder.success(networkList);
+            Map<Integer, List<Network>> networkList = userNetworkService.getNetworksByUid(uid);
+            return ResultBuilder.success(networkList.get(NetworkConstant.SUCCESS_CODE));
         }
     }
 
@@ -122,6 +122,9 @@ public class NetworkController extends BaseController {
     }
 
 
+    public Result<Object> getDifferentUser(@RequestBody User user){
+        return null;
+    }
 
 //    /**
  //     * 人脉网界面
