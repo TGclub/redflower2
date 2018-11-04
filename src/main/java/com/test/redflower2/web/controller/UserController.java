@@ -47,12 +47,16 @@ public class UserController extends BaseController{
     public Result<Object> login(@RequestBody(required = false) String json,
 
                                 HttpSession session)throws Exception{
+        logger.info("code:"+json+" time "+System.currentTimeMillis());
         //解析相应内容,(转换成json对象)
         String code;
         JSONObject jsonObject= JSON.parseObject(json);
         code=jsonObject.getString("code");
         //获取code
 //        String code = JsonUtil.JsonCode(jsonCode);
+        if(ObjectUtil.isStringEmpty(code)){
+            return ResultBuilder.fail(UserConstant.OPENID_NULL);
+        }
         String openId = wechatUtil.getOpenId(code);
         Map<Integer,String> datas = userService.isLoginSuccess(openId,session);
         //如果登录失败

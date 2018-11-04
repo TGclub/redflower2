@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
             int status;
             User user1 = new User();
             user1.setOpenid(openId);
-            user1.setValue(UserConstant.USER_INFO_INCOMPLETED);
+//            user1.setValue(UserConstant.USER_INFO_INCOMPLETED);
             userDao.save(user1);
             status = UserConstant.SUCCESS_CODE;
             session.setAttribute(UserConstant.USER_ID, user1.getId());
