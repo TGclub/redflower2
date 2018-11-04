@@ -8,11 +8,9 @@ public class IntimacyConstant {
      */
     public static final int LOW=0;//不亲密
 
-    public static final String NOT_QINMI="不亲密";
 
     public static final int HIGH=1;//亲密
 
-    public static final String QINMI="亲密";
 
     public static final int BOUNDARY = 10;//亲密和不亲密的分界值
 }

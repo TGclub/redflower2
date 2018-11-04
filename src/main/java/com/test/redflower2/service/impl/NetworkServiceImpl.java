@@ -41,12 +41,12 @@ public class NetworkServiceImpl implements NetworkService {
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         Network network = new Network();
         //若人脉圈名称为空，则创建失败
-        if (ObjectUtil.isEmpty(networkName)){
+        if (ObjectUtil.isStringEmpty(networkName)){
             int status ;
             status = NetworkConstant.FAIL_CODE;
             datas.put(status,NetworkConstant.FAIL);
             return datas;
-        }else {//否则创建成功
+        } else {//否则创建成功
             int status;
             network.setUid(uid);
             network.setNetworkName(networkName);

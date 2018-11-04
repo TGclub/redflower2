@@ -14,6 +14,8 @@ import com.test.redflower2.utils.ObjectUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -92,21 +94,37 @@ public class NetworkController extends BaseController {
     }
 
 
+//    /**
+//     * 人脉网界面随机点击用户的个人信息显示,要显示与主用户之间的亲密度：默认不亲密
+//     *
+//     * @param user
+//     * @return
+//     */
+//    @PostMapping("/getUserInfo")
+//    public Result<Object> getUserInfo(@RequestBody User user, HttpSession session) {
+//        Map<Integer, Object> datas = userNetworkService.getNetworkUserInfo(user, session);
+//        //失败
+//        if (!ObjectUtil.isEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
+//            return ResultBuilder.fail(NetworkConstant.NOT_EXIST);
+//        }
+//        //成功，返回数据
+//        return ResultBuilder.success(datas);
+//    }
+
+
     /**
-     * 人脉网界面随机点击用户的个人信息显示,要显示与主用户之间的亲密度：默认不亲密
-     *
+     * 人脉网界面随机点击用户的个人信息显示,要显示与主用户之间的亲密度：默认不亲密(前端暂时处理)
      * @param user
      * @return
      */
     @PostMapping("/getUserInfo")
-    public Result<Object> getUserInfo(@RequestBody User user, HttpSession session) {
-        Map<Integer, Object> datas = userNetworkService.getNetworkUserInfo(user, session);
-        //失败
-        if (!ObjectUtil.isEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
-            return ResultBuilder.fail(NetworkConstant.NOT_EXIST);
+    public Result<Object> getUserInfo(@RequestBody User user,HttpSession session){
+        List<User> userList = userNetworkService.getNetworkUserInfo1(user,session);
+        if (userList.size()==0){
+            return ResultBuilder.fail("列表为空,还没有好友!");
+        }else {
+            return ResultBuilder.success(userList);
         }
-        //成功，返回数据
-        return ResultBuilder.success(datas);
     }
 
 

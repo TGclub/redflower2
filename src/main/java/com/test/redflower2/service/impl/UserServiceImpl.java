@@ -4,15 +4,12 @@ import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.dao.UserDao;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.service.UserService;
-import com.test.redflower2.utils.AesUtil;
 import com.test.redflower2.utils.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -133,31 +130,6 @@ public class UserServiceImpl implements UserService {
             user.setName(username);
             userDao.save(user);
             return UserConstant.SUCCESS_MSG;
-        }
-    }
-
-    /**
-     * 获取微信id
-     *
-     * @param
-     * @return
-     */
-    @Override
-    public String getWxid(String openId, String encryptedData, String session_key, String iv) {
-        String result = AesUtil.decrypt(encryptedData, session_key, iv);
-        if (result != null && result.length() > 0) {
-            JSONObject userInfoJSON = JSONObject.parseObject(result);
-            User user = userDao.findUserByOpenid(openId);
-            if (ObjectUtil.isEmpty(user)) {
-                return UserConstant.FAIL_MSG;
-            } else {
-                String wxid = userInfoJSON.getString("wxid");
-                user.setWxid(wxid);
-                userDao.save(user);
-                return user.getWxid();
-            }
-        }else {
-            return UserConstant.FAIL_MSG;
         }
     }
 }

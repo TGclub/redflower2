@@ -17,7 +17,6 @@ import com.test.redflower2.utils.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,28 +77,87 @@ public class UserNetworkServiceImpl implements UserNetworkService {
     }
 
     /**
-     * 查看我的人脉圈
-     * @param uid
+     * 查看中心用户周围所有用户的信息
+     * @param user  其他用户
+     * @param session
      * @return
      */
     @Override
-    public Map<String, List<Network>> getNetworksByUid(Integer uid) {
-        Map<String,List<Network>> datas = new HashMap<>();
+    public List<User> getNetworkUserInfo1(User user,HttpSession session) {
+        //装载用户人脉圈的圈子数
         List<Network> networkList = new ArrayList<>();
-        List<UserNetwork> userNetworkList = userNetworkDao.getUserNetworksByUid(uid);
+        //装载用户圈子里的人数
+        List<User> userList = new ArrayList<>();
+
+//        Integer uidCenter=(Integer) session.getAttribute(UserConstant.USER_ID);
+        //中心用户
+//        User userCenter = userDao.getUserById(uidCenter);
+
+        //周围用户id
+        Integer uidOther =user.getId();
+        //通过要查询用户的id查询出所拥有的圈子数量
+        List<UserNetwork> userNetworkList = userNetworkDao.getUserNetworkByUid(uidOther);
+        //遍历查询一个id所对应的所有network
         if (userNetworkList.size()==0){
-            //此处该返回什么,可能有问题
-            datas.put(NetworkConstant.NOT_HAVE_NETWORK,networkList);
-            return datas;
+            return userList;//空
         }else {
-            //有
-            for (int i = 0; i <userNetworkList.size() ; ++i) {
-                //获取nid
+            //不为空
+            for (int i = 0; i <userNetworkList.size(); ++i) {
                 Integer nid = userNetworkList.get(i).getNid();
                 Network network = networkDao.getNetworkById(nid);
                 networkList.add(network);
             }
-            datas.put(NetworkConstant.SUCCESS,networkList);
+        }
+        //遍历用户的群．把所有好友装载到list中
+        if (networkList.size()==0){
+            return userList;
+        }else {
+            //不为空
+            for (int i = 0; i < networkList.size() ; ++i) {
+                Integer userId = networkList.get(i).getUid();
+                User userAll = userDao.getUserById(userId);
+                userList.add(userAll);
+            }
+        }
+        return userList;
+    }
+
+    /**
+     * done:查看我的人脉圈,
+     * to do:并返回每一个人脉圈中的人数
+     * @param uid
+     * @return
+     */
+    @Override
+    public Map<Integer, List<Network>> getNetworksByUid(Integer uid) {
+        Map<Integer,List<Network>> datas = new HashMap<>();
+        List<Network> networkList = new ArrayList<>();
+        //把和用户相关的群全堡查询出来
+        List<UserNetwork> userNetworkList = userNetworkDao.getUserNetworksByUid(uid);
+        if (userNetworkList.size()==0){
+            //若为空,则该用户没有群
+            int status ;
+            status=NetworkConstant.FAIL_CODE;
+            datas.put(status,networkList);
+            return datas;
+        }else {
+            //有,每个用户可能对应多个nid,即有多个朋友圈
+            for (int i = 0; i <userNetworkList.size() ; ++i) {
+                //获取每一个朋友圈nid
+                Integer nid = userNetworkList.get(i).getNid();
+                Network network = networkDao.getNetworkById(nid);
+                //将多个朋友圈放在list中
+                networkList.add(network);
+            }
+
+            //计算每一个人脉圈中人数  && 未完成
+            for (int i = 0; i <networkList.size() ; i++) {
+                int count ;
+                Network network = networkList.get(i);
+//                count=networkDao.countByUid();
+
+            }
+            datas.put(NetworkConstant.SUCCESS_CODE,networkList);
             return datas;
         }
     }
@@ -145,6 +203,8 @@ public class UserNetworkServiceImpl implements UserNetworkService {
      * @param userForm 要查看的用户：只能查看中心用户周围的用户与中心用户的亲密度
      * @param session
      * @return
+     *
+     * 亲密读关系,先作废
      */
     @Override
     public Map<Integer, Object> getNetworkUserInfo(User userForm, HttpSession session) {
@@ -167,16 +227,16 @@ public class UserNetworkServiceImpl implements UserNetworkService {
         if (result){//亲密的话，保存在Intimacy表中，维持这两个用户的关系
             intimacy.setUserValue(userValue);
             intimacy.setFormValue(formValue);
-            intimacy.setResult(IntimacyConstant.QINMI);
-            //加入list[0]
-            userList.add(intimacy);
+            intimacy.setResult(IntimacyConstant.HIGH);
+            //亲密结果加入list[0]
+            userList.add(intimacy.getResult());
         }else {
             //不亲密的话，保存在Intimacy表中，维持这两个用户的关系
             intimacy.setFormValue(formValue);
             intimacy.setUserValue(userValue);
-            intimacy.setResult(IntimacyConstant.NOT_QINMI);
-            //加入list[0]
-            userList.add(intimacy);
+            intimacy.setResult(IntimacyConstant.LOW);
+            //不亲密结果加入list[0]
+            userList.add(intimacy.getResult());
         }
         //加入list[1]
         userList.add(sUser);

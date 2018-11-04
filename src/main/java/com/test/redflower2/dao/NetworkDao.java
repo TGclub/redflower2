@@ -17,10 +17,9 @@ public interface NetworkDao extends JpaRepository<Network,Integer> {
     Network getNetworkByUid(Integer uid);
 
     /**
-     * 通过nid 查询network
+     * 通过id查询network
      * @param nid
      * @return
      */
     Network getNetworkById(Integer nid);
-
 }

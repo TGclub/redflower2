@@ -265,7 +265,10 @@ return:
 > 成功
 ```json
 "code": 0,
-"data":一个map包含list,
+"data":[
+User{id=1, name='hello', gender=1,definition="definition",wxid="xxx",avatarUrl="xxxx"}
+User{id=2,name="world",gender=0,definition="definition",wxid="xxx",avatarUrl=""}
+]
 "meaasge":"success"
 ```
 > 失败

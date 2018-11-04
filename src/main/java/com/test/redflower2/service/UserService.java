@@ -2,7 +2,6 @@ package com.test.redflower2.service;
 
 import com.test.redflower2.pojo.entity.User;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -50,11 +49,4 @@ public interface UserService {
      */
     String updateUser(User sUser, HttpSession session);
 
-    /**
-     * 获取用户id
-     * @param encryptedData
-     * @param iv
-     * @return
-     */
-    String getWxid(String openId,String encryptedData,String session_key,String iv);
 }

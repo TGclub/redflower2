@@ -5,9 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_network")
 public class UserNetwork {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
     /**

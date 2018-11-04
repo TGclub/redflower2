@@ -1,12 +1,13 @@
 package com.test.redflower2.web.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.pojo.dto.Result;
 import com.test.redflower2.pojo.dto.ResultBuilder;
 import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.service.UserService;
-import com.test.redflower2.utils.JsonUtil;
 import com.test.redflower2.utils.ObjectUtil;
 import com.test.redflower2.utils.WechatUtil;
 import io.swagger.annotations.ApiOperation;
@@ -36,17 +37,22 @@ public class UserController extends BaseController{
 
     /**
      * 用户微信认证登录
-     * @param jsonCode
+     * @param json
      * @param session
      * @return
      * @throws Exception
      */
     @ApiOperation(value = UserConstant.USER_LOGIN_DESC,httpMethod = "POST")
     @PostMapping("/login")
-    public Result<Object> login(@RequestBody String jsonCode,
+    public Result<Object> login(@RequestBody String json,
+
                                 HttpSession session)throws Exception{
+        //解析相应内容,(转换成json对象)
+        String code;
+        JSONObject jsonObject= JSON.parseObject(json);
+        code=jsonObject.getString("code");
         //获取code
-        String code = JsonUtil.JsonCode(jsonCode);
+//        String code = JsonUtil.JsonCode(jsonCode);
         String openId = wechatUtil.getOpenId(code);
         Map<Integer,String> datas = userService.isLoginSuccess(openId,session);
         //如果登录失败
@@ -66,7 +72,7 @@ public class UserController extends BaseController{
     @Authorization
     @ApiOperation(value = UserConstant.UPDATE_USERNAME,httpMethod = "PUT")
     @PutMapping("/updateUsername")
-    public Result<ObjectUtil> updateUsername(@RequestParam("username") String username,
+    public Result<Object> updateUsername(@RequestParam("username") String username,
                                              HttpSession session){
         logger.info(username+" time "+System.currentTimeMillis());
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
@@ -155,27 +161,6 @@ public class UserController extends BaseController{
             return ResultBuilder.success();
         }else {
             return ResultBuilder.fail(result);
-        }
-    }
-
-
-    /**
-     * 获取微信用户id
-     * @param encryptedData
-     * @param session_key
-     * @param iv
-     * @return
-     */
-    @PostMapping("/getUserWxId")
-    public Result<Object> getUserWxId(@RequestParam("openId") String openId,
-                                      @RequestParam("encryptedData") String encryptedData,
-                                      @RequestParam("session_key")String session_key,
-                                      @RequestParam("iv")String iv){
-        String wxid = userService.getWxid(openId,encryptedData,session_key,iv);
-        if (wxid.equals(UserConstant.FAIL_MSG)){
-            return ResultBuilder.fail(UserConstant.FAIL_MSG);
-        }else {
-            return ResultBuilder.success(wxid);
         }
     }
 }

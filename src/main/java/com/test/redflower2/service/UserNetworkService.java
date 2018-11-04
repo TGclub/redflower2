@@ -32,7 +32,7 @@ public interface UserNetworkService {
      * @param uid
      * @return
      */
-    Map<String, List<Network>> getNetworksByUid(Integer uid);
+    Map<Integer, List<Network>> getNetworksByUid(Integer uid);
 
     /**
      * 查看人脉网用户信息
@@ -42,4 +42,10 @@ public interface UserNetworkService {
      */
     Map<Integer, Object> getNetworkUserInfo(User userForm, HttpSession session);
 
+    /**
+     * 返回中心用户周围用户的所有用户信息
+     * @param uid
+     * @return
+     */
+    List<User> getNetworkUserInfo1(User user,HttpSession session);
 }

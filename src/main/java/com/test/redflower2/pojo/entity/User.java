@@ -3,7 +3,6 @@ package com.test.redflower2.pojo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.test.redflower2.constant.IntimacyConstant;
-
 import javax.persistence.*;
 
 @Entity
@@ -17,38 +16,38 @@ public class User {
     /**
      * 用户姓名
      */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String name;////微信可得到
 
     /**
      * 用户性别
      */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private int gender;  //微信可得到
 
     /**
      * 用户个性签名
      */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String definition;  // v2.0默认为“”
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String definition="definition";  // v2.0默认为“”
 
 
     /**
      * 用户微信id
      */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String wxid;  //拿不到
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    private String wxid;  //拿不到
 
     /**
      * openid
      */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String openid;
 
     /**
      * 头像
      */
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String avatarUrl;  //微信可得到
 
     /**
@@ -116,14 +115,6 @@ public class User {
         this.openid = openid;
     }
 
-    public String getWxid() {
-        return wxid;
-    }
-
-    public void setWxid(String wxid) {
-        this.wxid = wxid;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -131,7 +122,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", gender=" + gender +
                 ", definition='" + definition + '\'' +
-                ", wxid='" + wxid + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
                 '}';
     }
