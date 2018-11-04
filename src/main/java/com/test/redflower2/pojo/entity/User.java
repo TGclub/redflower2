@@ -33,12 +33,6 @@ public class User {
 
 
     /**
-     * 用户微信id
-     */
-//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-//    private String wxid;  //拿不到
-
-    /**
      * openid
      */
 //    @JsonInclude(JsonInclude.Include.NON_EMPTY)

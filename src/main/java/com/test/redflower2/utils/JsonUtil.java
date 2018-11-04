@@ -48,4 +48,10 @@ public class JsonUtil {
             return code;
         }
     }
+
+
+//    public static String decode(String param){
+//        String result = new String(param.getBytes("utf-8","utf-8"));
+//        return null;
+//    }
 }

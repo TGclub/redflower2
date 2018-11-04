@@ -17446,3 +17446,88 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExce
 [INFO ] 2018-11-04 18:03:46 [Thread-26] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
 [INFO ] 2018-11-04 18:03:46 [Thread-26] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 [INFO ] 2018-11-04 18:03:46 [Thread-26] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+[INFO ] 2018-11-04 21:31:39 [restartedMain] c.t.redflower2.RedflowerApplication - Starting RedflowerApplication on stormwangxhu with PID 24154 (/home/stormwangxhu/IdeaProjects/redflower2/target/classes started by stormwangxhu in /home/stormwangxhu/IdeaProjects/redflower2)
+[INFO ] 2018-11-04 21:31:39 [restartedMain] c.t.redflower2.RedflowerApplication - The following profiles are active: dev
+[INFO ] 2018-11-04 21:31:39 [restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1770bce0: startup date [Sun Nov 04 21:31:39 CST 2018]; root of context hierarchy
+[INFO ] 2018-11-04 21:31:41 [restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$658c5d16] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] 2018-11-04 21:31:41 [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8091 (http)
+[INFO ] 2018-11-04 21:31:41 [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 2018-11-04 21:31:41 [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.34
+[INFO ] 2018-11-04 21:31:41 [localhost-startStop-1] o.a.c.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+[INFO ] 2018-11-04 21:31:41 [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 2018-11-04 21:31:41 [localhost-startStop-1] o.s.b.w.s.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+[INFO ] 2018-11-04 21:31:41 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] 2018-11-04 21:31:41 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] 2018-11-04 21:31:41 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] 2018-11-04 21:31:41 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] 2018-11-04 21:31:41 [restartedMain] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+[INFO ] 2018-11-04 21:31:43 [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-04 21:31:43 [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] 2018-11-04 21:31:43 [restartedMain] org.hibernate.Version - HHH000412: Hibernate Core {5.2.17.Final}
+[INFO ] 2018-11-04 21:31:43 [restartedMain] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+[INFO ] 2018-11-04 21:31:43 [restartedMain] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] 2018-11-04 21:31:43 [restartedMain] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2018-11-04 21:31:44 [restartedMain] o.h.t.s.internal.SchemaCreatorImpl - HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/home/stormwangxhu/IdeaProjects/redflower2/target/classes/import.sql)'
+[INFO ] 2018-11-04 21:31:47 [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 2018-11-04 21:31:47 [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 2018-11-04 21:31:48 [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 2018-11-04 21:31:48 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+[INFO ] 2018-11-04 21:31:48 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] 2018-11-04 21:31:48 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] 2018-11-04 21:31:48 [restartedMain] o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+[INFO ] 2018-11-04 21:31:48 [restartedMain] s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+[INFO ] 2018-11-04 21:31:48 [restartedMain] s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+[INFO ] 2018-11-04 21:31:48 [restartedMain] s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+[INFO ] 2018-11-04 21:31:48 [restartedMain] s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: testUsingGET_1
+[INFO ] 2018-11-04 21:31:48 [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8091 (http) with context path ''
+[INFO ] 2018-11-04 21:31:48 [restartedMain] c.t.redflower2.RedflowerApplication - Started RedflowerApplication in 10.42 seconds (JVM running for 11.543)
+[INFO ] 2018-11-04 21:33:01 [Thread-30] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1770bce0: startup date [Sun Nov 04 21:31:39 CST 2018]; root of context hierarchy
+[INFO ] 2018-11-04 21:33:01 [Thread-30] o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+[INFO ] 2018-11-04 21:33:01 [Thread-30] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+[INFO ] 2018-11-04 21:33:01 [Thread-30] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+[INFO ] 2018-11-04 21:33:01 [Thread-30] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-04 21:33:01 [Thread-30] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+[INFO ] 2018-11-04 21:33:06 [restartedMain] c.t.redflower2.RedflowerApplication - Starting RedflowerApplication on stormwangxhu with PID 24514 (/home/stormwangxhu/IdeaProjects/redflower2/target/classes started by stormwangxhu in /home/stormwangxhu/IdeaProjects/redflower2)
+[INFO ] 2018-11-04 21:33:06 [restartedMain] c.t.redflower2.RedflowerApplication - The following profiles are active: dev
+[INFO ] 2018-11-04 21:33:06 [restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1510d548: startup date [Sun Nov 04 21:33:06 CST 2018]; root of context hierarchy
+[INFO ] 2018-11-04 21:33:07 [restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1de9543a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] 2018-11-04 21:33:08 [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8091 (http)
+[INFO ] 2018-11-04 21:33:08 [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 2018-11-04 21:33:08 [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.34
+[INFO ] 2018-11-04 21:33:08 [localhost-startStop-1] o.a.c.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+[INFO ] 2018-11-04 21:33:08 [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 2018-11-04 21:33:08 [localhost-startStop-1] o.s.b.w.s.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+[INFO ] 2018-11-04 21:33:08 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] 2018-11-04 21:33:08 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] 2018-11-04 21:33:08 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] 2018-11-04 21:33:08 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] 2018-11-04 21:33:08 [restartedMain] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+[INFO ] 2018-11-04 21:33:09 [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-04 21:33:09 [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] 2018-11-04 21:33:09 [restartedMain] org.hibernate.Version - HHH000412: Hibernate Core {5.2.17.Final}
+[INFO ] 2018-11-04 21:33:09 [restartedMain] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+[INFO ] 2018-11-04 21:33:09 [restartedMain] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] 2018-11-04 21:33:09 [restartedMain] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2018-11-04 21:33:10 [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 2018-11-04 21:33:11 [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 2018-11-04 21:33:11 [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 2018-11-04 21:33:11 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+[INFO ] 2018-11-04 21:33:11 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] 2018-11-04 21:33:11 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] 2018-11-04 21:33:11 [restartedMain] o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+[INFO ] 2018-11-04 21:33:11 [restartedMain] s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+[INFO ] 2018-11-04 21:33:11 [restartedMain] s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+[INFO ] 2018-11-04 21:33:11 [restartedMain] s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+[INFO ] 2018-11-04 21:33:12 [restartedMain] s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: testUsingGET_1
+[INFO ] 2018-11-04 21:33:12 [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8091 (http) with context path ''
+[INFO ] 2018-11-04 21:33:12 [restartedMain] c.t.redflower2.RedflowerApplication - Started RedflowerApplication in 6.449 seconds (JVM running for 7.189)
+[INFO ] 2018-11-04 21:33:27 [Thread-22] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1510d548: startup date [Sun Nov 04 21:33:06 CST 2018]; root of context hierarchy
+[INFO ] 2018-11-04 21:33:27 [Thread-22] o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+[INFO ] 2018-11-04 21:33:27 [Thread-22] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+[INFO ] 2018-11-04 21:33:27 [Thread-22] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+[INFO ] 2018-11-04 21:33:27 [Thread-22] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-04 21:33:28 [Thread-22] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed

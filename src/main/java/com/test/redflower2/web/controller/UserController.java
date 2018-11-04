@@ -44,7 +44,7 @@ public class UserController extends BaseController{
      */
     @ApiOperation(value = UserConstant.USER_LOGIN_DESC,httpMethod = "POST")
     @PostMapping("/login")
-    public Result<Object> login(@RequestBody String json,
+    public Result<Object> login(@RequestBody(required = false) String json,
 
                                 HttpSession session)throws Exception{
         //解析相应内容,(转换成json对象)
