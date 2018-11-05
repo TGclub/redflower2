@@ -44,7 +44,8 @@ public interface UserNetworkService {
 
     /**
      * 返回中心用户周围用户的所有用户信息
-     * @param uid
+     * @param user
+     * @param session
      * @return
      */
     List<User> getNetworkUserInfo1(User user,HttpSession session);

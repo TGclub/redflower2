@@ -41,12 +41,12 @@ public class NetworkController extends BaseController {
         this.userNetworkService = userNetworkService;
     }
 
-
-    /**
-     * 创建新的人脉圈
-     *
-     * @Param name
-     */
+//
+//    /**
+//     * 创建新的人脉圈
+//     *
+//     * @Param name
+//     */
 //    @ApiOperation(value = NetworkConstant.NEW_NETWORK, httpMethod = "POST")
 //    @PostMapping(value = "/createNetwork")
 //    public Result<Object> addNetWork(@RequestParam("networkName") String networkName,
@@ -156,10 +156,6 @@ public class NetworkController extends BaseController {
         return null;
     }
 
-
-    public Result<Object> getDifferentUser(@RequestBody User user){
-        return null;
-    }
 
 //    /**
  //     * 人脉网界面
