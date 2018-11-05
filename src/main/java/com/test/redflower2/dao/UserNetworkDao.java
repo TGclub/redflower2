@@ -9,14 +9,20 @@ import java.util.List;
 @Repository
 public interface UserNetworkDao extends JpaRepository<UserNetwork,Integer> {
 
-    UserNetwork getUserNetworkByUidAndNid(Integer uid, Integer nid);
-
     /**
-     * 通过uid查询network,我的人脉圈
-     * @param uid
+     * test 测试
+     * @param id
      * @return
      */
-    List<UserNetwork> getUserNetworksByUid(Integer uid);
+    UserNetwork getUserNetworkById(Integer id);
+
+    /**
+     * 通过uid和nid确定用户和群对应关系
+     * @param uid
+     * @param nid
+     * @return
+     */
+    UserNetwork getUserNetworkByUidAndNid(Integer uid, Integer nid);
 
     /**
      * 通过nid查询
@@ -26,11 +32,19 @@ public interface UserNetworkDao extends JpaRepository<UserNetwork,Integer> {
 
     List<UserNetwork> getUserNetworksByNid(Integer nid);
 
+    /**
+     * 通过uid查询出所有映射关系
+     * @param uid
+     * @return
+     */
+    List<UserNetwork> findAllByUid(Integer uid );
+
 
     /**
      * 通过用户的id查询出用户的usernetwork
      * @param uid
      * @return
      */
+
     List<UserNetwork> getUserNetworkByUid(Integer uid);
 }

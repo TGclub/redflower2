@@ -7,5 +7,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IntimacyDao extends JpaRepository<Intimacy,Integer> {
+
+    /**
+     * 根据中心用户和表单用户值查询亲密度
+     * @param userValue
+     * @param formValue
+     * @return
+     */
+
     Intimacy getIntimacyByUserValueAndFormValue(Integer userValue, Integer formValue);
 }

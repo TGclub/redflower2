@@ -46,6 +46,7 @@ public class User {
 
     /**
      * 用户和用户之间亲密度阈值
+     * 暂时有点儿问题
      */
     @JsonIgnore
     private Integer value = IntimacyConstant.BOUNDARY;

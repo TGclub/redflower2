@@ -36,6 +36,7 @@ public class UserController extends BaseController{
     }
 
     /**
+     * 首页登录
      * 用户微信认证登录
      * @param json
      * @param session
@@ -47,16 +48,21 @@ public class UserController extends BaseController{
     public Result<Object> login(@RequestBody(required = false) String json,
                                 HttpSession session)throws Exception{
         logger.info("code:"+json+" time "+System.currentTimeMillis());
-        //解析相应内容,(转换成json对象)
-        String code="";
-        System.out.println("input test");
-        System.out.println(json);
 
+        String Json = new String(json.getBytes("UTF-8"),"UTF-8");
+
+        if (ObjectUtil.isStringEmpty(json)){
+            return ResultBuilder.fail("传进来参数null");
+        }
+        //解析相应内容,(转换成json对象)
+        String code;
         try {
+            System.out.println("参数为:"+json);
             JSONObject jsonObject = JSON.parseObject(json);
             code = jsonObject.getString("code");
         }catch (Exception e ){
-            System.out.println("json错误:");
+            System.out.println("code错误:");
+            return ResultBuilder.fail(UserConstant.OPENID_NULL);
         }
         //获取code
 //        String code = JsonUtil.JsonCode(jsonCode);
@@ -75,6 +81,7 @@ public class UserController extends BaseController{
     }
 
     /**
+     * 我的页面
      * 修改昵称
      * @param username
      * @return
@@ -96,6 +103,7 @@ public class UserController extends BaseController{
     }
 
     /**
+     * 我的页面
      * 用户修改自定义个性签名
      * @param definition
      * @param session
@@ -117,6 +125,7 @@ public class UserController extends BaseController{
 
 
     /**
+     * 我的页面
      * 返回登录后用户的信息
      * @param session
      * @return
@@ -133,6 +142,7 @@ public class UserController extends BaseController{
     }
 
     /**
+     * 我的页面
      * 用户退出
      * @param session
      * @return
@@ -159,12 +169,13 @@ public class UserController extends BaseController{
 
 
     /**
+     * 我的页面
      * 更新用户信息
      * @param user
      * @param session
      * @return
      */
-    @PostMapping("/updateUserInfo")
+    @PutMapping("/updateUserInfo")
     public Result<Object> updateUserInfo(@RequestBody User user, HttpSession session){
         String result = userService.updateUser(user,session);
         if (result.equals(UserConstant.SUCCESS_MSG)){

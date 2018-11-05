@@ -8,6 +8,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao extends JpaRepository<User, Integer> {
 
+    /**
+     * g根据openid查询用户
+     * @param openid
+     * @return
+     */
     User getUserByOpenid(String openid);
 
     /**
@@ -18,5 +23,4 @@ public interface UserDao extends JpaRepository<User, Integer> {
     User getUserById(Integer id);
 
 
-    User findUserByOpenid(String openid);
 }
