@@ -6,7 +6,7 @@ url:
 ```text
 url: /network/createNetwork
 method: POST
-param:networkName
+param:network
 example: url/network/createNetwork
 return:
 ```

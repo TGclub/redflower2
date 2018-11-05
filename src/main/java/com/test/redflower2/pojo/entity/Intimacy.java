@@ -2,8 +2,6 @@ package com.test.redflower2.pojo.entity;
 
 
 import com.test.redflower2.constant.IntimacyConstant;
-import com.test.redflower2.constant.NetworkConstant;
-import com.test.redflower2.constant.UserConstant;
 
 import javax.persistence.*;
 

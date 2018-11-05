@@ -36,6 +36,7 @@ public class UserController extends BaseController{
     }
 
     /**
+     * pass
      * 首页登录
      * 用户微信认证登录
      * @param json
@@ -57,8 +58,7 @@ public class UserController extends BaseController{
         //解析相应内容,(转换成json对象)
         String code;
         try {
-            System.out.println("参数为:"+json);
-            JSONObject jsonObject = JSON.parseObject(json);
+                JSONObject jsonObject = JSON.parseObject(json);
             code = jsonObject.getString("code");
         }catch (Exception e ){
             System.out.println("code错误:");
@@ -81,6 +81,7 @@ public class UserController extends BaseController{
     }
 
     /**
+     * 前端暂时没做这个功能
      * 我的页面
      * 修改昵称
      * @param username
@@ -103,6 +104,7 @@ public class UserController extends BaseController{
     }
 
     /**
+     * 前端暂时没做这个功能
      * 我的页面
      * 用户修改自定义个性签名
      * @param definition
@@ -125,6 +127,7 @@ public class UserController extends BaseController{
 
 
     /**
+     * pass
      * 我的页面
      * 返回登录后用户的信息
      * @param session
@@ -142,6 +145,7 @@ public class UserController extends BaseController{
     }
 
     /**
+     *
      * 我的页面
      * 用户退出
      * @param session
@@ -169,6 +173,7 @@ public class UserController extends BaseController{
 
 
     /**
+     * pass
      * 我的页面
      * 更新用户信息
      * @param user

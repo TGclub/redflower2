@@ -24,5 +24,7 @@ public class NetworkConstant {
 
     public static final String NOT_HAVE_NETWORK="您还没有创建属于你的人脉圈！";
 
+    public static final String NULL="人脉圈名称为空!";
+
 
 }

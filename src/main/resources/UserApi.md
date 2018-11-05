@@ -155,7 +155,7 @@ return:
 ### 更新用户信息
 ```text
 url: /user/updateUserInfo
-method: POST
+method: PUT
 param:user
 example: url/user/updateUserInfo
 return:

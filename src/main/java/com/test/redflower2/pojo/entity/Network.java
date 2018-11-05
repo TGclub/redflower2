@@ -21,6 +21,7 @@ public class Network {
     /**
      * 用户id
      */
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Integer uid;
 
     /**
@@ -28,6 +29,34 @@ public class Network {
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String networkName;
+
+    /**
+     *
+     * 人脉圈头像
+     */
+    private String networkUrl;
+
+
+    /**
+     * 人脉圈总人数,默认是1
+     */
+    private Integer count= Integer.MIN_VALUE ;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getNetworkUrl() {
+        return networkUrl;
+    }
+
+    public void setNetworkUrl(String networkUrl) {
+        this.networkUrl = networkUrl;
+    }
 
     public Integer getId() {
         return id;
@@ -52,12 +81,15 @@ public class Network {
     public void setUid(Integer uid) {
         this.uid = uid;
     }
+
     @Override
     public String toString() {
         return "Network{" +
                 "id=" + id +
                 ", uid=" + uid +
                 ", networkName='" + networkName + '\'' +
+                ", networkUrl='" + networkUrl + '\'' +
+                ", count=" + count +
                 '}';
     }
 }

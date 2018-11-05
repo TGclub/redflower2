@@ -20,6 +20,19 @@ public class UserNetwork {
      */
     private Integer nid;
 
+    /**
+     * 每一个用户对应的人脉圈的人数
+     */
+    private Integer count ;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     public Integer getId() {
         return id;
     }

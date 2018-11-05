@@ -29,12 +29,13 @@ public class User {
      * 用户个性签名
      */
 //    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String definition="definition";  // v2.0默认为“”
+    private String definition="definition";
 
 
     /**
      * openid
      */
+    //当Value 为null 不输出
 //    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String openid;
 
@@ -48,6 +49,7 @@ public class User {
      * 用户和用户之间亲密度阈值
      * 暂时有点儿问题
      */
+    //返回的json数据不包含该数据
     @JsonIgnore
     private Integer value = IntimacyConstant.BOUNDARY;
 

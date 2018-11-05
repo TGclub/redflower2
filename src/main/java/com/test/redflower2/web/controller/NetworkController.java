@@ -12,10 +12,11 @@ import com.test.redflower2.service.UserNetworkService;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.ObjectUtil;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -25,6 +26,8 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "/network")
 public class NetworkController extends BaseController {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private NetworkService networkService;
 
@@ -44,11 +47,36 @@ public class NetworkController extends BaseController {
      *
      * @Param name
      */
+//    @ApiOperation(value = NetworkConstant.NEW_NETWORK, httpMethod = "POST")
+//    @PostMapping(value = "/createNetwork")
+//    public Result<Object> addNetWork(@RequestParam("networkName") String networkName,
+//                                     HttpSession session) {
+//        Map<Integer, String> datas = networkService.createNetwork(networkName, session);
+//        //创建失败，返回失败信息
+//        if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
+//            return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
+//        }
+//        return ResultBuilder.success();
+//    }
+
+
+    /**
+     * 创建新的人脉圈
+     * @param networkName
+     * @param networkUrl
+     * @param session
+     * @return
+     */
     @ApiOperation(value = NetworkConstant.NEW_NETWORK, httpMethod = "POST")
     @PostMapping(value = "/createNetwork")
     public Result<Object> addNetWork(@RequestParam("networkName") String networkName,
+                                     @RequestParam("networkUrl")String networkUrl,
                                      HttpSession session) {
-        Map<Integer, String> datas = networkService.createNetwork(networkName, session);
+        logger.info("network "+" time "+System.currentTimeMillis());
+        System.out.println("network:"+networkName+" networkUrl"+networkUrl);
+//        String networkName=params.get("networkName").toString();
+//        String networkUrl=params.get("networkUrl").toString();
+        Map<Integer, String> datas = networkService.createNetwork1(networkName,networkUrl, session);
         //创建失败，返回失败信息
         if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
             return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
@@ -67,6 +95,7 @@ public class NetworkController extends BaseController {
      */
     @PostMapping("/inviteUser")
     public Result<Object> inviteMoreUsers(@RequestBody User user, HttpSession session) {
+        logger.info("user :"+user+" time "+System.currentTimeMillis());
         Map<Integer, String> datas = userNetworkService.inviteMoreUser(user, session);
         //添加失败
         if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
@@ -77,6 +106,7 @@ public class NetworkController extends BaseController {
 
 
     /**
+     * pass
      * 查看我的人脉圈
      *
      * @param session
@@ -84,6 +114,7 @@ public class NetworkController extends BaseController {
      */
     @GetMapping("/getMyNetworks")
     public Result<Object> getMyNetwork(HttpSession session) {
+        logger.info("查看我的人脉圈session :"+session+" time "+System.currentTimeMillis());
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         if (ObjectUtil.isEmpty(uid)) {
             return ResultBuilder.fail(NetworkConstant.NOT_LOGIN);
@@ -94,31 +125,16 @@ public class NetworkController extends BaseController {
     }
 
 
-//    /**
-//     * 人脉网界面随机点击用户的个人信息显示,要显示与主用户之间的亲密度：默认不亲密
-//     *
-//     * @param user
-//     * @return
-//     */
-//    @PostMapping("/getUserInfo")
-//    public Result<Object> getUserInfo(@RequestBody User user, HttpSession session) {
-//        Map<Integer, Object> datas = userNetworkService.getNetworkUserInfo(user, session);
-//        //失败
-//        if (!ObjectUtil.isEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
-//            return ResultBuilder.fail(NetworkConstant.NOT_EXIST);
-//        }
-//        //成功，返回数据
-//        return ResultBuilder.success(datas);
-//    }
-
 
     /**
+     * pass
      * 人脉网界面随机点击用户的个人信息显示,要显示与主用户之间的亲密度：默认不亲密(前端暂时处理)
      * @param user
      * @return
      */
     @PostMapping("/getUserInfo")
     public Result<Object> getUserInfo(@RequestBody User user,HttpSession session){
+        logger.info("user :"+user+" time "+System.currentTimeMillis());
         List<User> userList = userNetworkService.getNetworkUserInfo1(user,session);
         if (userList.size()==0){
             return ResultBuilder.fail("列表为空,还没有好友!");
@@ -136,6 +152,7 @@ public class NetworkController extends BaseController {
      */
     @PostMapping("/userNetworkImage")
     public Result<Object> userNetWorkImage(@RequestBody User user,HttpSession session){
+        logger.info("user :"+user+" time "+System.currentTimeMillis());
         return null;
     }
 

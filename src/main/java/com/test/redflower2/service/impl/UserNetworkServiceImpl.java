@@ -55,7 +55,7 @@ public class UserNetworkServiceImpl implements UserNetworkService {
 
     @Override
     public JSONObject myNetworks(Integer uid) {
-        List<UserNetwork> userNetworks = userNetworkDao.getUserNetworksByUid(uid);
+        List<UserNetwork> userNetworks = userNetworkDao.getUserNetworkByUid(uid);
         JSONObject response = new JSONObject();
 
         for (int i = 0; i < userNetworks.size(); ++i) {
@@ -77,6 +77,7 @@ public class UserNetworkServiceImpl implements UserNetworkService {
     }
 
     /**
+     * pass
      * 查看中心用户周围所有用户的信息
      * @param user  其他用户
      * @param session
@@ -123,6 +124,7 @@ public class UserNetworkServiceImpl implements UserNetworkService {
     }
 
     /**
+     * pass
      * done:查看我的人脉圈,
      * to do:并返回每一个人脉圈中的人数
      * @param uid
@@ -133,7 +135,7 @@ public class UserNetworkServiceImpl implements UserNetworkService {
         Map<Integer,List<Network>> datas = new HashMap<>();
         List<Network> networkList = new ArrayList<>();
         //把和用户相关的群全堡查询出来
-        List<UserNetwork> userNetworkList = userNetworkDao.getUserNetworksByUid(uid);
+        List<UserNetwork> userNetworkList = userNetworkDao.getUserNetworkByUid(uid);
         if (userNetworkList.size()==0){
             //若为空,则该用户没有群
             int status ;

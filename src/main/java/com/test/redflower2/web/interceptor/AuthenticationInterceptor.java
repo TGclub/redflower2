@@ -38,12 +38,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     // 如果已经是最后一个Interceptor 的时候就会是调用当前请求的Controller 方法
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws UnsupportedEncodingException, NotLoginException ,NoAuthenticationException{
-        logger.info(request+" time "+System.currentTimeMillis());
+        logger.info(" request: "+request+" time "+System.currentTimeMillis());
         HttpSession session = request.getSession();
         //用拦截器解决请求乱码问题
         request.setCharacterEncoding("utf-8");
-//        response.setCharacterEncoding("utf-8");
-//        response.setContentType("application/x-www-form-urlencode;charset=utf-8");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("application/x-www-form-urlencode;charset=utf-8");
         Integer userId = (Integer) session.getAttribute(UserConstant.USER_ID);
         // 预检，若含有authorization，直接过
         if (request.getMethod().equalsIgnoreCase("OPTIONS")) {//忽略大小写

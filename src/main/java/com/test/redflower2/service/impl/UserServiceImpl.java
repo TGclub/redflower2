@@ -51,11 +51,9 @@ public class UserServiceImpl implements UserService {
         if (ObjectUtil.isEmpty(sUser)) {
             return UserConstant.FAIL_MSG;
         } else {
-            sUser.setGender(user.getGender());
-            sUser.setAvatarUrl(user.getAvatarUrl());
-            sUser.setDefinition(user.getDefinition());
-            sUser.setName(user.getName());
-            userDao.save(sUser);
+            user.setId(uid);
+            user.setOpenid(sUser.getOpenid());
+            userDao.save(user);
             return UserConstant.SUCCESS_MSG;
         }
     }
@@ -74,19 +72,21 @@ public class UserServiceImpl implements UserService {
             status = UserConstant.FAILED_CODE;
             datas.put(status, UserConstant.OPENID_NULL);
         }
+
         User user = userDao.getUserByOpenid(openId);
         //user为空，则新建一个user并保存
         if (ObjectUtil.isEmpty(user)) {
             int status;
-            User user1 = new User();
-            user1.setOpenid(openId);
+            user = new User();
+            user.setOpenid(openId);
 //            user1.setValue(UserConstant.USER_INFO_INCOMPLETED);
-            userDao.save(user1);
+            userDao.save(user);
             status = UserConstant.SUCCESS_CODE;
-            session.setAttribute(UserConstant.USER_ID, user1.getId());
+            session.setAttribute(UserConstant.USER_ID, user.getId());
             datas.put(status, UserConstant.SUCCESS_MSG);
         } else {
-            session.setAttribute(UserConstant.USER_ID, user.getId());
+            session.setAttribute(UserConstant.USER_ID, user.getId());//使用户登录
+            datas.put(UserConstant.SUCCESS_CODE,UserConstant.SUCCESS_MSG);
         }
         return datas;
     }
