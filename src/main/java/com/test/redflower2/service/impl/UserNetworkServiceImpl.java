@@ -1,7 +1,6 @@
 package com.test.redflower2.service.impl;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.constant.IntimacyConstant;
 import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
@@ -39,43 +38,6 @@ public class UserNetworkServiceImpl implements UserNetworkService {
         this.userDao = userDao;
     }
 
-    @Override
-    public void insert(UserNetwork userNetwork) {
-        userNetworkDao.save(userNetwork);
-    }
-
-    @Override
-    public UserNetwork getUserNetworkByUidAndNid(Integer uid, Integer nid) {
-        return userNetworkDao.getUserNetworkByUidAndNid(uid, nid);
-    }
-
-    @Override
-    public List<UserNetwork> getUserNetworksByNid(Integer nid) {
-        return userNetworkDao.getUserNetworksByNid(nid);
-    }
-
-    @Override
-    public JSONObject myNetworks(Integer uid) {
-        List<UserNetwork> userNetworks = userNetworkDao.getUserNetworkByUid(uid);
-        JSONObject response = new JSONObject();
-
-        for (int i = 0; i < userNetworks.size(); ++i) {
-
-            Integer nid = userNetworks.get(i).getNid();
-
-            //获得id为nid的network，得到该network的name
-            Network network = networkDao.getNetworkByUid(nid);
-            JSONObject json = new JSONObject();
-
-            //获得关系表中nid为nid的全部映射，使用size()方法得到人数
-            List<UserNetwork> userNetworks1 = userNetworkDao.getUserNetworksByNid(nid);
-
-            json.put(network.getNetworkName(), userNetworks1.size());
-            response.put(network.getId().toString(), json);
-        }
-
-        return response;
-    }
 
     /**
      * pass
@@ -132,7 +94,6 @@ public class UserNetworkServiceImpl implements UserNetworkService {
     /**
      * pass
      * done:查看我的人脉圈,
-     * to do:并返回每一个人脉圈中的人数
      *
      * @param uid
      * @return
@@ -141,7 +102,7 @@ public class UserNetworkServiceImpl implements UserNetworkService {
     public Map<Integer, List<Network>> getNetworksByUid(Integer uid) {
         Map<Integer, List<Network>> datas = new HashMap<>();
         List<Network> networkList = new ArrayList<>();
-        //把和用户相关的群全堡查询出来
+        //把和用户相关的群全部查询出来
         List<UserNetwork> userNetworkList = userNetworkDao.getUserNetworkByUid(uid);
         if (userNetworkList.size() == 0) {
             //若为空,则该用户没有群
@@ -158,17 +119,45 @@ public class UserNetworkServiceImpl implements UserNetworkService {
                 //将多个朋友圈放在list中
                 networkList.add(network);
             }
-
-            //计算每一个人脉圈中人数  && 未完成
-            for (int i = 0; i < networkList.size(); i++) {
-                int count;
-                Network network = networkList.get(i);
-//                count=networkDao.countByUid();
-
-            }
             datas.put(NetworkConstant.SUCCESS_CODE, networkList);
             return datas;
         }
+    }
+
+
+    /**
+     * 获取每一个人脉圈的总人数
+     * key:人脉圈名称  value:r人脉圈中人数
+     * @param uid
+     * @return
+     */
+    public Map<String,Integer> getMyNetworkUserSum(Integer uid){
+        Map<String,Integer> datas = new HashMap<>();
+        //得到我的人脉圈
+        Map<Integer,List<Network>> networkMapList = getNetworksByUid(uid);
+        //人脉圈个数
+        List<Network> networkList = networkMapList.get(NetworkConstant.SUCCESS_CODE);
+        /**
+         * 计算每个人脉圈人数
+         */
+        //遍历用户的群．把所有好友装载到list中
+        //不为空
+        for(int i = 0; i<networkList.size(); ++i) {
+            //装载个数
+            List<Integer> count = new ArrayList<>(2);
+            //第n个人脉圈的id
+            Integer nid = networkList.get(i).getId();
+            Network network = networkDao.getNetworkById(nid);
+            //该nid和uid所对应的关系数量为人数
+            List<UserNetwork> userNetworkList1 = userNetworkDao.findAllByUidAndNid(uid, nid);
+            int sum = 0;
+            for (int j = 0; j < userNetworkList1.size(); j++) {
+                sum += sum;
+            }
+            count.add(sum);
+            datas.put(network.getNetworkName(), count.get(i));
+        }
+        return datas;
     }
 
     /**
@@ -179,12 +168,17 @@ public class UserNetworkServiceImpl implements UserNetworkService {
      * @return
      */
     @Override
-    public Map<Integer, String> inviteMoreUser(User user, HttpSession session) {
+    public Map<Integer, String> inviteMoreUser(User user, Network network, HttpSession session) {
         Map<Integer, String> datas = new HashMap<>();
-        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);//得到当前用户B的id
-        Network network = networkDao.getNetworkByUid(uid);//查询出当前用户人B人脉圈nid
-        Integer nid = network.getId();//B人脉圈的nid
+        //得到当前用户B的id
+        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
+        //得到要邀请人B人脉圈nid
+        Integer nid = network.getId();
+        //根据uid和nid查询出邀请人的当前朋友圈
+        Network networkCenterUser = networkDao.getNetworkByUidAndId(uid, nid);
+        //维护关系
         UserNetwork userNetwork = new UserNetwork();
+
         Integer sUserId = user.getId();//要被邀请进来的人A id
 
         if (ObjectUtil.isEmpty(sUserId)) {//不存在该用户
@@ -196,14 +190,39 @@ public class UserNetworkServiceImpl implements UserNetworkService {
             datas.put(status, NetworkConstant.ALREADY_EXIST);
             return datas;
         } else { //加入
+            //绑定关系
             int status;
             userNetwork.setNid(nid);//被邀请人B人脉圈的nid,他们应该对应B的nid
             userNetwork.setUid(sUserId);
             userNetworkDao.save(userNetwork);
-            status = NetworkConstant.SUCCESS_CODE;
-            datas.put(status, NetworkConstant.SUCCESS);
+            //加入人脉圈
+            boolean result = addUserIntoNetwork(networkCenterUser, user);
+            if (result) {
+                status = NetworkConstant.SUCCESS_CODE;
+                datas.put(status, NetworkConstant.SUCCESS);
+            } else {
+                status = NetworkConstant.FAIL_CODE;
+                datas.put(status, NetworkConstant.FAIL);
+            }
             return datas;
         }
+    }
+
+    /**
+     * 拓展我的人脉圈
+     * 将user添加到network中
+     *
+     * @param network
+     * @param user
+     */
+    public boolean addUserIntoNetwork(Network network, User user) {
+        Network network1 = new Network();
+        network1.setUid(user.getId());
+        network1.setId(network.getId());
+        network1.setNetworkUrl(network.getNetworkUrl());
+        network1.setNetworkName(network.getNetworkName());
+        networkDao.save(network1);
+        return true;
     }
 
 
@@ -272,4 +291,7 @@ public class UserNetworkServiceImpl implements UserNetworkService {
             return false;
         }
     }
+
+
+
 }

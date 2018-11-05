@@ -23,4 +23,12 @@ public interface NetworkDao extends JpaRepository<Network,Integer> {
      */
 
     Network getNetworkById(Integer nid);
+
+    /**
+     * 根据用户uid和圈子id查询出当前用户所属于的人脉圈
+     * @param uid
+     * @param nid
+     * @return
+     */
+    Network getNetworkByUidAndId(Integer uid, Integer nid);
 }

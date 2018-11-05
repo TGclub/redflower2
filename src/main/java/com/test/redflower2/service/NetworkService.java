@@ -1,7 +1,6 @@
 package com.test.redflower2.service;
 
 
-import com.test.redflower2.pojo.entity.Network;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -24,4 +23,5 @@ public interface NetworkService {
      * @return
      */
     Map<Integer, String> createNetwork1(String networkName,String networkUrl, HttpSession session);
+
 }

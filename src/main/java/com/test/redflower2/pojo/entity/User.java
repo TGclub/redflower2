@@ -14,7 +14,7 @@ public class User {
     private Integer id;
 
     /**
-     * 用户姓名
+     * 用户微信名
      */
 //    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String name;////微信可得到

@@ -145,7 +145,7 @@ public class UserController extends BaseController{
     }
 
     /**
-     *
+     *  前端暂时没做这个功能
      * 我的页面
      * 用户退出
      * @param session
