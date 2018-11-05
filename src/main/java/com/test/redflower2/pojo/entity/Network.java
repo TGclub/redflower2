@@ -23,14 +23,6 @@ public class Network {
      */
     private Integer uid;
 
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
     /**
      * 人脉圈名称
      */
@@ -53,6 +45,13 @@ public class Network {
         this.id = id;
     }
 
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
     @Override
     public String toString() {
         return "Network{" +

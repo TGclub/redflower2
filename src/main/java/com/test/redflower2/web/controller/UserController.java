@@ -44,10 +44,14 @@ public class UserController extends BaseController{
      */
     @ApiOperation(value = UserConstant.USER_LOGIN_DESC,httpMethod = "POST")
     @PostMapping("/login")
-    public Result<Object> login(@RequestBody(required = false) String json,
+    public Result<Object> login(@RequestBody String json,
 
                                 HttpSession session)throws Exception{
         logger.info("code:"+json+" time "+System.currentTimeMillis());
+
+        if (ObjectUtil.isStringEmpty(json)){
+            return ResultBuilder.fail("Json数据null");
+        }
         //解析相应内容,(转换成json对象)
         String code;
         JSONObject jsonObject= JSON.parseObject(json);
