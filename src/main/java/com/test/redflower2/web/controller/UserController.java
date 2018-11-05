@@ -45,13 +45,19 @@ public class UserController extends BaseController{
     @ApiOperation(value = UserConstant.USER_LOGIN_DESC,httpMethod = "POST")
     @PostMapping("/login")
     public Result<Object> login(@RequestBody(required = false) String json,
-
                                 HttpSession session)throws Exception{
         logger.info("code:"+json+" time "+System.currentTimeMillis());
         //解析相应内容,(转换成json对象)
-        String code;
-        JSONObject jsonObject= JSON.parseObject(json);
-        code=jsonObject.getString("code");
+        String code="";
+        System.out.println("input test");
+        System.out.println(json);
+
+        try {
+            JSONObject jsonObject = JSON.parseObject(json);
+            code = jsonObject.getString("code");
+        }catch (Exception e ){
+            System.out.println("json错误:");
+        }
         //获取code
 //        String code = JsonUtil.JsonCode(jsonCode);
         if(ObjectUtil.isStringEmpty(code)){
