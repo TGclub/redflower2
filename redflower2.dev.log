@@ -1,0 +1,26 @@
+[INFO ] 2018-11-06 15:39:47 [main] c.test.redflower2.dao.NetworkDaoTest - Starting NetworkDaoTest on stormwangxhu with PID 14263 (started by stormwangxhu in /home/stormwangxhu/IdeaProjects/redflower2)
+[INFO ] 2018-11-06 15:39:47 [main] c.test.redflower2.dao.NetworkDaoTest - The following profiles are active: dev
+[INFO ] 2018-11-06 15:39:50 [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$54862aaf] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] 2018-11-06 15:39:51 [main] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+[INFO ] 2018-11-06 15:39:53 [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-06 15:39:53 [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] 2018-11-06 15:39:53 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.17.Final}
+[INFO ] 2018-11-06 15:39:53 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+[INFO ] 2018-11-06 15:39:53 [main] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] 2018-11-06 15:39:53 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2018-11-06 15:39:55 [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 2018-11-06 15:39:56 [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 2018-11-06 15:39:57 [main] o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+[INFO ] 2018-11-06 15:39:57 [main] s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+[INFO ] 2018-11-06 15:39:57 [main] s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+[INFO ] 2018-11-06 15:39:57 [main] s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+[INFO ] 2018-11-06 15:39:57 [main] s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: testUsingGET_1
+[INFO ] 2018-11-06 15:39:57 [main] c.test.redflower2.dao.NetworkDaoTest - Started NetworkDaoTest in 10.708 seconds (JVM running for 12.006)
+[INFO ] 2018-11-06 15:39:57 [main] o.h.h.i.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+[INFO ] 2018-11-06 15:39:58 [main] c.test.redflower2.dao.NetworkDaoTest - getNetworkById()测试结果Network{id=3, uid=3, networkName='test name3', networkUrl='url2'}
+[INFO ] 2018-11-06 15:39:58 [main] c.test.redflower2.dao.NetworkDaoTest - getNetworkByUidAndId()测试结果Network{id=8, uid=8, networkName='test name6', networkUrl='url7'}
+[INFO ] 2018-11-06 15:39:58 [Thread-4] o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+[INFO ] 2018-11-06 15:39:58 [Thread-4] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-06 15:39:58 [Thread-4] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed

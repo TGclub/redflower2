@@ -39,12 +39,12 @@ public class JsonUtil {
     }
 
 
-    public static String JsonCode(String jsonCode){
+    public static String JsonCode(String jsonCode) {
         JSONObject jsonObject = JSONObject.parseObject(jsonCode);
         String code = jsonObject.getString("code");
-        if (ObjectUtil.isStringEmpty(code)){
+        if (ObjectUtil.isStringEmpty(code)) {
             return UserConstant.OPENID_NULL;
-        }else {
+        } else {
             return code;
         }
     }

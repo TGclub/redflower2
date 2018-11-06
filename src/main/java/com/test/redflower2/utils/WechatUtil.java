@@ -21,9 +21,10 @@ public class WechatUtil {
 
     /**
      * 获取用户唯一openid
-     * @param code  前台给的code
-     * @return  openid
-     * @throws Exception  请求失败
+     *
+     * @param code 前台给的code
+     * @return openid
+     * @throws Exception 请求失败
      */
     public String getOpenId(String code) throws Exception {
         String url = WECHAT_OPENID_URL + URLEncoder.encode(code, "UTF-8");

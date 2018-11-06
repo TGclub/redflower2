@@ -1,6 +1,7 @@
 package com.test.redflower2.service;
 
 import com.test.redflower2.pojo.entity.User;
+
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ public interface UserService {
 
     /**
      * 用户登录
+     *
      * @param openId
      * @param session
      * @return
@@ -27,6 +29,7 @@ public interface UserService {
 
     /**
      * 更新用户名称
+     *
      * @param uid
      * @return
      */
@@ -35,6 +38,7 @@ public interface UserService {
 
     /**
      * 更新用户个性签名
+     *
      * @param definition
      * @param session
      * @return
@@ -44,14 +48,16 @@ public interface UserService {
 
     /**
      * 更新用户信息
+     *
      * @param sUser
-     * @param　session
      * @return
+     * @param　session
      */
     String updateUser(User sUser, HttpSession session);
 
     /**
      * 进入人脉圈中查看某一个用户的信息
+     *
      * @param uid
      * @return
      */

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionHandle {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandle.class);
+
     @ExceptionHandler(value = Exception.class)
     public Result<String> exceptionHandle(Exception e) {
         if (e instanceof RuntimeException) {

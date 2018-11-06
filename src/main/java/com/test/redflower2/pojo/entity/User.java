@@ -2,6 +2,7 @@ package com.test.redflower2.pojo.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,20 +17,19 @@ public class User {
     /**
      * 用户微信名
      */
-//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String name;////微信可得到
 
     /**
      * 用户性别
+     * 0:男
+     * 1:女
      */
-//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private int gender;  //微信可得到
 
     /**
      * 用户个性签名
      */
-//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private String definition="definition";
+    private String definition = "definition";
 
 
     /**
@@ -42,7 +42,6 @@ public class User {
     /**
      * 头像
      */
-//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String avatarUrl;  //微信可得到
 
     /**
@@ -52,8 +51,6 @@ public class User {
     //返回的json数据不包含该数据
 //    @JsonIgnore
 //    private Integer value = IntimacyConstant.BOUNDARY;
-
-
     public String getAvatarUrl() {
         return avatarUrl;
     }

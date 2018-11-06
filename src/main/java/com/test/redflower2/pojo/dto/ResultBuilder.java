@@ -7,11 +7,12 @@ public class ResultBuilder {
 
     /**
      * 成功请求的结果封装
+     *
      * @param data
      * @param <T>
      * @return
      */
-    public static <T> Result<T> success(T data){
+    public static <T> Result<T> success(T data) {
         Result<T> result = new Result<>();
         result.setCode(0);
         result.setData(data);
@@ -22,16 +23,18 @@ public class ResultBuilder {
 
     /**
      * 成功请求的结果封装
+     *
      * @param <T>
      * @return
      */
-    public static <T> Result<T> success(){
+    public static <T> Result<T> success() {
         return success(null);
     }
 
 
     /**
      * 失败请求的结果封装
+     *
      * @param <T>
      * @return
      */
@@ -46,11 +49,12 @@ public class ResultBuilder {
 
     /**
      * 失败请求结果封装
+     *
      * @param msg
      * @param <T>
      * @return
      */
-    public static <T> Result<T> fail(String msg){
+    public static <T> Result<T> fail(String msg) {
         Result<T> result = new Result<>();
         result.setCode(1);
         result.setData(null);

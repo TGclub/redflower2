@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 /**
  * <p>Created on 18-11-5</p>
  *
@@ -23,19 +25,31 @@ public class NetworkDaoTest {
     @Autowired
     private NetworkDao networkDao;
 
-    private static  final Logger LOGGER= LoggerFactory.getLogger(NetworkDaoTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NetworkDaoTest.class);
+
 
     @Test
-    public void testGetNetworkByUid(){
-        Integer uid = 1;
-        Network result = networkDao.getNetworkByUid(uid);
-        LOGGER.info("getNetworkByUid()测试结果{}",result);
-    }
-
-    @Test
-    public void testGetNetworkById(){
-        Integer id =3;
+    public void testGetNetworkById() {
+        Integer id = 3;
         Network result = networkDao.getNetworkById(id);
-        LOGGER.info("getNetworkById()测试结果{}",result);
+        LOGGER.info("getNetworkById()测试结果{}", result);
     }
+
+
+    @Test
+    public void testGetNetworkByUidAndId() {
+        Integer uid = 8;
+        Integer nid = 8;
+        Network result = networkDao.getNetworkByUidAndId(uid, nid);
+        LOGGER.info("getNetworkByUidAndId()测试结果{}",result );
+    }
+
+    public void testFindAllByUid(){
+        Integer uid = 2;
+        List<Network> result = networkDao.findAllByUid(uid);
+        LOGGER.info("findAllByUid()测试结果{}",result);
+    }
+
+
+
 }

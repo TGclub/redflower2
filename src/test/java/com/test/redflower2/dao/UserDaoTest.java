@@ -33,7 +33,7 @@ public class UserDaoTest {
 
     @Test
     public void testGetUserByOpenid(){
-        String openid= "openid_test1";
+        String openid= "openid test";
         User result = userDao.getUserByOpenid(openid);
         LOGGER.info("getUserByOpenid()测试结果:{}",result);
     }

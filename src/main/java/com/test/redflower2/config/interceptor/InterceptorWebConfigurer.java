@@ -1,6 +1,5 @@
-package com.test.redflower2.config;
+package com.test.redflower2.config.interceptor;
 
-import com.test.redflower2.web.interceptor.AuthenticationInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -17,6 +16,10 @@ public class InterceptorWebConfigurer implements WebMvcConfigurer {
         this.authenticationInterceptor = authenticationInterceptor;
     }
 
+    /**
+     * 配置跨源请求处理。
+     * @param registry
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -36,7 +39,7 @@ public class InterceptorWebConfigurer implements WebMvcConfigurer {
         excludePaths.add("/user/test");//userController test通过
         excludePaths.add("/swagger-ui.html");
         registry.addInterceptor(authenticationInterceptor)
-                .addPathPatterns("/**")
+                .addPathPatterns("/**")//用于添加拦截规则
                 .excludePathPatterns(excludePaths);
 
     }

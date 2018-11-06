@@ -10,6 +10,7 @@ public interface UserDao extends JpaRepository<User, Integer> {
 
     /**
      * g根据openid查询用户
+     *
      * @param openid
      * @return
      */
@@ -17,6 +18,7 @@ public interface UserDao extends JpaRepository<User, Integer> {
 
     /**
      * 根据用户id查询用户
+     *
      * @param id
      * @return
      */

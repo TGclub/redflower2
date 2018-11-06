@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface NetworkDao extends JpaRepository<Network,Integer> {
+public interface NetworkDao extends JpaRepository<Network, Integer> {
 
     /**
      * 通过用户id查找人脉网
+     *
      * @param uid
      * @return
      */
@@ -20,6 +21,7 @@ public interface NetworkDao extends JpaRepository<Network,Integer> {
 
     /**
      * 通过id查询network
+     *
      * @param nid
      * @return
      */
@@ -28,6 +30,7 @@ public interface NetworkDao extends JpaRepository<Network,Integer> {
 
     /**
      * 根据用户uid和圈子id查询出当前用户所属于的人脉圈
+     *
      * @param uid
      * @param nid
      * @return
@@ -36,6 +39,7 @@ public interface NetworkDao extends JpaRepository<Network,Integer> {
 
     /**
      * 根据uid查询出所有该群主的群
+     *
      * @param uid
      * @return
      */

@@ -2,6 +2,7 @@ package com.test.redflower2.pojo.dto;
 
 /**
  * 对请求结果进行封装
+ *
  * @param <T>
  */
 public class Result<T> {
@@ -9,17 +10,17 @@ public class Result<T> {
     /**
      * error code: 成功是0.失败是1
      */
-    private Integer code ;
+    private Integer code;
 
     /**
      * 要返回的数据
      */
-    private T data ;
+    private T data;
 
     /**
      * 本次请求的说明信息
      */
-    private String message ;
+    private String message;
 
     public Integer getCode() {
         return code;

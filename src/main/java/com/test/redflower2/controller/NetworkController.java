@@ -1,4 +1,4 @@
-package com.test.redflower2.web.controller;
+package com.test.redflower2.controller;
 
 import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.NetworkConstant;
@@ -33,7 +33,7 @@ public class NetworkController extends BaseController {
 
 
     @Autowired
-    public NetworkController(NetworkService networkService,UserService userService) {
+    public NetworkController(NetworkService networkService, UserService userService) {
         this.networkService = networkService;
         this.userService = userService;
     }
@@ -54,12 +54,13 @@ public class NetworkController extends BaseController {
                                      HttpSession session) {
         logger.info("network " + " time " + System.currentTimeMillis());
         System.out.println("network:" + networkName + " networkUrl" + networkUrl);
-        Map<Integer, String> datas = networkService.createNetwork1(networkName, networkUrl, session);
+        Map<Integer, Object> datas = networkService.createNetwork1(networkName, networkUrl, session);
         //创建失败，返回失败信息
-        if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
-            return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
+        if (!ObjectUtil.isEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
+            return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE).toString());
         }
-        return ResultBuilder.success();
+        //返回nid
+        return ResultBuilder.success(datas.get(NetworkConstant.SUCCESS_CODE));
     }
 
 
@@ -85,7 +86,6 @@ public class NetworkController extends BaseController {
 
 
     /**
-     *
      * 查看我的人脉圈,列出人脉圈的列表
      *
      * @param session
@@ -112,7 +112,7 @@ public class NetworkController extends BaseController {
      */
     @GetMapping("/getMyNetworksUserCount")
     public Result<Object> getMyNetworksUserCount(HttpSession session) {
-        logger.info("查看我的各个人脉圈所对应的人数:{}" +" time "+System.currentTimeMillis());
+        logger.info("查看我的各个人脉圈所对应的人数:{}" + " time " + System.currentTimeMillis());
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         Map<String, Integer> datas = networkService.getMyNetworkUserSum(uid);
         return ResultBuilder.success(datas);
@@ -129,7 +129,7 @@ public class NetworkController extends BaseController {
     @PostMapping("/getUserInfo")
     public Result<Object> getUserInfo(@RequestBody User user, HttpSession session) {
         logger.info("user :" + user + " time " + System.currentTimeMillis());
-        Map<Integer,List<User>> userList =networkService.getNetworksUserInfo(user,session);
+        Map<Integer, List<User>> userList = networkService.getNetworksUserInfo(user, session);
         if (userList.size() == 0) {
             return ResultBuilder.fail("列表为空,还没有好友!");
         } else {
@@ -145,7 +145,7 @@ public class NetworkController extends BaseController {
      */
     @GetMapping("/getMyAllUsers")
     public Result<Object> getMyAllUsers(@RequestParam("nid") Integer nid, HttpSession session) {
-        logger.info("点击进入某一个人脉圈,显示我的所有好友:{}" +" time "+System.currentTimeMillis());
+        logger.info("点击进入某一个人脉圈,显示我的所有好友:{}" + " time " + System.currentTimeMillis());
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         Map<Integer, List<User>> datas = networkService.getMyAllUsers(nid, uid);
         //为空
@@ -164,7 +164,7 @@ public class NetworkController extends BaseController {
      */
     @GetMapping("/getOneUserInfo")
     public Result<Object> getOneUserInfo(@RequestParam("uid") Integer uid) {
-        logger.info("进入人脉网后查看我周围某个用户的信息:{}" +" time "+System.currentTimeMillis());
+        logger.info("进入人脉网后查看我周围某个用户的信息:{}" + " time " + System.currentTimeMillis());
         Map<Integer, User> datas = userService.getOneUserInfo(uid);
         if (!ObjectUtil.isEmpty(datas.get(UserConstant.FAILED_CODE))) {
             return ResultBuilder.fail(UserConstant.USER_NOT_EXIST);

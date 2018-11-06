@@ -23,7 +23,7 @@ public class Intimacy {
     /**
      * 中心用户
      */
-    private Integer userId ;
+    private Integer userId;
 
     /**
      * 中心用户亲密度值
@@ -45,7 +45,7 @@ public class Intimacy {
      * 0:不亲密
      * 1:亲密
      */
-    private Integer result= IntimacyConstant.LOW;
+    private Integer result = IntimacyConstant.LOW;
 
     public Integer getResult() {
         return result;

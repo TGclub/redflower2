@@ -27,6 +27,7 @@ public class Swagger2Configuration {
                 .paths(PathSelectors.any())
                 .build();
     }
+
     private ApiInfo buildApiInf() {
         return new ApiInfoBuilder()
                 .title("小红花2.0版本api文档")

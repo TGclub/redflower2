@@ -49,8 +49,8 @@ public class NetworkServiceImpl implements NetworkService {
      * @param session
      * @return
      */
-    public Map<Integer, String> createNetwork1(String networkName,String networkUrl, HttpSession session) {
-        Map<Integer, String> datas = new HashMap<>();
+    public Map<Integer, Object> createNetwork1(String networkName,String networkUrl, HttpSession session) {
+        Map<Integer, Object> datas = new HashMap<>();
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         Network network1 = new Network();
         //若人脉圈名称为空，则创建失败
@@ -68,7 +68,7 @@ public class NetworkServiceImpl implements NetworkService {
             //维护关系并保存
             createNetwork.createRelationBetwenNetworkAndFriends(network1.getId(),uid);
             status = NetworkConstant.SUCCESS_CODE;
-            datas.put(status, NetworkConstant.SUCCESS);
+            datas.put(status,network1.getId());
             return datas;
         }
     }

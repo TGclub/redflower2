@@ -31,7 +31,6 @@ public class Network {
     private String networkName;
 
     /**
-     *
      * 群头像
      */
     private String networkUrl;
