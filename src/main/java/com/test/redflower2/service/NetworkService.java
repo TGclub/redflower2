@@ -52,7 +52,7 @@ public interface NetworkService {
      * @param session
      * @return
      */
-    Map<Integer, List<User>> getNetworksUserInfo(User user, HttpSession session);
+    Map<Integer, ?> getNetworksUserInfo(User user, HttpSession session);
 
 
     /**
@@ -64,4 +64,11 @@ public interface NetworkService {
      * @return
      */
     Map<Integer, String> inviteMoreUser(User user, Network network, HttpSession session);
+
+    /**
+     * 为每一个新用户建立三个默认的群
+     * @param uid
+     * @return
+     */
+    List<Integer> createThreeCircle(Integer uid);
 }

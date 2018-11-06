@@ -36,4 +36,9 @@ public class NetworkConstant {
     public static final String ANSWERCIRCLR = "帮我回答问题的人";
 
 
+    public static final String MORENQUAN="默认三个圈的id";
+
+    public static final String NAME_EXIST="请使用其他名称创建!";
+
+
 }

@@ -3,10 +3,12 @@ package com.test.redflower2.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.annotation.Authorization;
+import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.pojo.dto.Result;
 import com.test.redflower2.pojo.dto.ResultBuilder;
 import com.test.redflower2.pojo.entity.User;
+import com.test.redflower2.service.NetworkService;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.ObjectUtil;
 import com.test.redflower2.utils.WechatUtil;
@@ -17,6 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,18 +35,21 @@ public class UserController extends BaseController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    private NetworkService networkService;
+
     private UserService userService;
 
     private WechatUtil wechatUtil;
 
     @Autowired
-    public UserController(UserService userService, WechatUtil wechatUtil) {
+    public UserController(UserService userService, WechatUtil wechatUtil,NetworkService networkService) {
         this.userService = userService;
         this.wechatUtil = wechatUtil;
+        this.networkService=networkService;
     }
 
     /**
-     * pass
+     * ok
      * 首页登录
      * 用户微信认证登录
      *
@@ -80,6 +88,11 @@ public class UserController extends BaseController {
             return ResultBuilder.fail(status + "");
         }
         //登录成功
+        /**
+         * 登录成功的话,为这个人默认建立三个群
+         */
+        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
+        networkService.createThreeCircle(uid);
         return ResultBuilder.success(session.getId());
     }
 
@@ -132,7 +145,7 @@ public class UserController extends BaseController {
 
 
     /**
-     * pass
+     * ok
      * 我的页面
      * 返回登录后用户的信息
      *
@@ -181,7 +194,7 @@ public class UserController extends BaseController {
 
 
     /**
-     * pass
+     * ok
      * 我的页面
      * 更新用户信息
      *

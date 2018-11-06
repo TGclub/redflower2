@@ -1,14 +1,8 @@
 package com.test.redflower2.service.impl;
 
-import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
-import com.test.redflower2.dao.NetworkDao;
 import com.test.redflower2.dao.UserDao;
-import com.test.redflower2.dao.UserNetworkDao;
-import com.test.redflower2.pojo.common.CreateNetwork;
-import com.test.redflower2.pojo.entity.Network;
 import com.test.redflower2.pojo.entity.User;
-import com.test.redflower2.pojo.entity.UserNetwork;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -27,17 +20,12 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
 
-    private NetworkDao networkDao;
 
-    private UserNetworkDao userNetworkDao;
 
-    private CreateNetwork createNetwork = new CreateNetwork();
 
     @Autowired
-    public UserServiceImpl(UserDao userDao,NetworkDao networkDao,UserNetworkDao userNetworkDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
-        this.networkDao=networkDao;
-        this.userNetworkDao=userNetworkDao;
     }
 
 
@@ -96,10 +84,6 @@ public class UserServiceImpl implements UserService {
             user = new User();
             user.setOpenid(openId);
             userDao.save(user);
-            /**
-             * 每次创建一个用户,就默认创建三个群:朋友圈,帮我回答问题的人,帮我传播问题的人
-             */
-            createNetwork.createNetworks(user.getId());
             status = UserConstant.SUCCESS_CODE;
             session.setAttribute(UserConstant.USER_ID, user.getId());
             datas.put(status, UserConstant.SUCCESS_MSG);

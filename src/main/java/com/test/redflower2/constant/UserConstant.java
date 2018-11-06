@@ -33,4 +33,7 @@ public class UserConstant {
 
     public static final String USER_NOT_EXIST = "用户不存在!";
 
+
+    public static final String SESSION_ID="sessionId";
+
 }

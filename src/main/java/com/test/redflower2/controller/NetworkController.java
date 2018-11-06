@@ -48,11 +48,11 @@ public class NetworkController extends BaseController {
      * @return
      */
     @ApiOperation(value = NetworkConstant.NEW_NETWORK, httpMethod = "POST")
-    @PostMapping(value = "/createNetwork")
+    @PutMapping (value = "/createNetwork")
     public Result<Object> addNetWork(@RequestParam("networkName") String networkName,
                                      @RequestParam("networkUrl") String networkUrl,
                                      HttpSession session) {
-        logger.info("network " + " time " + System.currentTimeMillis());
+        logger.info("createNetwork: " + " time " + System.currentTimeMillis());
         System.out.println("network:" + networkName + " networkUrl" + networkUrl);
         Map<Integer, Object> datas = networkService.createNetwork1(networkName, networkUrl, session);
         //创建失败，返回失败信息
@@ -65,9 +65,7 @@ public class NetworkController extends BaseController {
 
 
     /**
-     * 拓展我的人脉圈
-     * 邀请更多人加入人脉网 一个人脉圈对应多个用户
-     *
+     * 邀请更多成员
      * @param user    被邀请user
      * @param session
      * @return
@@ -98,8 +96,8 @@ public class NetworkController extends BaseController {
         if (ObjectUtil.isEmpty(uid)) {
             return ResultBuilder.fail(NetworkConstant.NOT_LOGIN);
         } else {
-            Map<Integer, List<Network>> networkList = networkService.getNetworksByUid(uid);
-            return ResultBuilder.success(networkList.get(NetworkConstant.SUCCESS_CODE));
+            Map<Integer, List<Network>> networkListMap = networkService.getNetworksByUid(uid);
+            return ResultBuilder.success(networkListMap.get(NetworkConstant.SUCCESS_CODE));
         }
     }
 
@@ -129,11 +127,11 @@ public class NetworkController extends BaseController {
     @PostMapping("/getUserInfo")
     public Result<Object> getUserInfo(@RequestBody User user, HttpSession session) {
         logger.info("user :" + user + " time " + System.currentTimeMillis());
-        Map<Integer, List<User>> userList = networkService.getNetworksUserInfo(user, session);
-        if (userList.size() == 0) {
-            return ResultBuilder.fail("列表为空,还没有好友!");
+        Map<Integer, ?> userListMap = networkService.getNetworksUserInfo(user, session);
+        if (userListMap.size() == 0) {
+            return ResultBuilder.fail("列表为空,你还没有好友!");
         } else {
-            return ResultBuilder.success(userList);
+            return ResultBuilder.success(userListMap.get(UserConstant.SUCCESS_CODE));
         }
     }
 

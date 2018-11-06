@@ -44,8 +44,9 @@ public class NetworkDaoTest {
         LOGGER.info("getNetworkByUidAndId()测试结果{}",result );
     }
 
+    @Test
     public void testFindAllByUid(){
-        Integer uid = 2;
+        Integer uid = 9;
         List<Network> result = networkDao.findAllByUid(uid);
         LOGGER.info("findAllByUid()测试结果{}",result);
     }
