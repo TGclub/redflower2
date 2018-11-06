@@ -2,24 +2,39 @@ package com.test.redflower2.pojo.entity;
 
 import javax.persistence.*;
 
+/**
+ * 这个类是关系表,群的id,和群友id
+ */
 @Entity
 @Table(name = "user_network")
 public class UserNetwork {
 
+    /**
+     * 关系表Id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
-     * 人脉圈里的各个用户id
+     * 群里的各个用户id,包括群主在内
      */
-    private Integer uid;
+    private Integer fid;
+
 
     /**
-     * 用户所属于的人脉圈id
+     * 群友所属于的人脉圈id
      */
     private Integer nid;
 
+
+    public Integer getFid() {
+        return fid;
+    }
+
+    public void setFid(Integer fid) {
+        this.fid = fid;
+    }
 
     public Integer getId() {
         return id;
@@ -29,13 +44,6 @@ public class UserNetwork {
         this.id = id;
     }
 
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
 
     public Integer getNid() {
         return nid;
@@ -50,7 +58,7 @@ public class UserNetwork {
     toString() {
         return "UserNetwork{" +
                 "id=" + id +
-                ", uid=" + uid +
+                ", fid=" + fid +
                 ", nid=" + nid +
                 '}';
     }

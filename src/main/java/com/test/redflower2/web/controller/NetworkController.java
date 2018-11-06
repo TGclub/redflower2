@@ -6,9 +6,7 @@ import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.pojo.dto.*;
 import com.test.redflower2.pojo.entity.Network;
 import com.test.redflower2.pojo.entity.User;
-import com.test.redflower2.service.IntimacyService;
 import com.test.redflower2.service.NetworkService;
-import com.test.redflower2.service.UserNetworkService;
 import com.test.redflower2.service.UserService;
 import com.test.redflower2.utils.ObjectUtil;
 import io.swagger.annotations.ApiOperation;
@@ -31,37 +29,19 @@ public class NetworkController extends BaseController {
 
     private NetworkService networkService;
 
-    private UserNetworkService userNetworkService;
-
+    private UserService userService;
 
 
     @Autowired
-    public NetworkController(NetworkService networkService, UserNetworkService userNetworkService, UserService userService, IntimacyService intimacyService) {
+    public NetworkController(NetworkService networkService,UserService userService) {
         this.networkService = networkService;
-        this.userNetworkService = userNetworkService;
+        this.userService = userService;
     }
-
-//
-//    /**
-//     * 创建新的人脉圈
-//     *
-//     * @Param name
-//     */
-//    @ApiOperation(value = NetworkConstant.NEW_NETWORK, httpMethod = "POST")
-//    @PostMapping(value = "/createNetwork")
-//    public Result<Object> addNetWork(@RequestParam("networkName") String networkName,
-//                                     HttpSession session) {
-//        Map<Integer, String> datas = networkService.createNetwork(networkName, session);
-//        //创建失败，返回失败信息
-//        if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
-//            return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
-//        }
-//        return ResultBuilder.success();
-//    }
 
 
     /**
      * 创建新的人脉圈
+     *
      * @param networkName
      * @param networkUrl
      * @param session
@@ -70,13 +50,11 @@ public class NetworkController extends BaseController {
     @ApiOperation(value = NetworkConstant.NEW_NETWORK, httpMethod = "POST")
     @PostMapping(value = "/createNetwork")
     public Result<Object> addNetWork(@RequestParam("networkName") String networkName,
-                                     @RequestParam("networkUrl")String networkUrl,
+                                     @RequestParam("networkUrl") String networkUrl,
                                      HttpSession session) {
-        logger.info("network "+" time "+System.currentTimeMillis());
-        System.out.println("network:"+networkName+" networkUrl"+networkUrl);
-//        String networkName=params.get("networkName").toString();
-//        String networkUrl=params.get("networkUrl").toString();
-        Map<Integer, String> datas = networkService.createNetwork1(networkName,networkUrl, session);
+        logger.info("network " + " time " + System.currentTimeMillis());
+        System.out.println("network:" + networkName + " networkUrl" + networkUrl);
+        Map<Integer, String> datas = networkService.createNetwork1(networkName, networkUrl, session);
         //创建失败，返回失败信息
         if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
             return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
@@ -94,10 +72,10 @@ public class NetworkController extends BaseController {
      * @return
      */
     @PostMapping("/inviteUser")
-    public Result<Object> inviteMoreUsers(@RequestBody User user,Network network,
+    public Result<Object> inviteMoreUsers(@RequestBody User user, Network network,
                                           HttpSession session) {
-        logger.info("user :"+user+" time "+System.currentTimeMillis());
-        Map<Integer, String> datas = userNetworkService.inviteMoreUser(user,network, session);
+        logger.info("user :" + user + " time " + System.currentTimeMillis());
+        Map<Integer, String> datas = networkService.inviteMoreUser(user, network, session);
         //添加失败
         if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
             return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));
@@ -107,76 +85,103 @@ public class NetworkController extends BaseController {
 
 
     /**
-     * pass
-     * 查看我的人脉圈
+     *
+     * 查看我的人脉圈,列出人脉圈的列表
      *
      * @param session
      * @return
      */
     @GetMapping("/getMyNetworks")
     public Result<Object> getMyNetwork(HttpSession session) {
-        logger.info("查看我的人脉圈session :"+session+" time "+System.currentTimeMillis());
+        logger.info("查看我的人脉圈session :" + session + " time " + System.currentTimeMillis());
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         if (ObjectUtil.isEmpty(uid)) {
             return ResultBuilder.fail(NetworkConstant.NOT_LOGIN);
         } else {
-            Map<Integer, List<Network>> networkList = userNetworkService.getNetworksByUid(uid);
+            Map<Integer, List<Network>> networkList = networkService.getNetworksByUid(uid);
             return ResultBuilder.success(networkList.get(NetworkConstant.SUCCESS_CODE));
         }
     }
 
 
     /**
-     * 查看我的人脉圈所对应的人数
-     * @param uid
+     * 查看我的各个人脉圈所对应的人数
+     *
+     * @param
      * @return
      */
-    @PostMapping("/getMyNetworksUserCount")
-    public Result<Object> getMyNetworksUserCount(@RequestParam Integer uid){
-        Map<String,Integer> datas = userNetworkService.getMyNetworkUserSum(uid);
+    @GetMapping("/getMyNetworksUserCount")
+    public Result<Object> getMyNetworksUserCount(HttpSession session) {
+        logger.info("查看我的各个人脉圈所对应的人数:{}" +" time "+System.currentTimeMillis());
+        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
+        Map<String, Integer> datas = networkService.getMyNetworkUserSum(uid);
         return ResultBuilder.success(datas);
     }
 
 
-
     /**
      * pass
-     * 人脉网界面随机点击用户的个人信息显示,要显示与主用户之间的亲密度：默认不亲密(前端暂时处理)
+     * 人脉网界面随机点击用户的得到其所有人的人脉
+     *
      * @param user
      * @return
      */
     @PostMapping("/getUserInfo")
-    public Result<Object> getUserInfo(@RequestBody User user,HttpSession session){
-        logger.info("user :"+user+" time "+System.currentTimeMillis());
-        List<User> userList = userNetworkService.getNetworkUserInfo1(user,session);
-        if (userList.size()==0){
+    public Result<Object> getUserInfo(@RequestBody User user, HttpSession session) {
+        logger.info("user :" + user + " time " + System.currentTimeMillis());
+        Map<Integer,List<User>> userList =networkService.getNetworksUserInfo(user,session);
+        if (userList.size() == 0) {
             return ResultBuilder.fail("列表为空,还没有好友!");
-        }else {
+        } else {
             return ResultBuilder.success(userList);
         }
     }
 
 
     /**
-     * 人脉网界面
-     * @param user
-     * @param session
+     * 点击进入某一个人脉圈,显示我的所有好友
+     *
      * @return
      */
-    @PostMapping("/userNetworkImage")
-    public Result<Object> userNetWorkImage(@RequestBody User user,HttpSession session){
-        logger.info("user :"+user+" time "+System.currentTimeMillis());
-        return null;
+    @GetMapping("/getMyAllUsers")
+    public Result<Object> getMyAllUsers(@RequestParam("nid") Integer nid, HttpSession session) {
+        logger.info("点击进入某一个人脉圈,显示我的所有好友:{}" +" time "+System.currentTimeMillis());
+        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
+        Map<Integer, List<User>> datas = networkService.getMyAllUsers(nid, uid);
+        //为空
+        if (!ObjectUtil.isEmpty(datas.get(UserConstant.FAILED_CODE))) {
+            return ResultBuilder.success(UserConstant.FAILED_CODE);
+        } else {
+            return ResultBuilder.success(datas.get(UserConstant.SUCCESS_CODE));
+        }
+    }
+
+    /**
+     * 进入人脉网后查看我周围某个用户的信息
+     *
+     * @param uid
+     * @return
+     */
+    @GetMapping("/getOneUserInfo")
+    public Result<Object> getOneUserInfo(@RequestParam("uid") Integer uid) {
+        logger.info("进入人脉网后查看我周围某个用户的信息:{}" +" time "+System.currentTimeMillis());
+        Map<Integer, User> datas = userService.getOneUserInfo(uid);
+        if (!ObjectUtil.isEmpty(datas.get(UserConstant.FAILED_CODE))) {
+            return ResultBuilder.fail(UserConstant.USER_NOT_EXIST);
+        } else {
+            return ResultBuilder.success(datas.get(UserConstant.SUCCESS_CODE));
+        }
     }
 
 
     /**
      * 测试
+     *
      * @return
      */
     @Authorization
     @GetMapping("/test")
-    public Result<Object> test(){
+    public Result<Object> test() {
         return ResultBuilder.success();
     }
 }

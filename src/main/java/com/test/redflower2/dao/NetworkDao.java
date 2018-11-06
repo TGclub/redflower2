@@ -5,6 +5,8 @@ import com.test.redflower2.pojo.entity.Network;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface NetworkDao extends JpaRepository<Network,Integer> {
 
@@ -31,4 +33,11 @@ public interface NetworkDao extends JpaRepository<Network,Integer> {
      * @return
      */
     Network getNetworkByUidAndId(Integer uid, Integer nid);
+
+    /**
+     * 根据uid查询出所有该群主的群
+     * @param uid
+     * @return
+     */
+    List<Network> findAllByUid(Integer uid);
 }

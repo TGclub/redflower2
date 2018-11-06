@@ -22,7 +22,7 @@ public interface UserNetworkDao extends JpaRepository<UserNetwork,Integer> {
      * @param nid
      * @return
      */
-    UserNetwork getUserNetworkByUidAndNid(Integer uid, Integer nid);
+    UserNetwork getUserNetworkByFidAndNid(Integer uid, Integer nid);
 
     /**
      * 通过nid查询
@@ -34,25 +34,32 @@ public interface UserNetworkDao extends JpaRepository<UserNetwork,Integer> {
 
     /**
      * 通过uid查询出所有映射关系
-     * @param uid
+     * @param fid
      * @return
      */
-    List<UserNetwork> findAllByUid(Integer uid );
+    List<UserNetwork> findAllByFid(Integer fid );
 
 
     /**
      * 通过用户的id查询出用户的usernetwork
-     * @param uid
+     * @param fid
      * @return
      */
 
-    List<UserNetwork> getUserNetworkByUid(Integer uid);
+    List<UserNetwork> getUserNetworkByFid(Integer fid);
 
     /**
      * 根据uid和nid查询出人数
-     * @param uid
+     * @param fid
      * @param nid
      * @return
      */
-    List<UserNetwork> findAllByUidAndNid(Integer uid, Integer nid);
+    List<UserNetwork> findAllByFidAndNid(Integer fid, Integer nid);
+
+    /**
+     * 查询出所有得关系
+     * @param nid
+     * @return
+     */
+    List<UserNetwork> findAllByNid(Integer nid);
 }

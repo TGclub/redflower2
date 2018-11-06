@@ -27,4 +27,13 @@ public class NetworkConstant {
     public static final String NULL="人脉圈名称为空!";
 
 
+    //每个人三个默认的群
+
+    public static final String FRIENDCIRCLE="朋友圈";
+
+    public static final String SPREADCIRCLE="帮我传播问题的人";
+
+    public static final String ANSWERCIRCLR="帮我回答问题的人";
+
+
 }

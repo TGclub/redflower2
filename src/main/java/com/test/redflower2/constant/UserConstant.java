@@ -29,10 +29,8 @@ public class UserConstant {
 
     public static final String USER_DEFINITION_LENGTH="自定义个性签名不超过10个字哦！";
 
-    public static final int USER_INFO_INCOMPLETED=0;//用户信息没有完善
-
-    public static final int USER_INFO_COMPLETED=1;//用户信息完善
-
     public static final String USER_LIST="用户列表";
+
+    public static final String USER_NOT_EXIST="用户不存在!";
 
 }

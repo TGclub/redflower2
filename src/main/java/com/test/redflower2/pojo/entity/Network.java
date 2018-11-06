@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.persistence.*;
 
 /**
- * 人脉圈实体类
+ * 人脉圈 保存群主id  和该群主所建群的群名称 群头像
  */
 @Entity
 @Table(name = "network")
@@ -19,36 +19,23 @@ public class Network {
     private Integer id;
 
     /**
-     * 用户id
+     * 群主id
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Integer uid;
 
     /**
-     * 人脉圈名称
+     * 群名称
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String networkName;
 
     /**
      *
-     * 人脉圈头像
+     * 群头像
      */
     private String networkUrl;
 
-
-    /**
-     * 人脉圈总人数,默认是1
-     */
-    private Integer count= Integer.MIN_VALUE ;
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
 
     public String getNetworkUrl() {
         return networkUrl;
@@ -89,7 +76,6 @@ public class Network {
                 ", uid=" + uid +
                 ", networkName='" + networkName + '\'' +
                 ", networkUrl='" + networkUrl + '\'' +
-                ", count=" + count +
                 '}';
     }
 }

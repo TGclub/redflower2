@@ -55,64 +55,6 @@ return:
 "message":"fail"
 ```
 
-###  用户退出
-```text
-url: /user/logout
-method: GET
-param:无
-example: url/user/logout
-return:
-```
-> 成功
-```json
-"code": 0,
-"data":null,
-"message":"success"
-```
-
-
-### 获取用户id
-```text
-url: /user/getUserWxId
-method: POST
-param:openId,encryptedData,session_key,iv
-example: url/user/updateDefinition
-return:
-```
-> 成功
-```json
-"code": 0,
-"data":wxid,
-"message":"success"
-```
-> 失败
-```json
-"code": 1,
-"data":null,
-"message":"失败！"
-```
-
-### 用户修改自定义个性签名
-```text
-url: /user/updateDefinition
-method: PUT
-param:definition
-example: url/user/updateDefinition
-return:
-```
-> 成功
-```json
-"code": 0,
-"data":null,
-"message":"success"
-```
-> 失败
-```json
-"code": 1,
-"data":null,
-"message":"fail"
-```
-
 ###  修改昵称
 ```text
 url: /user/updateUsername
@@ -128,28 +70,6 @@ return:
 "data":null
 "message":"success"
 
-```
-### 测试接口
-```text
-url: /user/updateUsername
-method: GET
-param:无
-example: url/user/test
-return:
-```
-> 成功
-
-```json
-"code":0,
-"data":null
-"message":"success"
-```
-> 失败
-
-```json
-"code": 1,
-"data":null,
-"message":"fail"
 ```
 
 ### 更新用户信息
@@ -182,7 +102,7 @@ url:
 ```text
 url: /network/createNetwork
 method: POST
-param:networkName
+param:networkName,networkUrl
 example: url/network/createNetwork
 return:
 ```
@@ -203,7 +123,7 @@ return:
 ```text
 url: /network/inviteUser
 method: POST
-param:user
+param:user,network
 example: url/network/inviteUser
 return:
 ```
@@ -220,7 +140,7 @@ return:
 "message":"fail"
 ```
 
-### 查看我的人脉圈
+### 查看我的人脉圈(列出人脉圈列表)
 ```text
 url: /network/getMyNetworks
 method: GET
@@ -253,8 +173,26 @@ success{
 "data":List{},
 "message":"fail"
 ```
+### 查看我的各个人脉圈所对应的人数
+```text
+url: /network/getMyNetworksUserCount
+method: GET
+param:user
+example: url/network/getUserInfo
+return:
+```
+> 成功
+```json
+"code": 0,
+"data":{
+    "朋友圈":1
+    "帮我传播问题的人":20
+    "帮我回答问题的人":10
+},
+"message":"success"
+```
 
-### 人脉网界面个人信息
+### 人脉网界面随机点击用户的得到其所有人的人脉
 ```text
 url: /network/getUserInfo
 method: POST
@@ -275,23 +213,47 @@ User{id=2,name="world",gender=0,definition="definition",wxid="xxx",avatarUrl=""}
 ```json
 "code": 1,
 "data":null,
-"msg":"fail message"
+"message":"fail"
 ```
 
-### 测试
+### 点击进入某一个人脉圈,显示我的所有好友
 ```text
-url: /network/test
+url: /network/getMyAllUsers
 method: GET
-param:user
-example: url/network/test
+param: nid
+example: url/network/getMyAllUsers
 return:
 ```
-
 > 成功
-
 ```json
 "code": 0,
-"data":null,
+"data":[
+User{id=1, name='hello', gender=1,definition="definition",wxid="xxx",avatarUrl="xxxx"}
+User{id=2,name="world",gender=0,definition="definition",wxid="xxx",avatarUrl=""}
+]
 "meaasge":"success"
+```
+> 失败
+```json
+"code": 1,
+"data":List{},
+"message":"fail"
+```
+
+### 进入人脉网后查看我周围某个用户的信息
+
+```text
+url: /network/getOneUserInfo
+method: GET
+param: uid
+example: url/network/getOneUserInfo
+return:
+```
+> 成功
+```json
+
+"code": 0,
+"data":User{id=1, name='hello', gender=1,definition="definition",wxid="xxx",avatarUrl="xxxx"},
+"message":"success"
 ```
 

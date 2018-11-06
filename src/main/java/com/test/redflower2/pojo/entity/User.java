@@ -1,13 +1,13 @@
 package com.test.redflower2.pojo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.test.redflower2.constant.IntimacyConstant;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -50,17 +50,9 @@ public class User {
      * 暂时有点儿问题
      */
     //返回的json数据不包含该数据
-    @JsonIgnore
-    private Integer value = IntimacyConstant.BOUNDARY;
+//    @JsonIgnore
+//    private Integer value = IntimacyConstant.BOUNDARY;
 
-
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
 
     public String getAvatarUrl() {
         return avatarUrl;

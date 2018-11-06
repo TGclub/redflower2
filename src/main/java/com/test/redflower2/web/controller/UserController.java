@@ -19,6 +19,10 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 
+/**
+ * 我的页面和登录页面接口
+ */
+
 @RestController
 @RequestMapping(value = "/user")
 public class UserController extends BaseController{
@@ -50,8 +54,6 @@ public class UserController extends BaseController{
                                 HttpSession session)throws Exception{
         logger.info("code:"+json+" time "+System.currentTimeMillis());
 
-        String Json = new String(json.getBytes("UTF-8"),"UTF-8");
-
         if (ObjectUtil.isStringEmpty(json)){
             return ResultBuilder.fail("传进来参数null");
         }
@@ -65,7 +67,6 @@ public class UserController extends BaseController{
             return ResultBuilder.fail(UserConstant.OPENID_NULL);
         }
         //获取code
-//        String code = JsonUtil.JsonCode(jsonCode);
         if(ObjectUtil.isStringEmpty(code)){
             return ResultBuilder.fail(UserConstant.OPENID_NULL);
         }
