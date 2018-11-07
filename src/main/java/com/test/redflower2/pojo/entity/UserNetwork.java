@@ -19,7 +19,7 @@ public class UserNetwork {
     /**
      * 群里的各个用户id,包括群主在内
      */
-    private Integer fid;
+    private Integer uid;
 
 
     /**
@@ -27,13 +27,12 @@ public class UserNetwork {
      */
     private Integer nid;
 
-
-    public Integer getFid() {
-        return fid;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setFid(Integer fid) {
-        this.fid = fid;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public Integer getId() {
@@ -58,7 +57,7 @@ public class UserNetwork {
     toString() {
         return "UserNetwork{" +
                 "id=" + id +
-                ", fid=" + fid +
+                ", uid=" + uid +
                 ", nid=" + nid +
                 '}';
     }

@@ -10,6 +10,7 @@ import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.pojo.entity.UserNetwork;
 import com.test.redflower2.service.NetworkService;
 import com.test.redflower2.utils.ObjectUtil;
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -43,10 +44,11 @@ public class NetworkServiceImpl implements NetworkService {
      *
      * @param networkName
      * @param networkUrl
-     * @param session
+     * @param session     map  key: 状态码,value:人脉圈id
      * @return
      */
-    public Map<Integer, Object> createNetwork1(String networkName, String networkUrl, HttpSession session) {
+    public Map<Integer, Object> createNetwork1(String networkName, String networkUrl,
+                                               HttpSession session) {
         Map<Integer, Object> datas = new HashMap<>();
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         Network network1 = new Network();
@@ -55,14 +57,14 @@ public class NetworkServiceImpl implements NetworkService {
             datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.NULL);
             return datas;
             //下面三句判断名称是否与默认人脉圈名称相同
-        }else if (networkName.equals(NetworkConstant.FRIENDCIRCLE)){
-            datas.put(NetworkConstant.FAIL_CODE,NetworkConstant.NAME_EXIST);
+        } else if (networkName.equals(NetworkConstant.FRIENDCIRCLE)) {
+            datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.NAME_EXIST);
             return datas;
-        }else if (networkName.equals(NetworkConstant.SPREADCIRCLE)){
-            datas.put(NetworkConstant.FAIL_CODE,NetworkConstant.NAME_EXIST);
+        } else if (networkName.equals(NetworkConstant.SPREADCIRCLE)) {
+            datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.NAME_EXIST);
             return datas;
-        }else if (networkName.equals(NetworkConstant.ANSWERCIRCLR)){
-            datas.put(NetworkConstant.FAIL_CODE,NetworkConstant.NAME_EXIST);
+        } else if (networkName.equals(NetworkConstant.ANSWERCIRCLR)) {
+            datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.NAME_EXIST);
             return datas;
         } else {
             network1.setUid(uid);
@@ -93,24 +95,27 @@ public class NetworkServiceImpl implements NetworkService {
         //朋友圈
         friendCircle.setUid(uid);
         friendCircle.setNetworkName(NetworkConstant.FRIENDCIRCLE);
-        UserNetwork frienfUserNetwork = createRelationBetwenNetworkAndFriends(friendCircle.getId(), uid);
+        friendCircle.setNetworkUrl(NetworkConstant.FRIEND_CIRCLE_URL);
         networkDao.save(friendCircle);//保存
+        UserNetwork frienfUserNetwork = createRelationBetwenNetworkAndFriends(friendCircle.getId(), uid);
         userNetworkDao.save(frienfUserNetwork);
         idList.add(friendCircle.getId());
 
         //帮传播问题的人
         spreadQuesCircle.setUid(uid);
         spreadQuesCircle.setNetworkName(NetworkConstant.SPREADCIRCLE);
-        UserNetwork spreadUsernetwork = createRelationBetwenNetworkAndFriends(spreadQuesCircle.getId(), uid);
+        spreadQuesCircle.setNetworkUrl(NetworkConstant.SPREAD_CIRCLE_URL);
         networkDao.save(spreadQuesCircle);
+        UserNetwork spreadUsernetwork = createRelationBetwenNetworkAndFriends(spreadQuesCircle.getId(), uid);
         userNetworkDao.save(spreadUsernetwork);
         idList.add(spreadQuesCircle.getId());
 
         //帮我回答问题的人
         answerQuesCirclr.setUid(uid);
         answerQuesCirclr.setNetworkName(NetworkConstant.ANSWERCIRCLR);
-        UserNetwork answerUsernetwork = createRelationBetwenNetworkAndFriends(answerQuesCirclr.getId(), uid);
+        answerQuesCirclr.setNetworkUrl(NetworkConstant.ANSWER_CIRCLE_URL);
         networkDao.save(answerQuesCirclr);
+        UserNetwork answerUsernetwork = createRelationBetwenNetworkAndFriends(answerQuesCirclr.getId(), uid);
         userNetworkDao.save(answerUsernetwork);
         idList.add(answerQuesCirclr.getId());
         return idList;
@@ -120,97 +125,65 @@ public class NetworkServiceImpl implements NetworkService {
     /**
      * 维护关系并保存
      *
-     * @param fid
+     * @param uid
      * @return
      */
-    public UserNetwork createRelationBetwenNetworkAndFriends(Integer nid, Integer fid) {
+    public UserNetwork createRelationBetwenNetworkAndFriends(Integer nid, Integer uid) {
         UserNetwork userNetwork = new UserNetwork();
         userNetwork.setNid(nid);
-        userNetwork.setFid(fid);
+        userNetwork.setUid(uid);
         userNetworkDao.save(userNetwork);
         return userNetwork;
     }
 
     /**
-     *
      * done:查看我的人脉圈列表
-     * 根据群主id查询出所有networK
+     * 根据群主id查询出所有networK    并返回每个群的人数
      *
      * @param uid
      * @return
      */
     @Override
-    public Map<Integer, List<Network>> getNetworksByUid(Integer uid) {
+    public List<Object> getNetworksAndCountByUid(Integer uid) {
 
-
-        Map<Integer, List<Network>> datas = new HashMap<>();
-        List<Network> networkList = networkDao.findAllByUid(uid);
-
-        if (networkList.size() == 0) {
-            datas.put(NetworkConstant.FAIL_CODE, networkList);
-            return datas;
-        } else {
-            for (int i = 0; i <networkList.size() ; ++i) {
-                Network network = networkList.get(i);
-                String networkName = network.getNetworkName();
-                if (networkName.equals(NetworkConstant.FRIENDCIRCLE) && uid==network.getUid()){
-                    networkList.add(0,network);
-
-                }
-                if (networkName.equals(NetworkConstant.SPREADCIRCLE) && uid==network.getUid()){
-                    networkList.add(1,network);
-                }
-
-                if (networkName.equals(NetworkConstant.ANSWERCIRCLR) && uid==network.getUid()){
-                    networkList.add(2,network);
-                }
-            }
-            //还要啥操作
-            datas.put(NetworkConstant.SUCCESS_CODE, networkList);
-            return datas;
-        }
-    }
-
-
-    /**
-     * 获取每一个人脉圈的总人数
-     * key:人脉圈名称  value:人脉圈中人数
-     *
-     * @param uid
-     * @return
-     */
-    public Map<String, Integer> getMyNetworkUserSum(Integer uid) {
-        Map<String, Integer> datas = new HashMap<>();
-        //得到我的人脉圈总数
-        Map<Integer, List<Network>> networkMapList = getNetworksByUid(uid);
-        //人脉圈个数
-        List<Network> networkList = networkMapList.get(NetworkConstant.SUCCESS_CODE);
+        List<Object> objectList = new ArrayList<>();
         /**
-         * 计算每个人脉圈人数
+         * 1.查出该uid所有的群id
          */
-
-        for (int i = 0; i < networkList.size(); ++i) {
-            //装载个数
-            List<Integer> count = new ArrayList<>();
-            Integer nid = networkList.get(i).getId();
-            Network network = networkDao.getNetworkById(nid);
-            List<UserNetwork> userNetworkList = userNetworkDao.findAllByNid(nid);
-            if (userNetworkList.size() == 0) {
-                count.add(1);
-            } else {
-                int sum = 1;
-                for (int j = 0; j < userNetworkList.size(); ++j) {
-                    sum += sum;
+        List<Network> networkList = networkDao.findAllByUid(uid);
+        if (networkList.size() == 0) {//大小为0,说明改用户还没有群
+            objectList.add(null);
+            return objectList;
+        } else {//有群
+            /**
+             * 2.计算每个群的人数
+             * key:群  ,value:人数
+             */
+            for (int i = 0; i < networkList.size(); ++i) {
+                //根据每个群的id在user_network去查询该群的人数总和
+                Integer nid = networkList.get(i).getId();
+                Network network = networkList.get(i);
+                List<UserNetwork> userNetworkList = userNetworkDao.findAllByNid(nid);
+                if (userNetworkList.size() == 1) {//大小为1,说明该群里只有群主一个人
+                    network.setCount(1);
+                    objectList.add(network);
+                } else {//有群友
+                    //计算networklist大小,即为群人数
+                    int sum = 1;
+                    for (int j = 0; j < userNetworkList.size(); ++j) {
+                        sum += sum;
+                    }
+                    network.setCount(sum);
+                    objectList.add(network);
                 }
-                count.add(sum);
             }
-            datas.put(network.getNetworkName(), count.get(i));
+            return objectList;
         }
-        return datas;
     }
 
+
     /**
-     * 查询出某一个人脉圈中所有的人数
+     * 查询出某一个人脉圈中所有的用户
      *
      * @param nid
      * @param uid
@@ -225,7 +198,7 @@ public class NetworkServiceImpl implements NetworkService {
         for (int i = 0; i < userNetworkList.size(); i++) {
             Integer unid = userNetworkList.get(i).getId();
             UserNetwork userNetwork = userNetworkDao.getUserNetworkById(unid);
-            Integer fid = userNetwork.getFid();
+            Integer fid = userNetwork.getUid();
             //如果是自己,跳过
             if (fid == uid) {
                 continue;
@@ -250,10 +223,10 @@ public class NetworkServiceImpl implements NetworkService {
      * @return
      */
     @Override
-    public Map<Integer, ?> getNetworksUserInfo(User user, HttpSession session) {
+    public List<User> getNetworksUserInfo(User user, HttpSession session) {
         List<User> userList = new ArrayList<>();
-        Map<Integer, List<User>> datas = new HashMap<>();
         Integer uid = user.getId();
+        //得到自己所有的人脉圈
         List<Network> networkList = networkDao.findAllByUid(uid);
         for (int i = 0; i < networkList.size(); ++i) {
             Integer nid = networkList.get(i).getId();
@@ -262,7 +235,7 @@ public class NetworkServiceImpl implements NetworkService {
                 for (int j = 0; j < userNetworkList.size(); ++j) {
                     Integer unid = userNetworkList.get(i).getId();
                     UserNetwork userNetwork = userNetworkDao.getUserNetworkById(unid);
-                    Integer fid = userNetwork.getFid();
+                    Integer fid = userNetwork.getUid();
                     //如果是自己,跳过
                     if (fid == uid) {
                         continue;
@@ -272,12 +245,7 @@ public class NetworkServiceImpl implements NetworkService {
                 }
             }
         }
-        if (userList.size() == 0) {
-            datas.put(UserConstant.FAILED_CODE, null);
-        } else {
-            datas.put(UserConstant.SUCCESS_CODE, userList);
-        }
-        return datas;
+      return userList;
     }
 
     /**
@@ -306,7 +274,7 @@ public class NetworkServiceImpl implements NetworkService {
             int status = NetworkConstant.FAIL_CODE;
             datas.put(status, NetworkConstant.NOT_EXIST);
             return datas;
-        } else if (userNetworkDao.getUserNetworkByFidAndNid(sUserId, nid) != null) {//用户已经加入
+        } else if (userNetworkDao.getUserNetworkByUidAndNid(sUserId, nid) != null) {//用户已经加入
             int status = NetworkConstant.FAIL_CODE;
             datas.put(status, NetworkConstant.ALREADY_EXIST);
             return datas;
@@ -314,7 +282,7 @@ public class NetworkServiceImpl implements NetworkService {
             //绑定关系
             int status;
             userNetwork.setNid(nid);//被邀请人B人脉圈的nid,他们应该对应B的nid
-            userNetwork.setFid(sUserId);
+            userNetwork.setUid(sUserId);
             userNetworkDao.save(userNetwork);
             //加入人脉圈
             boolean result = addUserIntoNetwork(networkCenterUser, user);
@@ -348,7 +316,35 @@ public class NetworkServiceImpl implements NetworkService {
         return true;
     }
 
-
+    /**
+     * 根据uid查询数据库中是否已经有该用户的三个默认朋友圈
+     * 没有创建返回true
+     * c创建返回:false
+     * @param uid
+     * @return
+     */
+    @Override
+    public boolean isNotCreateThreeCircle(Integer uid) {
+        List<Network> networkList = networkDao.findAllByUid(uid);
+        if (networkList.size()==0){//还没有
+            return true;
+        }else {
+            //有了,判断名称
+            Integer length = networkList.size();
+            for (int i = 0; i < length ; ++i) {
+                Network network = networkList.get(i);
+                String networkName = network.getNetworkName();
+                if (networkName.equals(NetworkConstant.FRIENDCIRCLE)){
+                    return false;
+                }else if (networkName.equals(NetworkConstant.ANSWERCIRCLR)){
+                    return false;
+                }else if (networkName.equals(NetworkConstant.SPREADCIRCLE)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
 
 

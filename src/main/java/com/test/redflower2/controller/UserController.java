@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.uid;
+
 
 /**
  * 我的页面和登录页面接口
@@ -32,6 +34,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController extends BaseController {
+
+    public static  int sum =0;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -81,18 +85,19 @@ public class UserController extends BaseController {
             return ResultBuilder.fail(UserConstant.OPENID_NULL);
         }
         String openId = wechatUtil.getOpenId(code);
-        Map<Integer, String> datas = userService.isLoginSuccess(openId, session);
-        //如果登录失败
-        if (!ObjectUtil.isStringEmpty(datas.get(UserConstant.FAILED_CODE))) {
-            String status = datas.get(UserConstant.FAILED_CODE);
-            return ResultBuilder.fail(status + "");
+        if (ObjectUtil.isStringEmpty(openId)){
+            return ResultBuilder.fail("openId为空!");
         }
+        User user = userService.isLoginSuccess1(openId);
         //登录成功
-        /**
-         * 登录成功的话,为这个人默认建立三个群
-         */
+        session.setAttribute(UserConstant.USER_ID,user.getId());
+
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
-        networkService.createThreeCircle(uid);
+        //如果没有创建
+        boolean result = networkService.isNotCreateThreeCircle(uid);
+        if (result){
+            networkService.createThreeCircle(uid);
+        }
         return ResultBuilder.success(session.getId());
     }
 
@@ -134,7 +139,7 @@ public class UserController extends BaseController {
     @PutMapping("/updateDefinition")
     public Result<Object> updateDefinition(@RequestParam("definition") String definition,
                                            HttpSession session) {
-        logger.info(definition + " time " + System.currentTimeMillis());
+        logger.info("updateDefinition: "+definition + " time " + System.currentTimeMillis());
         String result = userService.updateDefinition(definition, session);
         if (result.equals(UserConstant.SUCCESS_MSG)) {
             return ResultBuilder.success();
@@ -145,7 +150,7 @@ public class UserController extends BaseController {
 
 
     /**
-     * ok
+     * good
      * 我的页面
      * 返回登录后用户的信息
      *
@@ -194,7 +199,7 @@ public class UserController extends BaseController {
 
 
     /**
-     * ok
+     * good
      * 我的页面
      * 更新用户信息
      *

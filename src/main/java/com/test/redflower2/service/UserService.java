@@ -18,7 +18,14 @@ public interface UserService {
 
 
     /**
-     * 用户登录
+     * 用户登录1
+     * @param openid
+     * @return
+     */
+    User isLoginSuccess1(String openid);
+
+    /**
+     * 用户登录0
      *
      * @param openId
      * @param session

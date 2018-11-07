@@ -62,6 +62,21 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
+    /**
+     * 用户登录
+     */
+
+    public User isLoginSuccess1(String openid){
+        User user = userDao.getUserByOpenid(openid);
+        if (user == null) {
+            user = new User();
+            user.setOpenid(openid);
+            user= userDao.save(user);
+        }
+        return user;
+    }
+
     /**
      * 用户登录
      *

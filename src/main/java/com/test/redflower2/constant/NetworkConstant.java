@@ -40,5 +40,21 @@ public class NetworkConstant {
 
     public static final String NAME_EXIST="请使用其他名称创建!";
 
+    public static final String NETWORK_WRONG="network参数错误!";
+
+    public static final String PARAMS_NULL="传进来参数null";
+
+    public static final String TIME ="创建默认人脉圈的次数";
+
+    //三个默认人脉圈的头像路径
+    // 朋友圈
+    public static final String FRIEND_CIRCLE_URL="../../static/images/contacts/friends.png";
+
+    // 帮我传播问题的人
+    public static final String SPREAD_CIRCLE_URL="../../static/images/contacts/friends.png";
+
+    //帮我回答问题的人
+    public static final String ANSWER_CIRCLE_URL=" ../../static/images/contacts/helper.png";
+
 
 }

@@ -44,13 +44,7 @@ public class User {
      */
     private String avatarUrl;  //微信可得到
 
-    /**
-     * 用户和用户之间亲密度阈值
-     * 暂时有点儿问题
-     */
-    //返回的json数据不包含该数据
-//    @JsonIgnore
-//    private Integer value = IntimacyConstant.BOUNDARY;
+
     public String getAvatarUrl() {
         return avatarUrl;
     }

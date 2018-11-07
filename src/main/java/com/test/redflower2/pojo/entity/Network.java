@@ -35,6 +35,18 @@ public class Network {
      */
     private String networkUrl;
 
+    /**
+     * 该人脉圈人数总和
+     */
+    private Integer count ;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 
     public String getNetworkUrl() {
         return networkUrl;
@@ -75,6 +87,7 @@ public class Network {
                 ", uid=" + uid +
                 ", networkName='" + networkName + '\'' +
                 ", networkUrl='" + networkUrl + '\'' +
+                ", count=" + count +
                 '}';
     }
 }

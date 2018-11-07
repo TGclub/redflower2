@@ -30,7 +30,7 @@ public class UserNetworkDaoTest {
     @Test
     public void testGetUserNetworkByUid(){
         Integer uid = 1;
-        List<UserNetwork> result = userNetworkDao.getUserNetworkByFid(uid);
+        List<UserNetwork> result = userNetworkDao.getUserNetworkByUid(uid);
         LOGGER.info("getUserNetworkByUid()测试结果{}",result);
     }
 
@@ -38,7 +38,7 @@ public class UserNetworkDaoTest {
     public void testGetUserNetworkByFidAndNid(){
         Integer uid =1;
         Integer fid=1;
-        UserNetwork result = userNetworkDao.getUserNetworkByFidAndNid(uid,fid);
+        UserNetwork result = userNetworkDao.getUserNetworkByUidAndNid(uid,fid);
         LOGGER.info("测试结果为{}",result);
     }
 
@@ -60,7 +60,7 @@ public class UserNetworkDaoTest {
     @Test
     public void testFindAllByFid(){
         Integer uid =1;
-        List<UserNetwork> result = userNetworkDao.findAllByFid(uid);
+        List<UserNetwork> result = userNetworkDao.findAllByUid(uid);
         LOGGER.info("测试结果为{}",result);
     }
 

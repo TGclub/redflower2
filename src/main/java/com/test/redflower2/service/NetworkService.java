@@ -3,6 +3,7 @@ package com.test.redflower2.service;
 
 import com.test.redflower2.pojo.entity.Network;
 import com.test.redflower2.pojo.entity.User;
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -27,15 +28,8 @@ public interface NetworkService {
      * @param uid
      * @return
      */
-    Map<Integer, List<Network>> getNetworksByUid(Integer uid);
+    List<Object> getNetworksAndCountByUid(Integer uid);
 
-    /**
-     * 查看我的各个人脉圈总人数
-     *
-     * @param uid
-     * @return
-     */
-    Map<String, Integer> getMyNetworkUserSum(Integer uid);
 
     /**
      * 查询出进入我的某个人脉圈所有的用户
@@ -52,7 +46,7 @@ public interface NetworkService {
      * @param session
      * @return
      */
-    Map<Integer, ?> getNetworksUserInfo(User user, HttpSession session);
+    List<User> getNetworksUserInfo(User user, HttpSession session);
 
 
     /**
@@ -71,4 +65,11 @@ public interface NetworkService {
      * @return
      */
     List<Integer> createThreeCircle(Integer uid);
+
+    /**
+     * 判断用户是否已经创建了三个默认的人脉圈
+     * @param uid
+     * @return
+     */
+    boolean isNotCreateThreeCircle(Integer uid);
 }
