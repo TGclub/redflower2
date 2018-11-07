@@ -1,5 +1,8 @@
 package com.test.redflower2.utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ObjectUtil {
 
     /**
@@ -34,5 +37,26 @@ public class ObjectUtil {
      */
     public static Integer abs(Integer num) {
         return num > 0 ? num : -num;
+    }
+
+
+    /**
+     * 对字符串进行过滤
+     * @param oldString
+     * @return
+     */
+    public static String getStringFilter(String oldString){
+        //1.设置指定的非法字符
+        Pattern pattern = Pattern.compile("[@# $%^&*()_+=]");
+        Matcher matcher =pattern.matcher(oldString);
+        StringBuffer buffer = new StringBuffer();
+        //如果找到非法字符
+        while (matcher.find()){
+            //若包含非法字符,则除去,并把非法字符前面的字符放到缓冲区
+            matcher.appendReplacement(buffer,"");
+        }
+        //将剩余合法部分添加到缓冲区
+        matcher.appendTail(buffer);
+        return buffer.toString();
     }
 }

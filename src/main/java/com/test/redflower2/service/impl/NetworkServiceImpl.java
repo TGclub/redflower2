@@ -42,18 +42,21 @@ public class NetworkServiceImpl implements NetworkService {
     /**
      * 创建新人脉圈
      *
-     * @param networkName
+     * @param oldNetworkName
      * @param networkUrl
      * @param session     map  key: 状态码,value:人脉圈id
      * @return
      */
-    public Map<Integer, Object> createNetwork1(String networkName, String networkUrl,
+    public Map<Integer, Object> createNetwork1(String oldNetworkName, String networkUrl,
                                                HttpSession session) {
         Map<Integer, Object> datas = new HashMap<>();
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         Network network1 = new Network();
+        /**
+         * 对字符串进行过滤,除去非法字符
+         */
+        String networkName = ObjectUtil.getStringFilter(oldNetworkName);
         //若人脉圈名称为空，则创建失败
-        networkName.
         if (ObjectUtil.isStringEmpty(networkName)) {
             datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.NULL);
             return datas;
