@@ -14,7 +14,7 @@ spring:
 # jpa配置
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
   devtools:
     restart:

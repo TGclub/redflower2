@@ -219,33 +219,36 @@ public class NetworkServiceImpl implements NetworkService {
      * 人脉网界面随机点击某个用户再列出该用户的所有好友
      *
      * @param user
-     * @param session
      * @return
      */
     @Override
-    public List<User> getNetworksUserInfo(User user, HttpSession session) {
+    public List<User> getNetworksUserInfo(User user) {
         List<User> userList = new ArrayList<>();
         Integer uid = user.getId();
         //得到自己所有的人脉圈
         List<Network> networkList = networkDao.findAllByUid(uid);
-        for (int i = 0; i < networkList.size(); ++i) {
-            Integer nid = networkList.get(i).getId();
-            List<UserNetwork> userNetworkList = userNetworkDao.findAllByNid(nid);
-            if (userNetworkList.size() != 0) {
-                for (int j = 0; j < userNetworkList.size(); ++j) {
-                    Integer unid = userNetworkList.get(i).getId();
-                    UserNetwork userNetwork = userNetworkDao.getUserNetworkById(unid);
-                    Integer fid = userNetwork.getUid();
-                    //如果是自己,跳过
-                    if (fid == uid) {
-                        continue;
+        if (networkList.size() > 0) {
+            for (int i = 0; i < networkList.size(); i++) {
+                Integer nid = networkList.get(i).getId();
+                //得到每个人脉圈里所有的人
+                List<UserNetwork> userNetworkList = userNetworkDao.findAllByNid(nid);
+                if (userNetworkList.size() > 0) {
+                    //循环遍历得出所有用户
+                    for (int j = 0; j < userNetworkList.size(); j++) {
+                        Integer unid = userNetworkList.get(i).getId();
+                        UserNetwork userNetwork = userNetworkDao.getUserNetworkById(unid);
+                        Integer fid = userNetwork.getUid();
+                        //如果是自己,跳过
+                        if (fid == uid) {
+                            continue;
+                        }
+                        User user1 = userDao.getUserById(fid);
+                        userList.add(user1);
                     }
-                    User user1 = userDao.getUserById(fid);
-                    userList.add(user1);
                 }
             }
         }
-      return userList;
+        return userList;
     }
 
     /**
@@ -259,41 +262,27 @@ public class NetworkServiceImpl implements NetworkService {
     @Override
     public Map<Integer, String> inviteMoreUser(User user, Network network, HttpSession session) {
         Map<Integer, String> datas = new HashMap<>();
-        //得到当前用户B的id
+        //得到当前用户A的id
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
-        //得到要邀请人B人脉圈nid
+        //得到要邀请人A人脉圈nid
         Integer nid = network.getId();
+        //被邀请人B的id
+        Integer sUserId = user.getId();//要被邀请进来的人B id
+
         //根据uid和nid查询出邀请人的当前朋友圈
         Network networkCenterUser = networkDao.getNetworkByUidAndId(uid, nid);
-        //维护关系
-        UserNetwork userNetwork = new UserNetwork();
+        if (!ObjectUtil.isEmpty(networkCenterUser)){//该人脉圈存在
 
-        Integer sUserId = user.getId();//要被邀请进来的人A id
-
-        if (ObjectUtil.isEmpty(sUserId)) {//不存在该用户
-            int status = NetworkConstant.FAIL_CODE;
-            datas.put(status, NetworkConstant.NOT_EXIST);
-            return datas;
-        } else if (userNetworkDao.getUserNetworkByUidAndNid(sUserId, nid) != null) {//用户已经加入
-            int status = NetworkConstant.FAIL_CODE;
-            datas.put(status, NetworkConstant.ALREADY_EXIST);
-            return datas;
-        } else { //加入
-            //绑定关系
-            int status;
-            userNetwork.setNid(nid);//被邀请人B人脉圈的nid,他们应该对应B的nid
-            userNetwork.setUid(sUserId);
-            userNetworkDao.save(userNetwork);
-            //加入人脉圈
-            boolean result = addUserIntoNetwork(networkCenterUser, user);
-            if (result) {
-                status = NetworkConstant.SUCCESS_CODE;
-                datas.put(status, NetworkConstant.SUCCESS);
-            } else {
-                status = NetworkConstant.FAIL_CODE;
-                datas.put(status, NetworkConstant.FAIL);
+            if (ObjectUtil.isEmpty(sUserId)) {//被邀请用户不存在!
+                datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.NOT_EXIST);
+                return datas;
+            } else if (userNetworkDao.getUserNetworkByUidAndNid(sUserId, nid) != null) {//用户已经加入
+                datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.ALREADY_EXIST);
+                return datas;
             }
-
+            //加入,维护关系
+            createRelationBetwenNetworkAndFriends(nid,sUserId);
+            datas.put(NetworkConstant.SUCCESS_CODE,NetworkConstant.SUCCESS);
         }
         return datas;
     }
@@ -320,31 +309,33 @@ public class NetworkServiceImpl implements NetworkService {
      * 根据uid查询数据库中是否已经有该用户的三个默认朋友圈
      * 没有创建返回true
      * c创建返回:false
+     *
      * @param uid
      * @return
      */
     @Override
     public boolean isNotCreateThreeCircle(Integer uid) {
         List<Network> networkList = networkDao.findAllByUid(uid);
-        if (networkList.size()==0){//还没有
+        if (networkList.size() == 0) {//还没有
             return true;
-        }else {
+        } else {
             //有了,判断名称
             Integer length = networkList.size();
-            for (int i = 0; i < length ; ++i) {
+            for (int i = 0; i < length; ++i) {
                 Network network = networkList.get(i);
                 String networkName = network.getNetworkName();
-                if (networkName.equals(NetworkConstant.FRIENDCIRCLE)){
+                if (networkName.equals(NetworkConstant.FRIENDCIRCLE)) {
                     return false;
-                }else if (networkName.equals(NetworkConstant.ANSWERCIRCLR)){
+                } else if (networkName.equals(NetworkConstant.ANSWERCIRCLR)) {
                     return false;
-                }else if (networkName.equals(NetworkConstant.SPREADCIRCLE)){
+                } else if (networkName.equals(NetworkConstant.SPREADCIRCLE)) {
                     return false;
                 }
             }
         }
         return true;
     }
+
 }
 
 

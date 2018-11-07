@@ -42,7 +42,7 @@ public class NetworkController extends BaseController {
 
 
     /**
-     * good
+     * 测试ok
      * 创建人脉圈
      * @param json
      * @param session
@@ -95,7 +95,7 @@ public class NetworkController extends BaseController {
 
 
     /**
-     * good
+     * 测试ok
      * 查看我的人脉圈,列出人脉圈的列表   以及每个人脉圈的人数
      * @param session
      * @return
@@ -116,16 +116,15 @@ public class NetworkController extends BaseController {
     /**
      * 有问题
      * 人脉网界面随机点击用户得到其所有的人脉
-     *
      * @param user
      * @return
      */
     @PostMapping("/getUserInfo")
-    public Result<Object> getUserInfo(@RequestBody User user, HttpSession session) {
+    public Result<Object> getUserInfo(@RequestBody User user) {
         logger.info("getUserInfo :" + user + " time " + System.currentTimeMillis());
-        List<User> userList = networkService.getNetworksUserInfo(user, session);
+        List<User> userList = networkService.getNetworksUserInfo(user);
         if (userList.size() == 0) {
-            return ResultBuilder.fail("列表为空,你还没有好友!");
+            return ResultBuilder.fail(NetworkConstant.LIST_NULL);
         } else {
             return ResultBuilder.success(userList);
         }

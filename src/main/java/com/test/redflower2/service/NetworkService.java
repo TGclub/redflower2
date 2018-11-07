@@ -43,10 +43,9 @@ public interface NetworkService {
      * 人脉网界面随机点击某个用户,再列出该用户的全部好友
      *
      * @param user
-     * @param session
      * @return
      */
-    List<User> getNetworksUserInfo(User user, HttpSession session);
+    List<User> getNetworksUserInfo(User user);
 
 
     /**
