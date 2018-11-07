@@ -29,13 +29,8 @@ public class UserConstant {
 
     public static final String USER_DEFINITION_LENGTH = "自定义个性签名不超过10个字哦！";
 
-    public static final String USER_LIST = "用户列表";
-
     public static final String USER_NOT_EXIST = "用户不存在!";
 
-
-    public static final String SESSION_ID="sessionId";
-
-
+    public static final String PARAM_WRONG="传进来参数错误!";
 
 }

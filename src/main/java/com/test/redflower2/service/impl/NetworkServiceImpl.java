@@ -53,6 +53,7 @@ public class NetworkServiceImpl implements NetworkService {
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         Network network1 = new Network();
         //若人脉圈名称为空，则创建失败
+        networkName.
         if (ObjectUtil.isStringEmpty(networkName)) {
             datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.NULL);
             return datas;
@@ -123,7 +124,7 @@ public class NetworkServiceImpl implements NetworkService {
 
 
     /**
-     * 维护关系并保存
+     * 维护人和群之间的关系并保存
      *
      * @param uid
      * @return
@@ -287,23 +288,6 @@ public class NetworkServiceImpl implements NetworkService {
         return datas;
     }
 
-
-    /**
-     * 拓展我的人脉圈
-     * 将user添加到network中
-     *
-     * @param network
-     * @param user
-     */
-    public boolean addUserIntoNetwork(Network network, User user) {
-        Network network1 = new Network();
-        network1.setUid(user.getId());
-        network1.setId(network.getId());
-        network1.setNetworkUrl(network.getNetworkUrl());
-        network1.setNetworkName(network.getNetworkName());
-        networkDao.save(network1);
-        return true;
-    }
 
     /**
      * 根据uid查询数据库中是否已经有该用户的三个默认朋友圈

@@ -68,7 +68,7 @@ public class NetworkController extends BaseController {
         Map<Integer, Object> datas = networkService.createNetwork1(networkName, networkUrl, session);
         //创建失败，返回失败信息
         if (!ObjectUtil.isEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
-            return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE).toString());
+            return ResultBuilder.fail((String) datas.get(NetworkConstant.FAIL_CODE));//.toString(),Interger转String后台日志报错;修改为前面加String,还未部署
         }
         //返回nid
         return ResultBuilder.success(datas.get(NetworkConstant.SUCCESS_CODE));
@@ -114,7 +114,7 @@ public class NetworkController extends BaseController {
 
 
     /**
-     * 有问题
+     * 测试ok
      * 人脉网界面随机点击用户得到其所有的人脉
      * @param user
      * @return
@@ -132,6 +132,7 @@ public class NetworkController extends BaseController {
 
 
     /**
+     * 测试ok
      * 点击进入某一个人脉圈,显示我的所有好友
      *
      * @return

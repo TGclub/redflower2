@@ -19,12 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.uid;
 
 
 /**
@@ -34,8 +28,6 @@ import static org.bouncycastle.asn1.x500.style.RFC4519Style.uid;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController extends BaseController {
-
-    public static  int sum =0;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -53,7 +45,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * ok
+     * 测试ok
      * 首页登录
      * 用户微信认证登录
      *
@@ -66,10 +58,10 @@ public class UserController extends BaseController {
     @PostMapping("/login")
     public Result<Object> login(@RequestBody(required = false) String json,
                                 HttpSession session) throws Exception {
-        logger.info("code:" + json + " time " + System.currentTimeMillis());
+        logger.info("code数据:{}" + json + " time " + System.currentTimeMillis());
 
         if (ObjectUtil.isStringEmpty(json)) {
-            return ResultBuilder.fail("传进来参数null");
+            return ResultBuilder.fail(UserConstant.PARAM_WRONG);
         }
         //解析相应内容,(转换成json对象)
         String code;
@@ -77,7 +69,6 @@ public class UserController extends BaseController {
             JSONObject jsonObject = JSON.parseObject(json);
             code = jsonObject.getString("code");
         } catch (Exception e) {
-            System.out.println("code错误:");
             return ResultBuilder.fail(UserConstant.OPENID_NULL);
         }
         //获取code
@@ -114,7 +105,7 @@ public class UserController extends BaseController {
     @PutMapping("/updateUsername")
     public Result<Object> updateUsername(@RequestParam("username") String username,
                                          HttpSession session) {
-        logger.info(username + " time " + System.currentTimeMillis());
+        logger.info("username为:{}"+username + " time " + System.currentTimeMillis());
         Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         String result = userService.updateName(uid, username);
         //修改成功
@@ -139,7 +130,7 @@ public class UserController extends BaseController {
     @PutMapping("/updateDefinition")
     public Result<Object> updateDefinition(@RequestParam("definition") String definition,
                                            HttpSession session) {
-        logger.info("updateDefinition: "+definition + " time " + System.currentTimeMillis());
+        logger.info("updateDefinition:{}"+definition + " time " + System.currentTimeMillis());
         String result = userService.updateDefinition(definition, session);
         if (result.equals(UserConstant.SUCCESS_MSG)) {
             return ResultBuilder.success();
@@ -150,7 +141,7 @@ public class UserController extends BaseController {
 
 
     /**
-     * good
+     * 测试ok
      * 我的页面
      * 返回登录后用户的信息
      *
@@ -162,7 +153,7 @@ public class UserController extends BaseController {
     @GetMapping("/userInfo")
     public Result<User> getUserInfo(HttpSession session) {
         System.out.println(session.getSessionContext());
-        logger.info("返回登录后用户的信息 :" + System.currentTimeMillis());
+        logger.info("返回登录后用户的信息 :{}" + System.currentTimeMillis());
         Integer userId = (Integer) session.getAttribute(UserConstant.USER_ID);
         User user = userService.getUserById(userId);
         return ResultBuilder.success(user);
@@ -180,7 +171,7 @@ public class UserController extends BaseController {
     @ApiOperation(value = UserConstant.USER_LOGOUT, httpMethod = "GET")
     @GetMapping("/logout")
     public Result<Object> logout(HttpSession session) {
-        logger.info("用户退出 :" + System.currentTimeMillis());
+        logger.info("用户退出 :{}" + System.currentTimeMillis());
         session.invalidate();
         return ResultBuilder.success();
     }
@@ -193,13 +184,13 @@ public class UserController extends BaseController {
     @Authorization
     @GetMapping("/test")
     public Result<Object> test() {
-        logger.info("test :" + System.currentTimeMillis());
+        logger.info("test :{}" + System.currentTimeMillis());
         return ResultBuilder.success();
     }
 
 
     /**
-     * good
+     * 测试ok
      * 我的页面
      * 更新用户信息
      *
@@ -209,7 +200,7 @@ public class UserController extends BaseController {
      */
     @PutMapping("/updateUserInfo")
     public Result<Object> updateUserInfo(@RequestBody User user, HttpSession session) {
-        logger.info("updateUserInfo :" + System.currentTimeMillis());
+        logger.info("updateUserInfo :{}" + System.currentTimeMillis());
         String result = userService.updateUser(user, session);
         if (result.equals(UserConstant.SUCCESS_MSG)) {
             return ResultBuilder.success();
