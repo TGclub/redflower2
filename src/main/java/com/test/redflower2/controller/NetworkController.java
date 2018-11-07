@@ -68,7 +68,7 @@ public class NetworkController extends BaseController {
         Map<Integer, Object> datas = networkService.createNetwork1(networkName, networkUrl, session);
         //创建失败，返回失败信息
         if (!ObjectUtil.isEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
-            return ResultBuilder.fail((String) datas.get(NetworkConstant.FAIL_CODE));//.toString(),Interger转String后台日志报错;修改为前面加String,还未部署
+            return ResultBuilder.fail((String.valueOf(datas.get(NetworkConstant.FAIL_CODE))));//.toString(),Interger转String后台日志报错;String.valueOf(),可以将interger转换为String,(String)不能
         }
         //返回nid
         return ResultBuilder.success(datas.get(NetworkConstant.SUCCESS_CODE));
