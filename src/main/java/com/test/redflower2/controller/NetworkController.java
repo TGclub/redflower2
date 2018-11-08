@@ -77,15 +77,18 @@ public class NetworkController extends BaseController {
 
     /**
      * 邀请更多成员
-     * @param user    被邀请user
+     * @param json    被邀请user
      * @param session
      * @return
      */
     @PostMapping("/inviteUser")
-    public Result<Object> inviteMoreUsers(@RequestBody User user, Network network,
+    public Result<Object> inviteMoreUsers(@RequestBody String json,
                                           HttpSession session) {
-        logger.info("inviteUser :" + user + " time " + System.currentTimeMillis());
-        Map<Integer, String> datas = networkService.inviteMoreUser(user, network, session);
+        logger.info("邀请更多成员 :" + json + " time " + System.currentTimeMillis());
+        JSONObject jsonObject = JSON.parseObject(json);
+        Integer uid = jsonObject.getInteger("uid");
+        Integer nid = jsonObject.getInteger("nid");
+        Map<Integer, String> datas = networkService.inviteMoreUser(uid, nid, session);
         //添加失败
         if (!ObjectUtil.isStringEmpty(datas.get(NetworkConstant.FAIL_CODE))) {
             return ResultBuilder.fail(datas.get(NetworkConstant.FAIL_CODE));

@@ -51,12 +51,12 @@ public interface NetworkService {
     /**
      * 邀请更多人加入人脉
      *
-     * @param user
-     * @param network
+     * @param uid
+     * @param nid
      * @param session
      * @return
      */
-    Map<Integer, String> inviteMoreUser(User user, Network network, HttpSession session);
+    Map<Integer, String> inviteMoreUser(Integer uid, Integer nid, HttpSession session);
 
     /**
      * 为每一个新用户建立三个默认的群

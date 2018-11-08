@@ -1,5 +1,6 @@
 package com.test.redflower2.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.dao.NetworkDao;
@@ -257,38 +258,34 @@ public class NetworkServiceImpl implements NetworkService {
     /**
      * 邀请更多人加入人脉圈
      *
-     * @param user
-     * @param network
+     * @param sUserId
+     * @param nid
      * @param session
      * @return
      */
     @Override
-    public Map<Integer, String> inviteMoreUser(User user, Network network, HttpSession session) {
+    public Map<Integer, String> inviteMoreUser(Integer sUserId, Integer nid, HttpSession session) {
         Map<Integer, String> datas = new HashMap<>();
         //得到当前用户A的id
-        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
-        //得到要邀请人A人脉圈nid
-        Integer nid = network.getId();
+//        Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
         //被邀请人B的id
-        Integer sUserId = user.getId();//要被邀请进来的人B id
-
-        //根据uid和nid查询出邀请人的当前朋友圈
-        Network networkCenterUser = networkDao.getNetworkByUidAndId(uid, nid);
-        if (!ObjectUtil.isEmpty(networkCenterUser)) {//该人脉圈存在
-
-            if (ObjectUtil.isEmpty(sUserId)) {//被邀请用户不存在!
-                datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.NOT_EXIST);
-                return datas;
-            } else if (userNetworkDao.getUserNetworkByUidAndNid(sUserId, nid) != null) {//用户已经加入
-                datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.ALREADY_EXIST);
-                return datas;
-            }
-            //加入,维护关系
-            createRelationBetwenNetworkAndFriends(nid, sUserId);
-            datas.put(NetworkConstant.SUCCESS_CODE, NetworkConstant.SUCCESS);
-        } else {
-            datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.CIRCLR_NOT_EXIST);
+        User sUser = userDao.getUserById(sUserId);
+        Network network = networkDao.getNetworkById(nid);
+        //用户不存在
+        if (ObjectUtil.isEmpty(sUser)){
+            datas.put(NetworkConstant.FAIL_CODE,UserConstant.USER_NOT_EXIST);
+            return datas;
+        }else if (ObjectUtil.isEmpty(network)){
+            //人脉圈不存在
+            datas.put(NetworkConstant.FAIL_CODE,NetworkConstant.CIRCLR_NOT_EXIST);
+            return datas;
+        }else if (userNetworkDao.getUserNetworkByUidAndNid(sUserId,nid)!=null){//用户已经加入
+            datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.ALREADY_EXIST);
+            return datas;
         }
+        //加入,维护关系
+        createRelationBetwenNetworkAndFriends(nid, sUserId);
+        datas.put(NetworkConstant.SUCCESS_CODE, NetworkConstant.SUCCESS);
         return datas;
     }
 
