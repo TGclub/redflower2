@@ -1,6 +1,5 @@
 package com.test.redflower2.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.dao.NetworkDao;
@@ -11,7 +10,6 @@ import com.test.redflower2.pojo.entity.User;
 import com.test.redflower2.pojo.entity.UserNetwork;
 import com.test.redflower2.service.NetworkService;
 import com.test.redflower2.utils.ObjectUtil;
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -48,6 +46,7 @@ public class NetworkServiceImpl implements NetworkService {
      * @param session        map  key: 状态码,value:人脉圈id
      * @return
      */
+    @Override
     public Map<Integer, Object> createNetwork1(String oldNetworkName, String networkUrl,
                                                HttpSession session) {
         Map<Integer, Object> datas = new HashMap<>();
@@ -239,7 +238,7 @@ public class NetworkServiceImpl implements NetworkService {
                 if (userNetworkList.size() > 0) {
                     //循环遍历得出所有用户
                     for (int j = 0; j < userNetworkList.size(); j++) {
-                        Integer unid = userNetworkList.get(i).getId();
+                        Integer unid = userNetworkList.get(j).getId();
                         UserNetwork userNetwork = userNetworkDao.getUserNetworkById(unid);
                         Integer fid = userNetwork.getUid();
                         //如果是自己,跳过
