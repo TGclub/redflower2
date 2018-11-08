@@ -44,7 +44,7 @@ public class NetworkServiceImpl implements NetworkService {
      *
      * @param oldNetworkName
      * @param networkUrl
-     * @param session     map  key: 状态码,value:人脉圈id
+     * @param session        map  key: 状态码,value:人脉圈id
      * @return
      */
     public Map<Integer, Object> createNetwork1(String oldNetworkName, String networkUrl,
@@ -173,10 +173,9 @@ public class NetworkServiceImpl implements NetworkService {
                     objectList.add(network);
                 } else {//有群友
                     //计算networklist大小,即为群人数
-                    int sum = 1;
-                    for (int j = 0; j < userNetworkList.size(); ++j) {
-                        sum += sum;
-                    }
+                    int sum;
+                    //bug:修改群人数错误
+                    sum = userNetworkList.size();
                     network.setCount(sum);
                     objectList.add(network);
                 }
@@ -275,7 +274,7 @@ public class NetworkServiceImpl implements NetworkService {
 
         //根据uid和nid查询出邀请人的当前朋友圈
         Network networkCenterUser = networkDao.getNetworkByUidAndId(uid, nid);
-        if (!ObjectUtil.isEmpty(networkCenterUser)){//该人脉圈存在
+        if (!ObjectUtil.isEmpty(networkCenterUser)) {//该人脉圈存在
 
             if (ObjectUtil.isEmpty(sUserId)) {//被邀请用户不存在!
                 datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.NOT_EXIST);
@@ -285,8 +284,10 @@ public class NetworkServiceImpl implements NetworkService {
                 return datas;
             }
             //加入,维护关系
-            createRelationBetwenNetworkAndFriends(nid,sUserId);
-            datas.put(NetworkConstant.SUCCESS_CODE,NetworkConstant.SUCCESS);
+            createRelationBetwenNetworkAndFriends(nid, sUserId);
+            datas.put(NetworkConstant.SUCCESS_CODE, NetworkConstant.SUCCESS);
+        } else {
+            datas.put(NetworkConstant.FAIL_CODE, NetworkConstant.CIRCLR_NOT_EXIST);
         }
         return datas;
     }
@@ -311,11 +312,12 @@ public class NetworkServiceImpl implements NetworkService {
             for (int i = 0; i < length; ++i) {
                 Network network = networkList.get(i);
                 String networkName = network.getNetworkName();
-                if (networkName.equals(NetworkConstant.FRIENDCIRCLE)) {
+                String networkName1 = ObjectUtil.getStringFilter(networkName);
+                if (networkName1.equals(NetworkConstant.FRIENDCIRCLE)) {
                     return false;
-                } else if (networkName.equals(NetworkConstant.ANSWERCIRCLR)) {
+                } else if (networkName1.equals(NetworkConstant.ANSWERCIRCLR)) {
                     return false;
-                } else if (networkName.equals(NetworkConstant.SPREADCIRCLE)) {
+                } else if (networkName1.equals(NetworkConstant.SPREADCIRCLE)) {
                     return false;
                 }
             }

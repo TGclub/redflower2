@@ -31,6 +31,8 @@ public class NetworkConstant {
 
     public static final String LIST_NULL="列表为空,你还没有好友!";
 
+    public static final String CIRCLR_NOT_EXIST="该人脉圈不存在!";
+
 
     //每个人三个默认的群
 

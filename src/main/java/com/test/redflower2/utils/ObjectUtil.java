@@ -47,7 +47,7 @@ public class ObjectUtil {
      */
     public static String getStringFilter(String oldString){
         //1.设置指定的非法字符
-        Pattern pattern = Pattern.compile("[@# $%^&*()_+=]");
+        Pattern pattern = Pattern.compile("[@# $%^&*()_+=,.;?/`~]");
         Matcher matcher =pattern.matcher(oldString);
         StringBuffer buffer = new StringBuffer();
         //如果找到非法字符
