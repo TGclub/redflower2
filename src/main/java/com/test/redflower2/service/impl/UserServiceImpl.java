@@ -2,9 +2,9 @@ package com.test.redflower2.service.impl;
 
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.dao.UserDao;
-import com.test.redflower2.pojo.entity.User;
+import com.test.redflower2.entity.User;
 import com.test.redflower2.service.UserService;
-import com.test.redflower2.utils.ObjectUtil;
+import com.test.redflower2.util.common.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.test.redflower2.utils;
+package com.test.redflower2.util.common;
 
 import com.test.redflower2.exception.NoAuthenticationException;
 import org.springframework.beans.factory.annotation.Value;

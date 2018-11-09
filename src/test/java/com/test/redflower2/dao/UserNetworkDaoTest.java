@@ -1,6 +1,6 @@
 package com.test.redflower2.dao;
 
-import com.test.redflower2.pojo.entity.UserNetwork;
+import com.test.redflower2.entity.UserNetwork;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

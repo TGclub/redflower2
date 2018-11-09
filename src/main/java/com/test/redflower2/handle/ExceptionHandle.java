@@ -1,7 +1,7 @@
 package com.test.redflower2.handle;
 
-import com.test.redflower2.pojo.dto.Result;
-import com.test.redflower2.pojo.dto.ResultBuilder;
+import com.test.redflower2.util.result.Result;
+import com.test.redflower2.util.result.ResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;

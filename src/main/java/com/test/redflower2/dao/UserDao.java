@@ -1,7 +1,7 @@
 package com.test.redflower2.dao;
 
 
-import com.test.redflower2.pojo.entity.User;
+import com.test.redflower2.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

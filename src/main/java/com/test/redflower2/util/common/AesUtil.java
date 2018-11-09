@@ -1,4 +1,4 @@
-package com.test.redflower2.utils;
+package com.test.redflower2.util.common;
 
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;

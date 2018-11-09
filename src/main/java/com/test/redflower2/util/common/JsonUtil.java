@@ -1,11 +1,9 @@
-package com.test.redflower2.utils;
+package com.test.redflower2.util.common;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.redflower2.constant.UserConstant;
-import com.test.redflower2.pojo.dto.Result;
-import com.test.redflower2.pojo.dto.ResultBuilder;
 
 import java.io.IOException;
 

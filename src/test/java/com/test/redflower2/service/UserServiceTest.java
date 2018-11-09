@@ -1,6 +1,6 @@
 package com.test.redflower2.service;
 
-import com.test.redflower2.pojo.entity.User;
+import com.test.redflower2.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

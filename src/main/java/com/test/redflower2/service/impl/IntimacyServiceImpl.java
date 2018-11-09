@@ -1,7 +1,5 @@
 package com.test.redflower2.service.impl;
 
-import com.test.redflower2.dao.IntimacyDao;
-import com.test.redflower2.pojo.entity.Intimacy;
 import com.test.redflower2.service.IntimacyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

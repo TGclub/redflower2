@@ -1,4 +1,4 @@
-package com.test.redflower2.pojo.dto;
+package com.test.redflower2.util.result;
 
 /**
  * 对请求结果的封装类

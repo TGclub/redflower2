@@ -1,4 +1,4 @@
-package com.test.redflower2.utils;
+package com.test.redflower2.util.common;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

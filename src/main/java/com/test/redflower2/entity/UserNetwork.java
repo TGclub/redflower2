@@ -1,4 +1,4 @@
-package com.test.redflower2.pojo.entity;
+package com.test.redflower2.entity;
 
 import javax.persistence.*;
 

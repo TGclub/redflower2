@@ -3,7 +3,7 @@ package com.test.redflower2.config.interceptor;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.exception.NoAuthenticationException;
 import com.test.redflower2.exception.NotLoginException;
-import com.test.redflower2.pojo.entity.User;
+import com.test.redflower2.entity.User;
 import com.test.redflower2.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
