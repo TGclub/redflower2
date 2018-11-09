@@ -119,17 +119,19 @@ public class NetworkController extends BaseController {
     /**
      * 测试ok
      * 人脉网界面随机点击用户得到其所有的人脉
-     * @param user
+     * @param uid
      * @return
      */
     @PostMapping("/getUserInfo")
-    public Result<Object> getUserInfo(@RequestBody User user) {
-        logger.info("getUserInfo :" + user + " time " + System.currentTimeMillis());
-        List<User> userList = networkService.getNetworksUserInfo(user);
-        if (userList.size() == 0) {
-            return ResultBuilder.fail(NetworkConstant.LIST_NULL);
+    public Result<Object> getUserInfo(@RequestParam("uid") Integer uid) {
+        logger.info("getUserInfo :" + uid + " time " + System.currentTimeMillis());
+        logger.info("查看人脉网界面某一个用户所有人脉的uid为:"+uid+" time "+System.currentTimeMillis());
+        Map<Integer,List<User>> datas = networkService.getNetworksUserInfo(uid);
+        //为空
+        if (!ObjectUtil.isEmpty(datas.get(UserConstant.FAILED_CODE))) {
+            return ResultBuilder.success(datas.get(UserConstant.FAILED_CODE));//返回空列表
         } else {
-            return ResultBuilder.success(userList);
+            return ResultBuilder.success(datas.get(UserConstant.SUCCESS_CODE));//返回有数剧列表
         }
     }
 

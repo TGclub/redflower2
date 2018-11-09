@@ -135,12 +135,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String updateDefinition(String definition, HttpSession session) {
-        if (definition.length() > 10) {
+        if (definition.length() > 30) {
             return UserConstant.USER_DEFINITION_LENGTH;
         } else {
             Integer uid = (Integer) session.getAttribute(UserConstant.USER_ID);
             User user = userDao.getUserById(uid);
-            user.setDefinition(definition);
+            String newDefinition = ObjectUtil.getStringFilter(definition);
+            user.setDefinition(newDefinition);
             userDao.save(user);
             return UserConstant.SUCCESS_MSG;
         }

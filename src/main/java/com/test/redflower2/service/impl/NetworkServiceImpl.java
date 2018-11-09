@@ -221,13 +221,13 @@ public class NetworkServiceImpl implements NetworkService {
     /**
      * 人脉网界面随机点击某个用户再列出该用户的所有好友
      *
-     * @param user
+     * @param uid
      * @return
      */
     @Override
-    public List<User> getNetworksUserInfo(User user) {
+    public Map<Integer,List<User>> getNetworksUserInfo(Integer uid) {
         List<User> userList = new ArrayList<>();
-        Integer uid = user.getId();
+        Map<Integer,List<User>> datas = new HashMap<>();
         //得到自己所有的人脉圈
         List<Network> networkList = networkDao.findAllByUid(uid);
         if (networkList.size() > 0) {
@@ -251,7 +251,12 @@ public class NetworkServiceImpl implements NetworkService {
                 }
             }
         }
-        return userList;
+        if (userList.size() == 0) {
+            datas.put(UserConstant.FAILED_CODE, userList);
+        } else {
+            datas.put(UserConstant.SUCCESS_CODE, userList);
+        }
+        return datas;
     }
 
     /**
