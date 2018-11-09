@@ -15,10 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Component
@@ -226,6 +223,8 @@ public class NetworkServiceImpl implements NetworkService {
      */
     @Override
     public Map<Integer,List<User>> getNetworksUserInfo(Integer uid) {
+        //过滤user,去掉重复的,媒介
+        Set<User> userSet = new HashSet<>();
         List<User> userList = new ArrayList<>();
         Map<Integer,List<User>> datas = new HashMap<>();
         //得到自己所有的人脉圈
@@ -246,14 +245,18 @@ public class NetworkServiceImpl implements NetworkService {
                             continue;
                         }
                         User user1 = userDao.getUserById(fid);
-                        userList.add(user1);
+                        userSet.add(user1);
                     }
                 }
             }
         }
-        if (userList.size() == 0) {
+        if (userSet.size() == 0) {
             datas.put(UserConstant.FAILED_CODE, userList);
         } else {
+            Iterator<User> iterator = userSet.iterator();
+            while (iterator.hasNext()){
+                userList.add(iterator.next());
+            }
             datas.put(UserConstant.SUCCESS_CODE, userList);
         }
         return datas;

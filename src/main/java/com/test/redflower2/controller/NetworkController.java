@@ -119,12 +119,14 @@ public class NetworkController extends BaseController {
     /**
      * 测试ok
      * 人脉网界面随机点击用户得到其所有的人脉
-     * @param uid
+     * @param json
      * @return
      */
     @PostMapping("/getUserInfo")
-    public Result<Object> getUserInfo(@RequestParam("uid") Integer uid) {
-        logger.info("getUserInfo :" + uid + " time " + System.currentTimeMillis());
+    public Result<Object> getUserInfo(@RequestBody  String json) {
+        logger.info("getUserInfo :" + json + " time " + System.currentTimeMillis());
+        JSONObject jsonObject = JSON.parseObject(json);
+        Integer uid = jsonObject.getInteger("uid");
         logger.info("查看人脉网界面某一个用户所有人脉的uid为:"+uid+" time "+System.currentTimeMillis());
         Map<Integer,List<User>> datas = networkService.getNetworksUserInfo(uid);
         //为空
