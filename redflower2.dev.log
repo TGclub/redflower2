@@ -1,0 +1,41 @@
+[INFO ] 2018-11-09 18:53:43 [restartedMain] c.t.redflower2.RedflowerApplication - Starting RedflowerApplication on stormwangxhu with PID 30160 (/home/stormwangxhu/IdeaProjects/redflower2/target/classes started by stormwangxhu in /home/stormwangxhu/IdeaProjects/redflower2)
+[INFO ] 2018-11-09 18:53:43 [restartedMain] c.t.redflower2.RedflowerApplication - The following profiles are active: dev
+[INFO ] 2018-11-09 18:53:43 [restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@76602e0c: startup date [Fri Nov 09 18:53:43 CST 2018]; root of context hierarchy
+[INFO ] 2018-11-09 18:53:45 [restartedMain] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$43c51a8f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[INFO ] 2018-11-09 18:53:45 [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8091 (http)
+[INFO ] 2018-11-09 18:53:45 [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 2018-11-09 18:53:45 [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.34
+[INFO ] 2018-11-09 18:53:45 [localhost-startStop-1] o.a.c.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+[INFO ] 2018-11-09 18:53:45 [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 2018-11-09 18:53:45 [localhost-startStop-1] o.s.b.w.s.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+[INFO ] 2018-11-09 18:53:45 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+[INFO ] 2018-11-09 18:53:45 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+[INFO ] 2018-11-09 18:53:45 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+[INFO ] 2018-11-09 18:53:45 [localhost-startStop-1] o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+[INFO ] 2018-11-09 18:53:46 [restartedMain] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+[INFO ] 2018-11-09 18:53:47 [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Building JPA container EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-09 18:53:47 [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+[INFO ] 2018-11-09 18:53:47 [restartedMain] org.hibernate.Version - HHH000412: Hibernate Core {5.2.17.Final}
+[INFO ] 2018-11-09 18:53:47 [restartedMain] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+[INFO ] 2018-11-09 18:53:47 [restartedMain] o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+[INFO ] 2018-11-09 18:53:47 [restartedMain] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+[INFO ] 2018-11-09 18:53:48 [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 2018-11-09 18:53:49 [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 2018-11-09 18:53:49 [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[INFO ] 2018-11-09 18:53:49 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+[INFO ] 2018-11-09 18:53:49 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+[INFO ] 2018-11-09 18:53:49 [restartedMain] o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+[INFO ] 2018-11-09 18:53:49 [restartedMain] o.s.c.s.DefaultLifecycleProcessor - Starting beans in phase 2147483647
+[INFO ] 2018-11-09 18:53:49 [restartedMain] s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+[INFO ] 2018-11-09 18:53:49 [restartedMain] s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+[INFO ] 2018-11-09 18:53:49 [restartedMain] s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+[INFO ] 2018-11-09 18:53:50 [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8091 (http) with context path ''
+[INFO ] 2018-11-09 18:53:50 [restartedMain] c.t.redflower2.RedflowerApplication - Started RedflowerApplication in 6.95 seconds (JVM running for 8.345)
+[INFO ] 2018-11-09 18:54:14 [Thread-23] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@76602e0c: startup date [Fri Nov 09 18:53:43 CST 2018]; root of context hierarchy
+[INFO ] 2018-11-09 18:54:14 [Thread-23] o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+[INFO ] 2018-11-09 18:54:14 [Thread-23] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+[INFO ] 2018-11-09 18:54:14 [Thread-23] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+[INFO ] 2018-11-09 18:54:14 [Thread-23] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] 2018-11-09 18:54:14 [Thread-23] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed

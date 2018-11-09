@@ -1,7 +1,10 @@
+#过滤文件设置，表示过滤这个文件夹
 /target/
-!.mvn/wrapper/maven-wrapper.jar
-
-.log
+.mvn/wrapper/maven-wrapper.jar
+/mvnw
+/mvnw.cmd
+.dev.log
+.iml
 
 ### STS ###
 .apt_generated
