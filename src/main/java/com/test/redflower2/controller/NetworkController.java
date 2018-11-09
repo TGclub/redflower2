@@ -2,7 +2,6 @@ package com.test.redflower2.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.NetworkConstant;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.entity.User;
@@ -181,7 +180,6 @@ public class NetworkController extends BaseController {
      *
      * @return
      */
-    @Authorization
     @GetMapping("/test")
     public Result<Object> test() {
         return ResultBuilder.success();

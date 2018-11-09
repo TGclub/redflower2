@@ -2,7 +2,6 @@ package com.test.redflower2.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.test.redflower2.annotation.Authorization;
 import com.test.redflower2.constant.UserConstant;
 import com.test.redflower2.util.result.Result;
 import com.test.redflower2.util.result.ResultBuilder;
@@ -99,7 +98,6 @@ public class UserController extends BaseController {
      * @param username
      * @return
      */
-    @Authorization
     @ApiOperation(value = UserConstant.UPDATE_USERNAME, httpMethod = "PUT")
     @PutMapping("/updateUsername")
     public Result<Object> updateUsername(@RequestParam("username") String username,
@@ -124,7 +122,6 @@ public class UserController extends BaseController {
      * @param session
      * @return
      */
-    @Authorization
     @ApiOperation(value = UserConstant.UPDATE_DEFINITION, httpMethod = "PUT")
     @PutMapping("/updateDefinition")
     public Result<Object> updateDefinition(@RequestParam("definition") String definition,
@@ -147,7 +144,6 @@ public class UserController extends BaseController {
      * @param session
      * @return
      */
-    @Authorization
     @ApiOperation(value = UserConstant.GET_USER_INFO, httpMethod = "GET")
     @GetMapping("/userInfo")
     public Result<User> getUserInfo(HttpSession session) {
@@ -166,7 +162,6 @@ public class UserController extends BaseController {
      * @param session
      * @return
      */
-    @Authorization
     @ApiOperation(value = UserConstant.USER_LOGOUT, httpMethod = "GET")
     @GetMapping("/logout")
     public Result<Object> logout(HttpSession session) {
@@ -180,7 +175,6 @@ public class UserController extends BaseController {
      *
      * @return
      */
-    @Authorization
     @GetMapping("/test")
     public Result<Object> test() {
         logger.info("test :{}" + System.currentTimeMillis());
