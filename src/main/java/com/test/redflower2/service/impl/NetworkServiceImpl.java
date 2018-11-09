@@ -15,10 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Component
@@ -221,13 +218,15 @@ public class NetworkServiceImpl implements NetworkService {
     /**
      * 人脉网界面随机点击某个用户再列出该用户的所有好友
      *
-     * @param user
+     * @param uid
      * @return
      */
     @Override
-    public List<User> getNetworksUserInfo(User user) {
+    public Map<Integer,List<User>> getNetworksUserInfo(Integer uid) {
+        //过滤user,去掉重复的,媒介
+        Set<User> userSet = new HashSet<>();
         List<User> userList = new ArrayList<>();
-        Integer uid = user.getId();
+        Map<Integer,List<User>> datas = new HashMap<>();
         //得到自己所有的人脉圈
         List<Network> networkList = networkDao.findAllByUid(uid);
         if (networkList.size() > 0) {
@@ -246,12 +245,21 @@ public class NetworkServiceImpl implements NetworkService {
                             continue;
                         }
                         User user1 = userDao.getUserById(fid);
-                        userList.add(user1);
+                        userSet.add(user1);
                     }
                 }
             }
         }
-        return userList;
+        if (userSet.size() == 0) {
+            datas.put(UserConstant.FAILED_CODE, userList);
+        } else {
+            Iterator<User> iterator = userSet.iterator();
+            while (iterator.hasNext()){
+                userList.add(iterator.next());
+            }
+            datas.put(UserConstant.SUCCESS_CODE, userList);
+        }
+        return datas;
     }
 
     /**
